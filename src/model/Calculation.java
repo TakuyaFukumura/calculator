@@ -104,7 +104,10 @@ public class Calculation {
 		return result;
 	}
 	/**
-	 * 足し算
+	 * 足し算を行うメソッド
+	 * @param num1 足される数
+	 * @param num2 足す数
+	 * @return 足し算結果
 	 * */
 	public static BigDecimal addition(BigDecimal num1, BigDecimal num2) {
 		BigDecimal result = num1.add(num2);
@@ -121,6 +124,17 @@ public class Calculation {
 	 * 掛け算
 	 * */
 	public static BigDecimal multiplication(BigDecimal num1, BigDecimal num2) {
+		BigDecimal result = num1.multiply(num2);
+		return result;
+	}
+	/**
+	 * 掛け算&マイナス
+	 * @param num1
+	 *         
+	 * */
+	public static BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
+		BigDecimal tmp = new BigDecimal("0");
+		num2 = tmp.subtract(num2);
 		BigDecimal result = num1.multiply(num2);
 		return result;
 	}
@@ -144,30 +158,6 @@ public class Calculation {
 		return result;
 	}
 	/**
-	 * 小数点除いたの上側の数字を取得する
-	 * */
-	public static String figureLengthUpPoint(String str) {
-		String regex = "(^[0-9]+)";
-		Pattern p = Pattern.compile(regex);
-
-		Matcher m = p.matcher(str);
-		if (m.find()){
-		  str = "" + m.group(1);
-		}
-		return str;
-	}
-
-
-	/**
-	 * 掛け算&マイナス
-	 * */
-	public static BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
-		BigDecimal tmp = new BigDecimal("0");
-		num2 = tmp.subtract(num2);
-		BigDecimal result = num1.multiply(num2);
-		return result;
-	}
-	/**
 	 * 割り算&マイナス
 	 * */
 	public static BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
@@ -188,7 +178,19 @@ public class Calculation {
 		}
 		return result;
 	}
+	/**
+	 * 小数点除いたの上側の数字を取得する
+	 * */
+	public static String figureLengthUpPoint(String str) {
+		String regex = "(^[0-9]+)";
+		Pattern p = Pattern.compile(regex);
 
+		Matcher m = p.matcher(str);
+		if (m.find()){
+		  str = "" + m.group(1);
+		}
+		return str;
+	}
 
 	/**
 	 * 計算式を分解して纏りに分ける処理
