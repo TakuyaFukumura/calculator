@@ -17,10 +17,7 @@ public class Calculation {
 		BigDecimal num = new BigDecimal(str);
 		return num;
 	}
-//	public static double conversions(String str) {
-//		double num = Double.valueOf(str);
-//		return num;
-//	}
+
 	/**
 	 * 計算式の最後の演算式を返す。例：「÷5」
 	 * 式が存在しない時は空文字を返す
