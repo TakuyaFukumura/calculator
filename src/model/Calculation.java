@@ -79,30 +79,6 @@ public class Calculation {
 	/**
 	 * 演算スイッチ処理
 	 * */
-	public static double calculateSwitch(double num1, int type, double num2) {
-		double result = 0.0;
-		switch (type){
-		case 1:
-			result = addition(num1,num2);
-			break;
-		case 2:
-			result = subtraction(num1,num2);
-		    break;
-		case 3:
-			result = multiplication(num1,num2);
-		    break;
-		case 4:
-			result = division(num1,num2);
-		    break;
-		case 5:
-			result = multiplicationAndMinus(num1,num2);
-		    break;
-		case 6:
-			result = divisionAndMinus(num1,num2);
-			break;
-		}
-		return result;
-	}
 	public static BigDecimal calculateSwitch(BigDecimal num1, int type, BigDecimal num2) {
 		BigDecimal result = new BigDecimal("0");
 		switch (type){
@@ -130,10 +106,6 @@ public class Calculation {
 	/**
 	 * 足し算
 	 * */
-	public static double addition(double num1, double num2) {
-		double result = num1 + num2;
-		return result;
-	}
 	public static BigDecimal addition(BigDecimal num1, BigDecimal num2) {
 		BigDecimal result = num1.add(num2);
 		return result;
@@ -141,10 +113,6 @@ public class Calculation {
 	/**
 	 * 引き算
 	 * */
-	public static double subtraction(double num1, double num2) {
-		double result = num1 - num2;
-		return result;
-	}
 	public static BigDecimal subtraction(BigDecimal num1, BigDecimal num2) {
 		BigDecimal result = num1.subtract(num2);
 		return result;
@@ -152,10 +120,6 @@ public class Calculation {
 	/**
 	 * 掛け算
 	 * */
-	public static double multiplication(double num1, double num2) {
-		double result = num1 * num2;
-		return result;
-	}
 	public static BigDecimal multiplication(BigDecimal num1, BigDecimal num2) {
 		BigDecimal result = num1.multiply(num2);
 		return result;
@@ -163,10 +127,6 @@ public class Calculation {
 	/**
 	 * 割り算
 	 * */
-	public static double division(double num1, double num2) {
-		double result = num1 / num2;
-		return result;
-	}
 	public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
 		BigDecimal result = new BigDecimal("0");
 		try{
@@ -201,11 +161,6 @@ public class Calculation {
 	/**
 	 * 掛け算&マイナス
 	 * */
-	public static double multiplicationAndMinus(double num1, double num2) {
-		num2 = num2 - num2 -num2;
-		double result = num1 * num2;
-		return result;
-	}
 	public static BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
 		BigDecimal tmp = new BigDecimal("0");
 		num2 = tmp.subtract(num2);
@@ -215,11 +170,6 @@ public class Calculation {
 	/**
 	 * 割り算&マイナス
 	 * */
-	public static double divisionAndMinus(double num1, double num2) {
-		num2 = num2 - num2 -num2;
-		double result = num1 / num2;
-		return result;
-	}
 	public static BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
 		BigDecimal tmp = new BigDecimal("0");
 		num2 = tmp.subtract(num2);

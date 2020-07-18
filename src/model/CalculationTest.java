@@ -151,57 +151,7 @@ class CalculationTest {
 		String actual = Calculation.calculate(str);
 		assertEquals(expected,actual);
     }
-//	@Test
-//	@DisplayName("計算の実行")
-//	void testCalculate8() {
-//		String expected = "";
-//		String[] str = {""};
-//		String actual = Calculation.calculate(str);
-//		assertEquals(expected,actual);
-//	}
 
-	@Test
-	void testCalculateSwitch() {
-		double expected = 9;
-		double actual = Calculation.calculateSwitch(3.0,3,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch2() {
-		double expected = 6;
-		double actual = Calculation.calculateSwitch(3.0,1,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch3() {
-		double expected = 0;
-		double actual = Calculation.calculateSwitch(3.0,2,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch4() {
-		double expected = 1;
-		double actual = Calculation.calculateSwitch(3.0,4,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch5() {
-		double expected = -9;
-		double actual = Calculation.calculateSwitch(3.0,5,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch6() {
-		double expected = -1;
-		double actual = Calculation.calculateSwitch(3.0,6,3.0);
-		assertEquals(expected,actual);
-	}
-	@Test
-	void testCalculateSwitch7() {
-		double expected = 0;
-		double actual = Calculation.calculateSwitch(3.0,7,3.0);
-		assertEquals(expected,actual);
-	}
 	@Test
 	void testCalculateSwitchBD7() {
 		BigDecimal expected = new BigDecimal("0");
@@ -234,33 +184,6 @@ class CalculationTest {
 	}
 
 	@Test
-	void testAddition() {
-		double expected = 7.0;
-		double actual = Calculation.addition(3.0,4.0);
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	void testSubtraction() {
-		double expected = -1.0;
-		double actual = Calculation.subtraction(3.0,4.0);
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	void testMultiplication() {
-		double expected = 12.0;
-		double actual = Calculation.multiplication(3.0,4.0);
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	void testDivision() {
-		double expected = 2.0;
-		double actual = Calculation.division(8.0,4.0);
-		assertEquals(expected,actual);
-	}
-	@Test
 	@DisplayName("無限小数")
 	void testDivision2() {
 		BigDecimal expected = new BigDecimal("3.33333333333");
@@ -279,20 +202,6 @@ class CalculationTest {
 	void testDivision4() {
 		BigDecimal expected = new BigDecimal("-333.333333333");
 		BigDecimal actual = Calculation.division(new BigDecimal("1000"),new BigDecimal("-3"));
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	void testMultiplicationAndMinus() {
-		double expected = -32.0;
-		double actual = Calculation.multiplicationAndMinus(8.0,4.0);
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	void testDivisionAndMinus() {
-		double expected = -2.0;
-		double actual = Calculation.divisionAndMinus(8.0,4.0);
 		assertEquals(expected,actual);
 	}
 
