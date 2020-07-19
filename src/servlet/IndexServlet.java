@@ -64,7 +64,7 @@ public class IndexServlet extends HttpServlet {
 				display = Input.inputProcessing(display, clickData);
 		} else if (Delete.checkDelete(clickData)) {//削除処理
 			display = Delete.deleteProcessing(display, clickData);
-		} else if (Calculation.checkCalculation(clickData)) { //計算処理
+		} else if (Calculation.symbolIsEqual(clickData)) { //計算処理
 			if (display.equals(oldCalculatedData.getOldResult()))
 				display += oldCalculatedData.getOldOperator(); //イコール二度押し用で演算子を後ろにくっつける
 			oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));//演算子記録

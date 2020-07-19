@@ -238,23 +238,13 @@ public class Calculation {
 		return num;
 	}
 
-
-	/**
-	 * 計算処理であることを判断する「＝」
-	 * */
-	public static boolean checkCalculation(String c) {
-		boolean flag = false;
-		if(c != null) if(symbolIsEqual(c)) flag = true;
-		return flag;
-	}
-
 	/**
 	 * 記号が＝であることを確認する
+	 * @param 入力文字
+	 * @return 入力文字が「＝」ならtrue,違ければfalse
 	 * */
 	public static boolean symbolIsEqual(String c) {
-		boolean flag = false;
-		if(c != null) flag = Pattern.matches("^＝$", c);
-		return flag;
+		return "＝".equals(c);
 	}
 
 	/**

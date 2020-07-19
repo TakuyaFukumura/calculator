@@ -256,22 +256,6 @@ class CalculationTest {
 	}
 
 	@Test
-	void testCheckCalculation() {
-		boolean actual = Calculation.checkCalculation("＝");
-		assertTrue(actual);
-	}
-	@Test
-	void testCheckCalculationNull() {
-		boolean actual = Calculation.checkCalculation(null);
-		assertFalse(actual);
-	}
-	@Test
-	void testCheckCalculation2() {
-		boolean actual = Calculation.checkCalculation("2");
-		assertFalse(actual);
-	}
-
-	@Test
 	void testSymbolIsEqual() {
 		boolean actual = Calculation.symbolIsEqual("＝");
 		assertTrue(actual);
