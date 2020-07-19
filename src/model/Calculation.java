@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 
 public class Calculation {
+	final static BigDecimal ZERO = new BigDecimal("0");
 	/**
 	 * 数値文字変換
 	 * String→BigDecimal
@@ -110,86 +111,84 @@ public class Calculation {
 	 * @return 足し算結果
 	 * */
 	public static BigDecimal addition(BigDecimal num1, BigDecimal num2) {
-		BigDecimal result = num1.add(num2);
-		return result;
+		return  num1.add(num2);
 	}
 	/**
-	 * 引き算
+	 * 引き算メソッド
+	 * @param num1 引かれる数
+	 * @param num2 引く数
+	 * @return 引き算結果
 	 * */
 	public static BigDecimal subtraction(BigDecimal num1, BigDecimal num2) {
-		BigDecimal result = num1.subtract(num2);
-		return result;
+		return num1.subtract(num2);
 	}
 	/**
-	 * 掛け算
+	 * 掛け算メソッド
+	 * @param num1 掛けられる数
+	 * @param num2 掛ける数
+	 * @return 掛け算結果
 	 * */
 	public static BigDecimal multiplication(BigDecimal num1, BigDecimal num2) {
-		BigDecimal result = num1.multiply(num2);
-		return result;
+		return num1.multiply(num2);
 	}
 	/**
-	 * 掛け算&マイナス
-	 * @param num1
-	 *         
+	 * マイナスの掛け算メソッド
+	 * @param num1 掛けられる数
+	 * @param num2 掛ける数（マイナス値）
+	 * @return マイナスで掛けた数
 	 * */
 	public static BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
-		BigDecimal tmp = new BigDecimal("0");
-		num2 = tmp.subtract(num2);
-		BigDecimal result = num1.multiply(num2);
-		return result;
+		num2 = subtraction(ZERO, num2); //符号反転
+		return multiplication(num1, num2); //掛け算実行して返す
 	}
 	/**
 	 * 割り算
+	 * @param num1 割られる数
+	 * @param num2 割る数
+	 * @return 割り算結果
 	 * */
 	public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
-		BigDecimal result = new BigDecimal("0");
+		BigDecimal result = ZERO; //初期値0
 		try{
-			if(num2.compareTo(result) == 0) {
+			if(num2.compareTo(ZERO) == 0) { //ゼロ除算なら
 				result = new BigDecimal("1234567891023");
+				//あえて大きい数を入れてオーバーフローさせる
 			}else {
-				result = num1.divide(num2);
+				result = num1.divide(num2); //普通の割り算
 			}
-		}catch (Exception e){
-			//最も近い数に丸め込んだ
+		}catch (Exception e){ //無限小数が発生したら
+			//最も近い数に丸め込む
 			result = num1.divide(num2,11,RoundingMode.DOWN);//HALF_DOWN);//result = num1.divide(num2).setScale(2, RoundingMode.DOWN);
-			//上の桁数取得して再リザルト//マイナス対応のため絶対値使用
+			//上の桁数取得して再リザルト
+			//マイナス対応のため絶対値使用
 			result = num1.divide(num2,12 - figureLengthUpPoint((result.abs()).toString()).length(),RoundingMode.DOWN);
 		}
 		return result;
 	}
 	/**
-	 * 割り算&マイナス
+	 * マイナスの割り算
+	 * @param num1 割られる数
+	 * @param num2 割る数(マイナス値)
+	 * @return 割り算結果
 	 * */
 	public static BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
-		BigDecimal tmp = new BigDecimal("0");
-		num2 = tmp.subtract(num2);
-		BigDecimal result = new BigDecimal("0");
-		//BigDecimal result = num1.divide(num2,11,RoundingMode.HALF_UP);
-		try{
-			if(num2.compareTo(result) == 0) {
-				result = new BigDecimal("1234567891023");
-			}else {
-				result = num1.divide(num2);
-			}
-		}catch (Exception e){
-			//最も近い数に丸め込んだ
-			result = num1.divide(num2,11,RoundingMode.DOWN);//RoundingMode.HALF_DOWN);
-			result = num1.divide(num2,12 - figureLengthUpPoint((result.abs()).toString()).length(),RoundingMode.DOWN);
-		}
+		num2 = ZERO.subtract(num2);
+		BigDecimal result = division(num1, num2);
 		return result;
 	}
 	/**
-	 * 小数点除いたの上側の数字を取得する
+	 * 少数の整数部を取得する
+	 * @param str 小数
+	 * @param 整数部
 	 * */
 	public static String figureLengthUpPoint(String str) {
+		String result = "";
 		String regex = "(^[0-9]+)";
 		Pattern p = Pattern.compile(regex);
-
 		Matcher m = p.matcher(str);
-		if (m.find()){
-		  str = "" + m.group(1);
-		}
-		return str;
+		if (m.find())
+			result += m.group(1); //パターンに該当したものを取得
+		return result;
 	}
 
 	/**
