@@ -21,8 +21,8 @@ class CalculationTest {
 	}
 	@Test
 	void testFigureLengthUpPoint2() {
-		String expected = "0";
-		String actual = Calculation.figureLengthUpPoint("0.100");
+		String expected = "";
+		String actual = Calculation.figureLengthUpPoint(".100");
 		assertEquals(expected,actual);
 	}
 	@Test
