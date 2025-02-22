@@ -55,22 +55,22 @@ class CommonUtilTest {
 
     @Test
     @DisplayName("数字グループかどうか：異常系")
-    void testJudgmentNumG() {
-        boolean actual = CommonUtil.judgmentNumG("0.004-1234567891023");
+    void testIsNumeric() {
+        boolean actual = CommonUtil.isNumeric("0.004-1234567891023");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("数字グループかどうか：正常系")
-    void testJudgmentNumG2() {
-        boolean actual = CommonUtil.judgmentNumG("0.004");
+    void testIsNumeric2() {
+        boolean actual = CommonUtil.isNumeric("0.004");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("数字グループかどうか：異常系")
-    void testJudgmentNumG3() {
-        boolean actual = CommonUtil.judgmentNumG(null);
+    void testIsNumeric3() {
+        boolean actual = CommonUtil.isNumeric(null);
         assertFalse(actual);
     }
 

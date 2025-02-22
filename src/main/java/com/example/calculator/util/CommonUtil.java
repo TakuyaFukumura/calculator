@@ -25,24 +25,37 @@ public class CommonUtil {
     }
 
     /**
-     * 桁数をチェックして、
-     * 入力継続（指定桁数以内であれば）できるならTrue
+     * 桁数をチェックして、入力継続（指定桁数以内であれば）できるならtrueを返す
+     *
+     * <p>このメソッドは、文字列を数式として分解し、最後のセグメントが数字であればその桁数を数え、桁数が11桁以下であればtrueを返します。</p>
+     *
+     * @param formula チェック対象の文字列（数式として分解される）
+     * @return 最後のセグメントが数字で、かつその桁数が11桁以下であればtrue、それ以外はfalse
      */
-    public static boolean checkNumber(String display) {
-        boolean flag = true;
+    public static boolean checkNumber(String formula) {
         int count = 0;
         //桁数チェック(分解して、左塊とって、数字ならば桁チェックして返す)
-        String[] str = Calculation.splitFormula(display);//分解してまとまりに分ける処理
-        if (judgmentNumG(str[str.length - 1])) {
-            count = countDigits(str[str.length - 1]);
+        String[] segments = Calculation.splitFormula(formula);//分解してまとまりに分ける処理
+        String lastSegment = segments[segments.length - 1];
+        if (isNumeric(lastSegment)) {
+            count = countDigits(segments[segments.length - 1]);
         }
-        if (count > 11) flag = false;
-        return flag;
+        return count <= 11;
     }
 
-    public static boolean judgmentNumG(String c) {
-        boolean flag = false;
-        if (c != null) flag = Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", c);
-        return flag;
+    /**
+     * 与えられた文字列が数字または小数点を含む数字であるかをチェックします。
+     *
+     * <p>このメソッドは、文字列が以下のいずれかの形式である場合にtrueを返します：</p>
+     * <ul>
+     *   <li>整数（例: "123", "０１２３"）</li>
+     *   <li>小数（例: "123.45", "１２３．４５"）</li>
+     * </ul>
+     *
+     * @param segment チェック対象の文字列
+     * @return 数字または小数点を含む数字であればtrue、それ以外はfalse
+     */
+    public static boolean isNumeric(String segment) {
+        return segment != null && Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", segment);
     }
-}//各メソッドを整備したい
+}
