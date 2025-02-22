@@ -6,8 +6,6 @@
     <link rel="styleSheet" th:href="@{/css/design.css}">
 </head>
 <body class="container">
-<h1>Index</h1>
-<p th:text="${message}"></p>
 <form action="index" method="POST">
     <div class="display">
         <nobr th:text="${lastEquation != null and !lastEquation.errorFlag ? 'E' : (displayData != null ? displayData : '0')}"></nobr>
