@@ -149,7 +149,7 @@ public class Calculation {
 
         try {
             return num1.divide(num2); //普通の割り算
-        } catch (ArithmeticException  e) {
+        } catch (ArithmeticException e) {
             // 例外時、最も近い数に丸め込む
             BigDecimal result = num1.divide(num2, 11, RoundingMode.DOWN);
             //上の桁数取得して再リザルト
