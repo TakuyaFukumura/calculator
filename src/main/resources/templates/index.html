@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="styleSheet" th:href="@{/css/design.css}">
+</head>
+<body class="container">
+<h1>Index</h1>
+<p th:text="${message}"></p>
+<form action="index" method="POST">
+    <div class="display">
+        <nobr th:text="${lastEquation != null and !lastEquation.errorFlag ? 'E' : (displayData != null ? displayData : '0')}"></nobr>
+    </div>
+
+    <input name="display" th:value="${displayData != null ? displayData : '0'}" type="hidden">
+    <table>
+        <tr>
+            <th><input class="btn-flat-border2" name="clickData" type="submit" value="ＡＣ"></th>
+            <th></th>
+            <th></th>
+            <th><input class="btn-flat-border2" name="clickData" type="submit" value="÷"></th>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="7"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="8"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="9"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="×"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="4"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="5"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="6"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="-"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="1"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="2"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="3"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="＋"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="."></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="0"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="Ｃ"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="＝"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
