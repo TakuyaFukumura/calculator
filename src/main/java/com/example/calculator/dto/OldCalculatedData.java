@@ -1,46 +1,19 @@
 package com.example.calculator.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OldCalculatedData {
     private String oldResult = "";
     private String oldOperator = "";
     private boolean errorFlag = true;
 
-    public OldCalculatedData() {
-
-    }
-
     public OldCalculatedData(String oldResult, String oldOperator) {
-        this.setOldResult(oldResult);
-        this.setOldOperator(oldOperator);
-    }
-
-    public OldCalculatedData(String oldResult, String oldOperator, boolean errorFlag) {
-        this.setOldResult(oldResult);
-        this.setOldOperator(oldOperator);
-        this.setErrorFlag(errorFlag);
-    }
-
-    public boolean isErrorFlag() {
-        return this.errorFlag;
-    }
-
-    public void setErrorFlag(boolean errorFlag) {
-        this.errorFlag = errorFlag;
-    }
-
-    public String getOldResult() {
-        return oldResult;
-    }
-
-    public void setOldResult(String oldResult) {
         this.oldResult = oldResult;
-    }
-
-    public String getOldOperator() {
-        return oldOperator;
-    }
-
-    public void setOldOperator(String oldOperator) {
         this.oldOperator = oldOperator;
     }
 }
