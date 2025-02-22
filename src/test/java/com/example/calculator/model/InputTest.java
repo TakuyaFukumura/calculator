@@ -142,19 +142,6 @@ class InputTest {
     }
 
     //******************************************
-    @Test
-    @DisplayName("入力系文字であるchar：正常系")
-    void testCheckInputTrue() {
-        boolean actual = Input.checkInput('÷');
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("入力系文字であるchar：異常系")
-    void testCheckInputFalse() {
-        boolean actual = Input.checkInput('＝');
-        assertFalse(actual);
-    }
 
     @Test
     @DisplayName("入力系文字であるString：正常系")
@@ -177,20 +164,6 @@ class InputTest {
     }
 
     //********************************************
-    @Test
-    @DisplayName("．であるchar：正常系")
-    void testSymbolIsPeriodTrue() {
-        boolean actual = Input.symbolIsPeriod('.');
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("．であるchar：異常系")
-    void testSymbolIsPeriodFalse() {
-        boolean actual = Input.symbolIsPeriod('-');
-        assertFalse(actual);
-    }
-
     @Test
     @DisplayName("．であるString：正常系")
     void testSymbolIsPeriodStringTrue() {

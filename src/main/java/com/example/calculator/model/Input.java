@@ -55,10 +55,6 @@ public class Input {
      * 入力系処理であることを判断する
      * 数字or四則演算子orピリオド
      */
-    public static boolean checkInput(char c) {
-        return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
-    }
-
     public static boolean checkInput(String c) {
         return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
     }
@@ -78,10 +74,6 @@ public class Input {
     /**
      * 記号が．であることを確認する
      */
-    public static boolean symbolIsPeriod(char c) {
-        return Pattern.matches("^\\.$", String.valueOf(c));
-    }
-
     public static boolean symbolIsPeriod(String c) {
         return Pattern.matches("^\\.$", c);
     }
