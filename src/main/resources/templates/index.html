@@ -3,49 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link th:href="@{/css/design.css}" rel="styleSheet">
+    <link rel="styleSheet" th:href="@{/css/design.css}">
 </head>
 <body class="container">
-    <h1>Index</h1>
-    <p th:text="${message}"></p>
-    <form action="index" method="POST">
-        <div class="display">
-            <nobr th:text="${最後の演算式 != null and !最後の演算式.errorFlag ? 'E' : (displayデータ != null ? displayデータ : '0')}"></nobr>
-        </div>
+<h1>Index</h1>
+<p th:text="${message}"></p>
+<form action="index" method="POST">
+    <div class="display">
+        <nobr th:text="${最後の演算式 != null and !最後の演算式.errorFlag ? 'E' : (displayデータ != null ? displayデータ : '0')}"></nobr>
+    </div>
 
-        <input type="hidden" name="display" th:value="${displayデータ != null ? displayデータ : '0'}">
-        <table>
-            <tr>
-                <th><input type="submit" name="clickData" value="ＡＣ" class="btn-flat-border2"></th>
-                <th></th>
-                <th></th>
-                <th><input type="submit" name="clickData" value="÷" class="btn-flat-border2"></th>
-            </tr>
-            <tr>
-                <td><input type="submit" name="clickData" value="7" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="8" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="9" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="×" class="btn-flat-border2"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="clickData" value="4" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="5" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="6" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="-" class="btn-flat-border2"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="clickData" value="1" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="2" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="3" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="＋" class="btn-flat-border2"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" name="clickData" value="." class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="0" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="Ｃ" class="btn-flat-border"></td>
-                <td><input type="submit" name="clickData" value="＝" class="btn-flat-border2"></td>
-            </tr>
-        </table>
-    </form>
+    <input name="display" th:value="${displayデータ != null ? displayデータ : '0'}" type="hidden">
+    <table>
+        <tr>
+            <th><input class="btn-flat-border2" name="clickData" type="submit" value="ＡＣ"></th>
+            <th></th>
+            <th></th>
+            <th><input class="btn-flat-border2" name="clickData" type="submit" value="÷"></th>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="7"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="8"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="9"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="×"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="4"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="5"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="6"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="-"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="1"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="2"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="3"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="＋"></td>
+        </tr>
+        <tr>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="."></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="0"></td>
+            <td><input class="btn-flat-border" name="clickData" type="submit" value="Ｃ"></td>
+            <td><input class="btn-flat-border2" name="clickData" type="submit" value="＝"></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
