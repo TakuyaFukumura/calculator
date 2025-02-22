@@ -144,18 +144,18 @@ public class Calculation {
      */
     public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
         if (num2.compareTo(ZERO) == 0) { // ゼロ除算時の特別な処理
-            return new BigDecimal("1234567891023");
-            //あえて大きい数を入れてオーバーフローさせる
+            return new BigDecimal("1234567891023"); //あえて大きい数を入れてオーバーフローさせる
         }
 
         try {
             return num1.divide(num2); //普通の割り算
-        } catch (Exception e) {
-            //最も近い数に丸め込む
+        } catch (ArithmeticException  e) {
+            // 例外時、最も近い数に丸め込む
             BigDecimal result = num1.divide(num2, 11, RoundingMode.DOWN);
             //上の桁数取得して再リザルト
             //マイナス対応のため絶対値使用
-            return num1.divide(num2, 12 - figureLengthUpPoint((result.abs()).toString()).length(), RoundingMode.DOWN);
+            int scale = 12 - figureLengthUpPoint(result.abs().toString()).length();
+            return num1.divide(num2, scale, RoundingMode.DOWN); // 桁数を調整して再計算
         }
     }
 
