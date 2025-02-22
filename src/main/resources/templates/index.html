@@ -10,10 +10,10 @@
 <p th:text="${message}"></p>
 <form action="index" method="POST">
     <div class="display">
-        <nobr th:text="${最後の演算式 != null and !最後の演算式.errorFlag ? 'E' : (displayデータ != null ? displayデータ : '0')}"></nobr>
+        <nobr th:text="${lastEquation != null and !lastEquation.errorFlag ? 'E' : (displayData != null ? displayData : '0')}"></nobr>
     </div>
 
-    <input name="display" th:value="${displayデータ != null ? displayデータ : '0'}" type="hidden">
+    <input name="display" th:value="${displayData != null ? displayData : '0'}" type="hidden">
     <table>
         <tr>
             <th><input class="btn-flat-border2" name="clickData" type="submit" value="ＡＣ"></th>

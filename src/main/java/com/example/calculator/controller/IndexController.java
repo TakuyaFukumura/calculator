@@ -30,7 +30,7 @@ public class IndexController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("message", service.getMessage());
-        model.addAttribute("displayデータ", "0");
+        model.addAttribute("displayData", "0");
         return "index";
     }
 
@@ -41,7 +41,7 @@ public class IndexController {
             HttpSession session,
             Model model) {
 
-        OldCalculatedData oldCalculatedData = (OldCalculatedData) session.getAttribute("最後の演算式");
+        OldCalculatedData oldCalculatedData = (OldCalculatedData) session.getAttribute("lastEquation");
         if (oldCalculatedData == null) {
             oldCalculatedData = new OldCalculatedData();
         }
@@ -68,10 +68,10 @@ public class IndexController {
                 oldCalculatedData.setErrorFlag(false);
             }
             oldCalculatedData.setOldResult(display);
-            session.setAttribute("最後の演算式", oldCalculatedData);
+            session.setAttribute("lastEquation", oldCalculatedData);
         }
 
-        model.addAttribute("displayデータ", display);
+        model.addAttribute("displayData", display);
         return "index";
     }
 }
