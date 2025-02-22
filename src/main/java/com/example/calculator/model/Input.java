@@ -13,17 +13,17 @@ public class Input {
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
                 display = clickData;
             }
-        } else if (!notSymbol(getLastChar(CommonUtil.split(display)))) { //最後尾が記号の時
+        } else if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
             if (notSymbol(clickData)) {
                 display += clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(CommonUtil.split(display))))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
                 display += clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(CommonUtil.split(display))))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
                 display = Delete.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
-            } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(CommonUtil.split(display))))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
                 display = Delete.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
-        } else if (notSymbol(getLastChar(CommonUtil.split(display)))) { //最後尾が数字の時は、ほぼなんでも入る
+        } else if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (checkPeriod(display) && ".".equals(clickData)) {
             } else {

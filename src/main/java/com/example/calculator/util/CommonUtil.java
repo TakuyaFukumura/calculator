@@ -11,29 +11,12 @@ public class CommonUtil {
     }
 
     /**
-     * 文字列を分割してchar型の配列を返す
-     */
-    public static char[] split(String str) {
-        char[] charList = new char[str.length()];
-
-        // 変数strの長さ分回す
-        for (int i = 0; i < str.length(); i++) {
-            // strの先頭から1文字ずつString型にして取り出す
-            char tmp = str.charAt(i);
-            // 配列に順番に格納する
-            charList[i] = tmp;
-        }
-
-        return charList;
-    }
-
-    /**
      * 桁数を調べる
      */
     public static int checkNumberOfDigits(String display) {
         int count = 0;
         int i = 0;
-        char[] charList = CommonUtil.split(display);
+        char[] charList = display.toCharArray();
         while (i < charList.length) {
             if (Pattern.matches("^[0-9]*$", String.valueOf(charList[i]))) count++;
             i++;
@@ -62,4 +45,4 @@ public class CommonUtil {
         if (c != null) flag = Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", c);
         return flag;
     }
-}
+}//各メソッドを整備したい

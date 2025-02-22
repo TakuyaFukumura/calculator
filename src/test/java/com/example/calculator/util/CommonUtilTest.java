@@ -9,14 +9,6 @@ class CommonUtilTest {
 
     @Test
     @DisplayName("文字列をchar配列にする：正常系")
-    void testSplitTrue() {
-        char[] expected = {'1', '2', '3'};
-        char[] actual = CommonUtil.split("123");
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("文字列をchar配列にする：正常系")
     void testCheckNumberOfDigits() {
         int expected = 3;
         int actual = CommonUtil.checkNumberOfDigits("-3.55");

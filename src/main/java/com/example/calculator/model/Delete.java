@@ -71,7 +71,7 @@ public class Delete {
      */
     public static String deleteLastChar(String str) {
         StringBuilder tmp = new StringBuilder();
-        char[] charList = CommonUtil.split(str);
+        char[] charList = str.toCharArray();
         for (int i = 0; i < (charList.length - 1); i++) {
             tmp.append(charList[i]);
         }
