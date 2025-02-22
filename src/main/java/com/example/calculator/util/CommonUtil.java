@@ -5,6 +5,11 @@ import com.example.calculator.model.Calculation;
 import java.util.regex.Pattern;
 
 public class CommonUtil {
+
+    private CommonUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * 文字列を分割してchar型の配列を返す
      */

@@ -7,15 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CommonUtilTest {
 
-    /*
-     * checkNumberOfDigits
-     * */
-    @Test
-    @DisplayName("インスタンス生成：正常系")
-    void testCreateTrue() {
-        CommonUtil test = new CommonUtil();
-    }
-
     @Test
     @DisplayName("文字列をchar配列にする：正常系")
     void testSplitTrue() {
