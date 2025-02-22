@@ -47,7 +47,7 @@ public class Calculation {
      */
     public static String calculate(String[] str) {
         //宣言部
-        String result = "";
+        String result;
         int i = 0;
         //先頭が記号ならばマイナスの数値にする処理が必要
         if (judgmentSymbolG(str[i])) {
@@ -55,8 +55,7 @@ public class Calculation {
             i++;
         }
         //ループ開始 while
-        while (i < str.length) {
-            if (i == str.length) break;
+        while (true) {
             //数値文字変換
             BigDecimal num1 = conversions(str[i]);
 
@@ -70,7 +69,6 @@ public class Calculation {
             i++;
             BigDecimal num2 = conversions(str[i]); //数値文字変換
             str[i] = "" + calculateSwitch(num1, type, num2); //演算実行して
-            if (i == str.length) result = str[i];
         }//ループ終了
         return result;
     }
@@ -145,7 +143,7 @@ public class Calculation {
      * @return 割り算結果
      */
     public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
-        BigDecimal result = ZERO; //初期値0
+        BigDecimal result; //初期値0
         try {
             if (num2.compareTo(ZERO) == 0) { //ゼロ除算なら
                 result = new BigDecimal("1234567891023");
