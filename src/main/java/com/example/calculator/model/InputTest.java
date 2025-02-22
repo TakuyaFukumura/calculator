@@ -1,4 +1,4 @@
-package model;
+package com.example.calculator.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 

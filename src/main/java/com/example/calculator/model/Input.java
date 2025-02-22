@@ -1,4 +1,4 @@
-package model;
+package com.example.calculator.model;
 
 import java.util.regex.Pattern;
 

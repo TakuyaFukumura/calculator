@@ -1,4 +1,4 @@
-package dto;
+package com.example.calculator.dto;
 
 public class OldCalculatedData {
 	private String oldResult = "";

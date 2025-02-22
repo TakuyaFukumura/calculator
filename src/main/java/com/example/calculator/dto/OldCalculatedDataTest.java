@@ -1,4 +1,4 @@
-package dto;
+package com.example.calculator.dto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
