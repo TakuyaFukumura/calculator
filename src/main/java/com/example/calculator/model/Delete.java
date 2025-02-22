@@ -1,7 +1,5 @@
 package com.example.calculator.model;
 
-import com.example.calculator.util.CommonUtil;
-
 import java.util.regex.Pattern;
 
 public class Delete {

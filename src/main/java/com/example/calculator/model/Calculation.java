@@ -1,7 +1,5 @@
 package com.example.calculator.model;
 
-import com.example.calculator.util.CommonUtil;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.regex.Matcher;
