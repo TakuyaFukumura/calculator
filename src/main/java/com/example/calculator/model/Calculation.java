@@ -16,8 +16,7 @@ public class Calculation {
      * ピリオド＆マイナス対応可
      */
     public static BigDecimal conversions(String str) {
-        BigDecimal num = new BigDecimal(str);
-        return num;
+        return new BigDecimal(str);
     }
 
     /**
