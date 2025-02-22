@@ -46,21 +46,21 @@ class InputTest {
     @Test
     @DisplayName("ピリオドが含まれているかチェック：正常系")
     void testIsPeriodTrue() {
-        boolean actual = Input.IsPeriod("1.234");
+        boolean actual = Input.isPeriod("1.234");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("ピリオドが含まれているかチェック：異常系")
     void testIsPeriodFalse() {
-        boolean actual = Input.IsPeriod("12345");
+        boolean actual = Input.isPeriod("12345");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("ピリオドが含まれているかチェック：異常系")
     void testIsPeriodNull() {
-        boolean actual = Input.IsPeriod(null);
+        boolean actual = Input.isPeriod(null);
         assertFalse(actual);
     }
 

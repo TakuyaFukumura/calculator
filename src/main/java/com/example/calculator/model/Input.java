@@ -37,18 +37,15 @@ public class Input {
     public static boolean checkPeriod(String display) {
         //塊に分ける
         //最後の塊を取り出して、ピリオドが含まれているかチェックする
-        boolean flag = false;
-        if (display != null) {
-            String[] str = Calculation.splitFormula(display);
-            if (IsPeriod(str[str.length - 1])) flag = true;
+        if (display == null) {
+            return false;
         }
-        return flag;
+        String[] str = Calculation.splitFormula(display);
+        return isPeriod(str[str.length - 1]);
     }
 
-    public static boolean IsPeriod(String c) {
-        boolean flag = false;
-        if (c != null) flag = Pattern.matches("^.*[.].*$", c);
-        return flag;
+    public static boolean isPeriod(String c) {
+        return c != null && c.contains(".");
     }
 
     /**
