@@ -7,7 +7,7 @@ public class Common {
      * 文字列を分割してchar型の配列を返す
      */
     public static char[] split(String str) {
-        char charList[] = new char[str.length()];
+        char[] charList = new char[str.length()];
 
         // 変数strの長さ分回す
         for (int i = 0; i < str.length(); i++) {
@@ -26,8 +26,7 @@ public class Common {
     public static int checkNumberOfDigits(String display) {
         int count = 0;
         int i = 0;
-        char charList[] = Common.split(display);
-        //if("0".equals(String.valueOf(charList[i]))) i++;
+        char[] charList = Common.split(display);
         while (i < charList.length) {
             if (Pattern.matches("^[0-9]*$", String.valueOf(charList[i]))) count++;
             i++;
@@ -53,7 +52,7 @@ public class Common {
 
     public static boolean judgmentNumG(String c) {
         boolean flag = false;
-        if (c != null) flag = Pattern.matches("^[0-9０-９]*$||^[0-9０-９]+\\.[0-9０-９]+$", c);
+        if (c != null) flag = Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", c);
         return flag;
     }
 }

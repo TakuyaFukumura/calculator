@@ -41,24 +41,18 @@ public class Delete {
      * 記号がＣであることを確認する
      */
     public static boolean symbolIsC(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^Ｃ$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^Ｃ$", String.valueOf(c));
     }
 
     public static boolean symbolIsC(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^Ｃ$", c);
-        return flag;
+        return Pattern.matches("^Ｃ$", c);
     }
 
     /**
      * 記号がＡＣであることを確認する
      */
     public static boolean symbolIsAC(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^ＡＣ$", c);
-        return flag;
+        return Pattern.matches("^ＡＣ$", c);
     }
 
     /**
@@ -66,11 +60,7 @@ public class Delete {
      * （長さ１の時にc押されるとゼロにしたいため）
      */
     public static boolean charaOrMore2(String str) {
-        boolean flag = false;
-        if (str.length() > 1) {
-            flag = true;
-        }
-        return flag;
+        return str.length() > 1;
     }
 
     /**
@@ -78,12 +68,12 @@ public class Delete {
      * 分割した文字を再合成
      */
     public static String deleteLastChar(String str) {
-        String tmp = "";
+        StringBuilder tmp = new StringBuilder();
         char[] charList = Common.split(str);
         for (int i = 0; i < (charList.length - 1); i++) {
-            tmp += String.valueOf(charList[i]);
+            tmp.append(charList[i]);
         }
-        return tmp;
+        return tmp.toString();
     }
 
 }

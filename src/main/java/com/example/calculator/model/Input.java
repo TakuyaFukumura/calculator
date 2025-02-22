@@ -47,7 +47,7 @@ public class Input {
 
     public static boolean IsPeriod(String c) {
         boolean flag = false;
-        if (c != null) flag = Pattern.matches("^.*[\\.].*$", c);
+        if (c != null) flag = Pattern.matches("^.*[.].*$", c);
         return flag;
     }
 
@@ -56,19 +56,11 @@ public class Input {
      * 数字or四則演算子orピリオド
      */
     public static boolean checkInput(char c) {
-        boolean flag = false;
-        if (notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c)) {
-            flag = true;
-        }
-        return flag;
+        return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
     }
 
     public static boolean checkInput(String c) {
-        boolean flag = false;
-        if (notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c)) {
-            flag = true;
-        }
-        return flag;
+        return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
     }
 
     /**
@@ -76,75 +68,55 @@ public class Input {
      * （数字であることを確認する）
      */
     public static boolean notSymbol(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^[0-9０-９]*$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^[0-9０-９]*$", String.valueOf(c));
     }
 
     public static boolean notSymbol(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^[0-9０-９]*$", c);
-        return flag;
+        return Pattern.matches("^[0-9０-９]*$", c);
     }
 
     /**
      * 記号が．であることを確認する
      */
     public static boolean symbolIsPeriod(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^\\.$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^\\.$", String.valueOf(c));
     }
 
     public static boolean symbolIsPeriod(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^\\.$", c);
-        return flag;
+        return Pattern.matches("^\\.$", c);
     }
 
     /**
      * 記号がマイナスであることを確認する
      */
     public static boolean symbolIsMinus(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^-$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^-$", String.valueOf(c));
     }
 
     public static boolean symbolIsMinus(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^-$", c);
-        return flag;
+        return Pattern.matches("^-$", c);
     }
 
     /**
      * 記号がプラスであることを確認する
      */
     public static boolean symbolIsPlus(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^＋$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^＋$", String.valueOf(c));
     }
 
     public static boolean symbolIsPlus(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^＋$", c);
-        return flag;
+        return Pattern.matches("^＋$", c);
     }
 
     /**
      * 記号が×,÷であることを確認する
      */
     public static boolean symbolIsMuD(char c) { //引数Stringのほうがいいのでは？オーバーロードする？
-        boolean flag = false;
-        flag = Pattern.matches("^×$||^÷$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^×$|^÷$", String.valueOf(c));
     }
 
     public static boolean symbolIsMuD(String c) {
-        boolean flag = false;
-        flag = Pattern.matches("^×$||^÷$", c);
-        return flag;
+        return Pattern.matches("^×$|^÷$", c);
     }
 
     /**
@@ -152,19 +124,13 @@ public class Input {
      */
     public static char getLastChar(char[] charList) {
         int size = charList.length;
-        char tmp = charList[size - 1];
-        return tmp;
+        return charList[size - 1];
     }
 
     /**
      * 文字列の長さが１&&ゼロならばtrueを返す
      */
     public static boolean judgment(String text) {
-        boolean flag = false;
-        if (text.length() == 1 && Pattern.matches("^0$||^０$", text)) {
-            flag = true;
-        }
-        return flag;
+        return text.length() == 1 && Pattern.matches("^0$|^０$", text);
     }
-
 }
