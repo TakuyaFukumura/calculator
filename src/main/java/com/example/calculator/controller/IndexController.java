@@ -2,10 +2,10 @@ package com.example.calculator.controller;
 
 import com.example.calculator.dto.OldCalculatedData;
 import com.example.calculator.model.Calculation;
-import com.example.calculator.model.Common;
 import com.example.calculator.model.Delete;
 import com.example.calculator.model.Input;
 import com.example.calculator.service.IndexService;
+import com.example.calculator.util.CommonUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +53,7 @@ public class IndexController {
         if (!oldCalculatedData.isErrorFlag()) {
             // エラーセット時の処理
         } else if (Input.checkInput(clickData)) {
-            if (Common.checkNumber(display) || Calculation.judgmentSymbolG(clickData)) {
+            if (CommonUtil.checkNumber(display) || Calculation.judgmentSymbolG(clickData)) {
                 display = Input.inputProcessing(display, clickData);
             }
         } else if (Delete.checkDelete(clickData)) {
@@ -64,7 +64,7 @@ public class IndexController {
             }
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
             display = Calculation.calculationProcessing(display);
-            if (Common.checkNumberOfDigits(display) > 12) {
+            if (CommonUtil.checkNumberOfDigits(display) > 12) {
                 oldCalculatedData.setErrorFlag(false);
             }
             oldCalculatedData.setOldResult(display);

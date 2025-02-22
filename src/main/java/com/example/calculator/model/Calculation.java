@@ -1,5 +1,7 @@
 package com.example.calculator.model;
 
+import com.example.calculator.util.CommonUtil;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.regex.Matcher;
@@ -36,7 +38,7 @@ public class Calculation {
      * 実際の計算処理
      */
     public static String calculationProcessing(String display) {
-        if (!Input.notSymbol(Input.getLastChar(Common.split(display)))) return display;//最後尾が記号の場合はそのまま返す処理
+        if (!Input.notSymbol(Input.getLastChar(CommonUtil.split(display)))) return display;//最後尾が記号の場合はそのまま返す処理
         String[] str = splitFormula(display);//分解してまとまりに分ける処理
         display = calculate(str);//まとまりを３つづつ計算していく処理
         return display;
@@ -191,7 +193,7 @@ public class Calculation {
      * 計算式を分解して纏りに分ける処理
      */
     public static String[] splitFormula(String display) {
-        char[] tmp = Common.split(display); //分解
+        char[] tmp = CommonUtil.split(display); //分解
         String[] str = new String[tmp.length];
         //どっちのグループなのか比較判定して格納していく
         int j = 0;

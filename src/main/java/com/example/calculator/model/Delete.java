@@ -1,5 +1,7 @@
 package com.example.calculator.model;
 
+import com.example.calculator.util.CommonUtil;
+
 import java.util.regex.Pattern;
 
 public class Delete {
@@ -69,7 +71,7 @@ public class Delete {
      */
     public static String deleteLastChar(String str) {
         StringBuilder tmp = new StringBuilder();
-        char[] charList = Common.split(str);
+        char[] charList = CommonUtil.split(str);
         for (int i = 0; i < (charList.length - 1); i++) {
             tmp.append(charList[i]);
         }

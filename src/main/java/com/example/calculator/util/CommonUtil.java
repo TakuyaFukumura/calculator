@@ -1,8 +1,10 @@
-package com.example.calculator.model;
+package com.example.calculator.util;
+
+import com.example.calculator.model.Calculation;
 
 import java.util.regex.Pattern;
 
-public class Common {
+public class CommonUtil {
     /**
      * 文字列を分割してchar型の配列を返す
      */
@@ -26,7 +28,7 @@ public class Common {
     public static int checkNumberOfDigits(String display) {
         int count = 0;
         int i = 0;
-        char[] charList = Common.split(display);
+        char[] charList = CommonUtil.split(display);
         while (i < charList.length) {
             if (Pattern.matches("^[0-9]*$", String.valueOf(charList[i]))) count++;
             i++;
