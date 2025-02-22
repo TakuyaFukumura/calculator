@@ -97,74 +97,61 @@ class DeleteTest {
     }
 
     //****************************************
-    @Test
-    @DisplayName("Ｃである：正常系")
-    void testSymbolIsCTrue() {
-        boolean actual = Delete.symbolIsC('Ｃ');
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("Ｃである：異常系")
-    void testSymbolIsCFalse() {
-        boolean actual = Delete.symbolIsC('＝');
-        assertFalse(actual);
-    }
 
     @Test
     @DisplayName("ＣであるString：正常系")
-    void testSymbolIsCStringTrue() {
-        boolean actual = Delete.symbolIsC("Ｃ");
+    void testIsSingleCStringTrue() {
+        boolean actual = Delete.isSingleC("Ｃ");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("ＣであるString：異常系")
-    void testSymbolIsCStringFalse() {
-        boolean actual = Delete.symbolIsC("＝");
+    void testIsSingleCStringFalse() {
+        boolean actual = Delete.isSingleC("＝");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("ＣであるString：異常系")
-    void testSymbolIsCStringNull() {
-        assertThrows(NullPointerException.class, () -> Delete.symbolIsC(null));
+    void testIsSingleCStringNull() {
+        assertThrows(NullPointerException.class, () -> Delete.isSingleC(null));
     }
 
     //****************************************
     @Test
     @DisplayName("ＡＣであるString：正常系")
-    void testSymbolIsAcStringTrue() {
-        boolean actual = Delete.symbolIsAC("ＡＣ");
+    void testIsExactAcStringTrue() {
+        boolean actual = Delete.isExactAC("ＡＣ");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("ＡＣであるString：異常系")
-    void testSymbolIsAcStringFalse() {
-        boolean actual = Delete.symbolIsAC("＝");
+    void testIsExactAcStringFalse() {
+        boolean actual = Delete.isExactAC("＝");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("ＡＣであるString：異常系")
-    void testSymbolIsAcStringNull() {
-        assertThrows(NullPointerException.class, () -> Delete.symbolIsAC(null));
+    void testIsExactAcStringNull() {
+        assertThrows(NullPointerException.class, () -> Delete.isExactAC(null));
     }
 
     //****************************************
     //nullチェックしていない
     @Test
     @DisplayName("2文字以上かどうか：正常系")
-    void testCharaOrMore2True() {
-        boolean actual = Delete.charaOrMore2("22");
+    void testIsLongerThanOneTrue() {
+        boolean actual = Delete.isLongerThanOne("22");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("2文字以上かどうか：異常系")
-    void testCharaOrMore2False() {
-        boolean actual = Delete.charaOrMore2("2");
+    void testIsLongerThanOneFalse() {
+        boolean actual = Delete.isLongerThanOne("2");
         assertFalse(actual);
     }
 
