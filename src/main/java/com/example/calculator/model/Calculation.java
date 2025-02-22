@@ -85,26 +85,15 @@ public class Calculation {
      */
     public static BigDecimal calculateSwitch(BigDecimal num1, int type, BigDecimal num2) {
         BigDecimal result = new BigDecimal("0");
-        switch (type) {
-            case 1:
-                result = addition(num1, num2);
-                break;
-            case 2:
-                result = subtraction(num1, num2);
-                break;
-            case 3:
-                result = multiplication(num1, num2);
-                break;
-            case 4:
-                result = division(num1, num2);
-                break;
-            case 5:
-                result = multiplicationAndMinus(num1, num2);
-                break;
-            case 6:
-                result = divisionAndMinus(num1, num2);
-                break;
-        }
+        result = switch (type) {
+            case 1 -> addition(num1, num2);
+            case 2 -> subtraction(num1, num2);
+            case 3 -> multiplication(num1, num2);
+            case 4 -> division(num1, num2);
+            case 5 -> multiplicationAndMinus(num1, num2);
+            case 6 -> divisionAndMinus(num1, num2);
+            default -> result;
+        };
         return result;
     }
 
