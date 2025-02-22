@@ -49,7 +49,6 @@ public class Calculation {
         //宣言部
         String result = "";
         int i = 0;
-        boolean flag = false;
         //先頭が記号ならばマイナスの数値にする処理が必要
         if (judgmentSymbolG(str[i])) {
             str[i + 1] = str[i] + str[i + 1]; //ここで２番目の配列操作してしまえばいい
@@ -59,14 +58,11 @@ public class Calculation {
         while (i < str.length) {
             if (i == str.length) break;
             //数値文字変換
-            BigDecimal num1 = new BigDecimal("0");
-
-            num1 = conversions(str[i]);
+            BigDecimal num1 = conversions(str[i]);
 
             if (i == str.length - 1) {
                 result = str[i];
                 break;
-                //return result;
             } else {
                 i++;
             }
@@ -176,15 +172,14 @@ public class Calculation {
      */
     public static BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
         num2 = ZERO.subtract(num2);
-        BigDecimal result = division(num1, num2);
-        return result;
+        return division(num1, num2);
     }
 
     /**
      * 少数の整数部を取得する
      *
      * @param str 小数
-     * @param 整数部
+     * @return 整数部
      */
     public static String figureLengthUpPoint(String str) {
         String result = "";
@@ -200,7 +195,7 @@ public class Calculation {
      * 計算式を分解して纏りに分ける処理
      */
     public static String[] splitFormula(String display) {
-        char tmp[] = Common.split(display); //分解
+        char[] tmp = Common.split(display); //分解
         String[] str = new String[tmp.length];
         //どっちのグループなのか比較判定して格納していく
         int j = 0;
@@ -214,9 +209,7 @@ public class Calculation {
             }
         }
         String[] str2 = new String[j + 1]; //nullの無い配列にしたい
-        for (int i = 0; i < j + 1; i++) {
-            str2[i] = str[i];
-        }
+        System.arraycopy(str, 0, str2, 0, j + 1);
         return str2;
     }
 
@@ -267,14 +260,12 @@ public class Calculation {
      */
     public static boolean judgmentNumG(String c) {
         boolean flag = false;
-        if (c != null) flag = Pattern.matches("^[0-9０-９]$||^\\.$", c);
+        if (c != null) flag = Pattern.matches("^[0-9０-９]$|^\\.$", c);
         return flag;
     }
 
     public static boolean judgmentNumG(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^[0-9０-９]$||^\\.$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^[0-9０-９]$|^\\.$", String.valueOf(c));
     }
 
     /**
@@ -282,13 +273,11 @@ public class Calculation {
      */
     public static boolean judgmentSymbolG(String c) {
         boolean flag = false;
-        if (c != null) flag = Pattern.matches("^＋$||^-$||^×$||^÷$", c);
+        if (c != null) flag = Pattern.matches("^＋$|^-$|^×$|^÷$", c);
         return flag;
     }
 
     public static boolean judgmentSymbolG(char c) {
-        boolean flag = false;
-        flag = Pattern.matches("^＋$||^-$||^×$||^÷$", String.valueOf(c));
-        return flag;
+        return Pattern.matches("^＋$|^-$|^×$|^÷$", String.valueOf(c));
     }
 }
