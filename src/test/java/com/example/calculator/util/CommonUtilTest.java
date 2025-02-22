@@ -11,7 +11,7 @@ class CommonUtilTest {
     @DisplayName("文字列をchar配列にする：正常系")
     void testCheckNumberOfDigits() {
         int expected = 3;
-        int actual = CommonUtil.checkNumberOfDigits("-3.55");
+        int actual = CommonUtil.countDigits("-3.55");
         assertEquals(expected, actual);
     }
 
@@ -19,7 +19,7 @@ class CommonUtilTest {
     @DisplayName("文字列をchar配列にする：正常系")
     void testCheckNumberOfDigits2() {
         int expected = 0;
-        int actual = CommonUtil.checkNumberOfDigits("");
+        int actual = CommonUtil.countDigits("");
         assertEquals(expected, actual);
     }
 
@@ -27,7 +27,7 @@ class CommonUtilTest {
     @DisplayName("文字列をchar配列にする：正常系")
     void testCheckNumberOfDigits3() {
         int expected = 4;
-        int actual = CommonUtil.checkNumberOfDigits("0.004");
+        int actual = CommonUtil.countDigits("0.004");
         assertEquals(expected, actual);
     }
 

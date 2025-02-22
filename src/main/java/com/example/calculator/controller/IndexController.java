@@ -64,7 +64,7 @@ public class IndexController {
             }
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
             display = Calculation.calculationProcessing(display);
-            if (CommonUtil.checkNumberOfDigits(display) > 12) {
+            if (CommonUtil.countDigits(display) > 12) {
                 oldCalculatedData.setErrorFlag(false);
             }
             oldCalculatedData.setOldResult(display);

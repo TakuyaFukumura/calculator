@@ -11,17 +11,17 @@ public class CommonUtil {
     }
 
     /**
-     * 桁数を調べる
+     * 指定された文字列内の数字の個数をカウントする
+     *
+     * <p>このメソッドは、入力文字列の各文字をチェックし、数値（0～9）の
+     * 文字の個数を返す</p>
+     *
+     * @param input チェック対象文字列
+     * @return 数字の個数
+     * @throws NullPointerException 引数が null の場合
      */
-    public static int checkNumberOfDigits(String display) {
-        int count = 0;
-        int i = 0;
-        char[] charList = display.toCharArray();
-        while (i < charList.length) {
-            if (Pattern.matches("^[0-9]*$", String.valueOf(charList[i]))) count++;
-            i++;
-        }
-        return count;
+    public static int countDigits(String input) {
+        return (int) input.chars().filter(Character::isDigit).count();
     }
 
     /**
@@ -34,7 +34,7 @@ public class CommonUtil {
         //桁数チェック(分解して、左塊とって、数字ならば桁チェックして返す)
         String[] str = Calculation.splitFormula(display);//分解してまとまりに分ける処理
         if (judgmentNumG(str[str.length - 1])) {
-            count = checkNumberOfDigits(str[str.length - 1]);
+            count = countDigits(str[str.length - 1]);
         }
         if (count > 11) flag = false;
         return flag;
