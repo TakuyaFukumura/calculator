@@ -143,22 +143,20 @@ public class Calculation {
      * @return 割り算結果
      */
     public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
-        BigDecimal result; //初期値0
+        if (num2.compareTo(ZERO) == 0) { // ゼロ除算時の特別な処理
+            return new BigDecimal("1234567891023");
+            //あえて大きい数を入れてオーバーフローさせる
+        }
+
         try {
-            if (num2.compareTo(ZERO) == 0) { //ゼロ除算なら
-                result = new BigDecimal("1234567891023");
-                //あえて大きい数を入れてオーバーフローさせる
-            } else {
-                result = num1.divide(num2); //普通の割り算
-            }
-        } catch (Exception e) { //無限小数が発生したら
+            return num1.divide(num2); //普通の割り算
+        } catch (Exception e) {
             //最も近い数に丸め込む
-            result = num1.divide(num2, 11, RoundingMode.DOWN);//HALF_DOWN);//result = num1.divide(num2).setScale(2, RoundingMode.DOWN);
+            BigDecimal result = num1.divide(num2, 11, RoundingMode.DOWN);
             //上の桁数取得して再リザルト
             //マイナス対応のため絶対値使用
-            result = num1.divide(num2, 12 - figureLengthUpPoint((result.abs()).toString()).length(), RoundingMode.DOWN);
+            return num1.divide(num2, 12 - figureLengthUpPoint((result.abs()).toString()).length(), RoundingMode.DOWN);
         }
-        return result;
     }
 
     /**
