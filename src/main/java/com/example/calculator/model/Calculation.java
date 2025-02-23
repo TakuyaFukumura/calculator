@@ -2,6 +2,8 @@ package com.example.calculator.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -187,22 +189,24 @@ public class Calculation {
      * 計算式を分解して纏りに分ける処理
      */
     public static String[] splitFormula(String display) {
-        char[] tmp = display.toCharArray(); //分解
-        String[] str = new String[tmp.length];
-        //どっちのグループなのか比較判定して格納していく
-        int j = 0;
-        str[j] = String.valueOf(tmp[0]);
+        char[] tmp = display.toCharArray();
+        List<String> strList = new ArrayList<>();
+
+        StringBuilder current = new StringBuilder(Character.toString(tmp[0]));
+
         for (int i = 1; i < tmp.length; i++) {
-            if ((judgmentNumG(tmp[i]) && judgmentNumG(tmp[i - 1])) || (judgmentSymbolG(tmp[i]) && judgmentSymbolG(tmp[i - 1]))) { //同じグループだったら
-                str[j] += String.valueOf(tmp[i]);
+            if ((judgmentNumG(tmp[i]) && judgmentNumG(tmp[i - 1])) ||
+                    (judgmentSymbolG(tmp[i]) && judgmentSymbolG(tmp[i - 1]))) {
+                current.append(tmp[i]); // 同じグループなら追加
             } else {
-                j++;
-                str[j] = String.valueOf(tmp[i]);
+                strList.add(current.toString()); // 現在の文字列をリストに追加
+                current.setLength(0); // StringBuilderをリセット
+                current.append(tmp[i]);
             }
         }
-        String[] str2 = new String[j + 1]; //nullの無い配列にしたい
-        System.arraycopy(str, 0, str2, 0, j + 1);
-        return str2;
+        strList.add(current.toString()); // 最後の要素を追加
+
+        return strList.toArray(new String[0]);
     }
 
     /**
