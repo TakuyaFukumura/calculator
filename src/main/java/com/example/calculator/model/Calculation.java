@@ -179,13 +179,8 @@ public class Calculation {
      * @return 整数部
      */
     public static String figureLengthUpPoint(String str) {
-        String result = "";
-        String regex = "(^[0-9]+)";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(str);
-        if (m.find())
-            result += m.group(1); //パターンに該当したものを取得
-        return result;
+        Matcher matcher = Pattern.compile("(^[0-9]+)").matcher(str);
+        return matcher.find() ? matcher.group(1) : "";
     }
 
     /**
