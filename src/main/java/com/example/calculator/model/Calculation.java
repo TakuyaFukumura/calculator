@@ -2,6 +2,7 @@ package com.example.calculator.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -215,51 +216,36 @@ public class Calculation {
      * １、２、３、４、５　、６
      */
     public static int judgmentOperator(String str) {
-        int num = 0;
-        if ("＋".equals(str)) {
-            num = 1;
-        } else if ("-".equals(str)) {
-            num = 2;
-        } else if ("×".equals(str) || "×＋".equals(str)) {
-            num = 3;
-        } else if ("÷".equals(str) || "÷＋".equals(str)) {
-            num = 4;
-        } else if ("×-".equals(str)) {
-            num = 5;
-        } else if ("÷-".equals(str)) {
-            num = 6;
-        }
-        return num;
+        Map<String, Integer> operatorMap = Map.of(
+                "＋", 1,
+                "-", 2,
+                "×", 3,
+                "×＋", 3,
+                "÷", 4,
+                "÷＋", 4,
+                "×-", 5,
+                "÷-", 6
+        );
+        return operatorMap.getOrDefault(str, 0);
     }
-
 
     /**
      * 計算処理であることを判断する「＝」
      */
     public static boolean checkCalculation(String c) {
-        boolean flag = false;
-        if (c != null) if (symbolIsEqual(c)) flag = true;
-        return flag;
+        return symbolIsEqual(c);
     }
 
     /**
      * 記号が＝であることを確認する
      */
     public static boolean symbolIsEqual(String c) {
-        boolean flag = false;
-        if (c != null) flag = Pattern.matches("^＝$", c);
-        return flag;
+        return c != null && Pattern.matches("＝", c);
     }
 
     /**
      * 数字グループであることを確認する
      */
-    public static boolean judgmentNumG(String c) {
-        boolean flag = false;
-        if (c != null) flag = Pattern.matches("^[0-9０-９]$|^\\.$", c);
-        return flag;
-    }
-
     public static boolean judgmentNumG(char c) {
         return Pattern.matches("^[0-9０-９]$|^\\.$", String.valueOf(c));
     }
@@ -268,9 +254,7 @@ public class Calculation {
      * 記号グループであることを確認する
      */
     public static boolean judgmentSymbolG(String c) {
-        boolean flag = false;
-        if (c != null) flag = Pattern.matches("^＋$|^-$|^×$|^÷$", c);
-        return flag;
+        return c != null && Pattern.matches("^＋$|^-$|^×$|^÷$", c);
     }
 
     public static boolean judgmentSymbolG(char c) {

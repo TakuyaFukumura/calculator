@@ -319,18 +319,6 @@ class CalculationTest {
     }
 
     @Test
-    void testJudgmentNumGString() {
-        boolean actual = Calculation.judgmentNumG("9");
-        assertTrue(actual);
-    }
-
-    @Test
-    void testJudgmentNumGStringNull() {
-        boolean actual = Calculation.judgmentNumG(null);
-        assertFalse(actual);
-    }
-
-    @Test
     void testJudgmentNumGChar() {
         boolean actual = Calculation.judgmentNumG('9');
         assertTrue(actual);

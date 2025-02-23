@@ -7,25 +7,25 @@ public class Input {
     public static String inputProcessing(String display, String clickData) {
         if (judgment(display)) { //disが初期値0の場合
             if (symbolIsPeriod(clickData)) {
-                display += clickData;
+                return display + clickData;
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
-                display = clickData;
+                return clickData;
             }
         } else if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
             if (notSymbol(clickData)) {
-                display += clickData;
+                return display + clickData;
             } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
-                display += clickData;
+                return display + clickData;
             } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
-                display = Delete.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
+                return Delete.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
             } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
-                display = Delete.deleteLastChar(display) + "-"; //プラスマイナス反転させる
+                return  Delete.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         } else if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (checkPeriod(display) && ".".equals(clickData)) {
             } else {
-                display += clickData;
+                return display + clickData;
             }
         }
         return display;
