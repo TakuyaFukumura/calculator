@@ -4,6 +4,7 @@ import com.example.calculator.dto.OldCalculatedData;
 import com.example.calculator.model.Calculation;
 import com.example.calculator.model.Delete;
 import com.example.calculator.model.Input;
+import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.IndexService;
 import com.example.calculator.util.CommonUtil;
 import jakarta.servlet.http.HttpSession;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IndexController {
 
     private final IndexService service;
+    private final CalculationService calculationService;
 
     @Autowired
-    public IndexController(IndexService service) {
+    public IndexController(IndexService service, CalculationService calculationService) {
         this.service = service; // IndexServiceのインスタンスを使えるようにしている
+        this.calculationService = calculationService;
     }
 
     @GetMapping
@@ -53,7 +56,7 @@ public class IndexController {
         if (!oldCalculatedData.isErrorFlag()) {
             // エラーセット時の処理
         } else if (Input.checkInput(clickData)) {
-            if (CommonUtil.checkNumber(display) || Calculation.judgmentSymbolG(clickData)) {
+            if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
                 display = Input.inputProcessing(display, clickData);
             }
         } else if (Delete.checkDelete(clickData)) {
