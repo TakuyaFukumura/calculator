@@ -65,7 +65,7 @@ public class IndexController {
         // クリックされたボタンによって処理を分岐
         if (inputService.checkInput(clickData)) { // 入力系処理
             if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
-                display = Input.inputProcessing(display, clickData);
+                display = inputService.inputProcessing(display, clickData);
             }
 
         } else if (deleteService.isAllClear(clickData)) { // 全削除

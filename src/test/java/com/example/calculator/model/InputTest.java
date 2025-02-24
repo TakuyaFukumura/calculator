@@ -15,7 +15,7 @@ class InputTest {
     void testCreateTrue() {
         Input test = new Input();
         String expected = "5";
-        String actual = Input.inputProcessing("0", "5");
+        String actual = inputService.inputProcessing("0", "5");
         assertEquals(expected, actual);
     }
     /* 未テストメソッド
@@ -72,7 +72,7 @@ class InputTest {
     @DisplayName("入力に応じてdisplay文字を編集して出力：正常系")
     void testInputProcessingTrue() {
         String expected = "5";
-        String actual = Input.inputProcessing("0", "5");
+        String actual = inputService.inputProcessing("0", "5");
         assertEquals(expected, actual);
     }
 
@@ -80,8 +80,8 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue2() {
         String expected = "0.1";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
         assertEquals(expected, actual);
     }
 
@@ -89,9 +89,9 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue3() {
         String expected = "0.1";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
-        actual = Input.inputProcessing(actual, ".");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
+        actual = inputService.inputProcessing(actual, ".");
         assertEquals(expected, actual);
     }
 
@@ -99,9 +99,9 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue4() {
         String expected = "0.11";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
-        actual = Input.inputProcessing(actual, "1");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
+        actual = inputService.inputProcessing(actual, "1");
         assertEquals(expected, actual);
     }
 
@@ -109,10 +109,10 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue5() {
         String expected = "0.1-";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
-        actual = Input.inputProcessing(actual, "＋");
-        actual = Input.inputProcessing(actual, "-");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
+        actual = inputService.inputProcessing(actual, "＋");
+        actual = inputService.inputProcessing(actual, "-");
         assertEquals(expected, actual);
     }
 
@@ -120,10 +120,10 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue6() {
         String expected = "0.1＋";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
-        actual = Input.inputProcessing(actual, "-");
-        actual = Input.inputProcessing(actual, "-");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
+        actual = inputService.inputProcessing(actual, "-");
+        actual = inputService.inputProcessing(actual, "-");
         assertEquals(expected, actual);
     }
 
@@ -131,17 +131,17 @@ class InputTest {
     @DisplayName("最初に0.1にする：正常系")
     void testInputProcessingTrue7() {
         String expected = "0.1÷-";
-        String actual = Input.inputProcessing("0", ".");
-        actual = Input.inputProcessing(actual, "1");
-        actual = Input.inputProcessing(actual, "÷");
-        actual = Input.inputProcessing(actual, "-");
+        String actual = inputService.inputProcessing("0", ".");
+        actual = inputService.inputProcessing(actual, "1");
+        actual = inputService.inputProcessing(actual, "÷");
+        actual = inputService.inputProcessing(actual, "-");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("入力に応じてdisplay文字を編集して出力：異常系")
     void testInputProcessingNull() {
-        assertThrows(NullPointerException.class, () -> Input.inputProcessing(null, null));
+        assertThrows(NullPointerException.class, () -> inputService.inputProcessing(null, null));
     }
 
     //******************************************

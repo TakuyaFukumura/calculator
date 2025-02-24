@@ -5,33 +5,6 @@ import com.example.calculator.util.CommonUtil;
 import java.util.regex.Pattern;
 
 public class Input {
-    //入力に応じた処理を実装する
-    public static String inputProcessing(String display, String clickData) {
-        if (judgment(display)) { //disが初期値0の場合
-            if (symbolIsPeriod(clickData)) {
-                return display + clickData;
-            } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
-                return clickData;
-            }
-        } else if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
-            if (notSymbol(clickData)) {
-                return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
-                return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
-                return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
-            } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
-                return  CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
-            }
-        } else if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
-            //最後の塊が数字グループでピリオドが含まれるならなにもしない
-            if (checkPeriod(display) && ".".equals(clickData)) {
-            } else {
-                return display + clickData;
-            }
-        }
-        return display;
-    }
 
     /**
      * ピリオドの重複防止

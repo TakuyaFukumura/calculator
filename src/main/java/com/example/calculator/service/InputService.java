@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class InputService {
 
     public String inputProcessing(String display, String clickData) {
-        if (judgment(display)) { //disが初期値0の場合
+        if ("0".equals(display) || "０".equals(display)) { //disが初期値0の場合
             if (symbolIsPeriod(clickData)) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
@@ -121,12 +121,5 @@ public class InputService {
     public char getLastChar(char[] charList) {
         int size = charList.length;
         return charList[size - 1];
-    }
-
-    /**
-     * 文字列の長さが１&&ゼロならばtrueを返す
-     */
-    public boolean judgment(String text) {
-        return text.length() == 1 && Pattern.matches("^0$|^０$", text);
     }
 }
