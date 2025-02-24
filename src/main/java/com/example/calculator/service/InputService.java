@@ -13,7 +13,7 @@ public class InputService {
 
     public String inputProcessing(String display, String clickData) {
         if ("0".equals(display) || "０".equals(display)) { //disが初期値0の場合
-            if (symbolIsPeriod(clickData)) {
+            if (Pattern.matches("^\\.$", clickData)) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
                 return clickData;
@@ -60,7 +60,8 @@ public class InputService {
      * 数字or四則演算子orピリオド
      */
     public boolean checkInput(String c) {
-        return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
+        return notSymbol(c) || Pattern.matches("^\\.$", c) ||
+                symbolIsMinus(c) || Pattern.matches("^＋$", c) || Pattern.matches("^×$|^÷$", c);
     }
 
     /**
@@ -73,13 +74,6 @@ public class InputService {
 
     public boolean notSymbol(String c) {
         return Pattern.matches("^[0-9０-９]*$", c);
-    }
-
-    /**
-     * 記号が．であることを確認する
-     */
-    public boolean symbolIsPeriod(String c) {
-        return Pattern.matches("^\\.$", c);
     }
 
     /**
@@ -100,19 +94,11 @@ public class InputService {
         return Pattern.matches("^＋$", String.valueOf(c));
     }
 
-    public boolean symbolIsPlus(String c) {
-        return Pattern.matches("^＋$", c);
-    }
-
     /**
      * 記号が×,÷であることを確認する
      */
     public boolean symbolIsMuD(char c) { //引数Stringのほうがいいのでは？オーバーロードする？
         return Pattern.matches("^×$|^÷$", String.valueOf(c));
-    }
-
-    public boolean symbolIsMuD(String c) {
-        return Pattern.matches("^×$|^÷$", c);
     }
 
     /**

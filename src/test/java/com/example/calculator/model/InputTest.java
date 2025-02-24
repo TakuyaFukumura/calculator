@@ -154,27 +154,6 @@ class InputTest {
 
     //********************************************
     @Test
-    @DisplayName("．であるString：正常系")
-    void testSymbolIsPeriodStringTrue() {
-        boolean actual = inputService.symbolIsPeriod(".");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("．であるString：異常系")
-    void testSymbolIsPeriodStringFalse() {
-        boolean actual = inputService.symbolIsPeriod("-");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("．であるString：異常系")
-    void testSymbolIsPeriodStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.symbolIsPeriod(null));
-    }
-
-    //********************************************
-    @Test
     @DisplayName("×または÷であるchar：正常系")
     void testSymbolIsMuDTrue() {
         boolean actual = inputService.symbolIsMuD('÷');
@@ -186,26 +165,6 @@ class InputTest {
     void testSymbolIsMuDFalse() {
         boolean actual = inputService.symbolIsMuD('-');
         assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("×または÷であるString：正常系")
-    void testSymbolIsMuDStringTrue() {
-        boolean actual = inputService.symbolIsMuD("×");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("×または÷であるString：異常系")
-    void testSymbolIsMuDStringFalse() {
-        boolean actual = inputService.symbolIsMuD("-");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("×または÷であるString：異常系")
-    void testSymbolIsMuDStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.symbolIsMuD(null));
     }
 
     //********************************************
@@ -222,27 +181,6 @@ class InputTest {
         boolean actual = inputService.symbolIsPlus('-');
         assertFalse(actual);
     }
-
-    @Test
-    @DisplayName("プラスであるString：正常系")
-    void testSymbolIsPlusStringTrue() {
-        boolean actual = inputService.symbolIsPlus("＋");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("プラスであるString：異常系")
-    void testSymbolIsPlusStringFalse() {
-        boolean actual = inputService.symbolIsPlus("-");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("プラスであるString：異常系")
-    void testSymbolIsPlusStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.symbolIsPlus(null));
-    }
-
     //****************************************
     @Test
     @DisplayName("マイナスであるchar：正常系")
