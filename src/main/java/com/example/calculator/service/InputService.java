@@ -12,28 +12,35 @@ import java.util.regex.Pattern;
 @Service
 public class InputService {
 
+    private static final String DOT = ".";
+    private static final String MINUS = "-";
+
     public String inputProcessing(String display, String clickData) {
-        if (Constants.INITIAL_VALUE.equals(display)) { //disが初期値0の場合
-            if (Pattern.matches("^\\.$", clickData)) {
+        // 初期値の場合
+        if (Constants.INITIAL_VALUE.equals(display)) {
+            if (DOT.equals(clickData)) {
                 return display + clickData;
-            } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
+            }
+            //数字かマイナスで上書きする。それ以外は入らない
+            if (MINUS.equals(clickData) || isNumeric(clickData)) {
                 return clickData;
             }
         }
 
-        if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
-            if (notSymbol(clickData)) {
+        char lastChar = getLastChar(display.toCharArray());
+        if (!isNumeric(lastChar)) { //最後尾が記号の時
+            if (isNumeric(clickData)) {
                 return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsMuD(lastChar))) {
                 return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsMinus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
-            } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
+            } else if (symbolIsMinus(clickData) && (symbolIsPlus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         }
 
-        if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
+        if (isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (checkPeriod(display) && ".".equals(clickData)) {
             } else {
@@ -65,7 +72,7 @@ public class InputService {
      * 数字or四則演算子orピリオド
      */
     public boolean checkInput(String c) {
-        return notSymbol(c) || Pattern.matches("^\\.$", c) ||
+        return isNumeric(c) || Pattern.matches("^\\.$", c) ||
                 symbolIsMinus(c) || Pattern.matches("^＋$", c) || Pattern.matches("^×$|^÷$", c);
     }
 
@@ -73,12 +80,12 @@ public class InputService {
      * 記号ではないことを確認するメソッド
      * （数字であることを確認する）
      */
-    public boolean notSymbol(char c) {
-        return Pattern.matches("^[0-9]*$", String.valueOf(c));
+    public boolean isNumeric(char c) {
+        return Pattern.matches("^\\d*$", String.valueOf(c));
     }
 
-    public boolean notSymbol(String c) {
-        return Pattern.matches("^[0-9]*$", c);
+    public boolean isNumeric(String c) {
+        return Pattern.matches("^\\d*$", c);
     }
 
     /**
@@ -112,5 +119,9 @@ public class InputService {
     public char getLastChar(char[] charList) {
         int size = charList.length;
         return charList[size - 1];
+    }
+
+    public String getLastString(String str) {
+        return str.substring(str.length() - 1);
     }
 }
