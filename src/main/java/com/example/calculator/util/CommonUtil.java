@@ -58,4 +58,18 @@ public class CommonUtil {
     public static boolean isNumeric(String segment) {
         return segment != null && Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", segment);
     }
+
+    /**
+     * 引数として渡された文字列の末尾の1文字を削除します。
+     * 入力が {@code null} または空文字の場合、そのままの文字列を返します。
+     *
+     * @param str 末尾を削除したい文字列
+     * @return 末尾の1文字を削除した文字列。{@code null} または空文字の場合は、入力された文字列をそのまま返す。
+     */
+    public static String deleteLastChar(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, str.length() - 1);
+    }
 }

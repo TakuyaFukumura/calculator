@@ -1,24 +1,13 @@
-package com.example.calculator.model;
+package com.example.calculator.service;
 
-import com.example.calculator.service.DeleteService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeleteTest {
+class DeleteServiceTest {
 
     private final DeleteService deleteService = new DeleteService();
-
-    @Test
-    @DisplayName("インスタンス生成：正常系")
-    void testCreateTrue() {
-        Delete test = new Delete();
-    }
-    /* まだ書いていないメソッド
-     *
-     *
-     * */
 
     @Test
     @DisplayName("入力に応じてdisplay文字を編集して出力：正常系")
@@ -94,19 +83,7 @@ class DeleteTest {
     @Test
     @DisplayName("Delete処理である：異常系")
     void testCheckDeleteNull() {
-        //assertThrows(NullPointerException.class, ()-> Delete.isDeleteOperation(null));
         boolean actual = deleteService.isDeleteOperation(null);
         assertFalse(actual);
-    }
-
-    //****************************************
-
-    @Test
-    @DisplayName("最後尾の文字削除：正常系")
-    void testDeleteLastChar() {
-        String expected = "123";
-        String str = "1234";
-        String actual = Delete.deleteLastChar(str);
-        assertEquals(expected, actual);
     }
 }

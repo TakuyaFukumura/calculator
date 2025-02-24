@@ -1,5 +1,7 @@
 package com.example.calculator.model;
 
+import com.example.calculator.util.CommonUtil;
+
 import java.util.regex.Pattern;
 
 public class Input {
@@ -17,9 +19,9 @@ public class Input {
             } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
-                return Delete.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
+                return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
             } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
-                return  Delete.deleteLastChar(display) + "-"; //プラスマイナス反転させる
+                return  CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         } else if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない

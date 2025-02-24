@@ -1,5 +1,6 @@
 package com.example.calculator.service;
 
+import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -35,22 +36,8 @@ public class DeleteService {
         }
         return switch (input) {
             case "ＡＣ" -> "0";
-            case "Ｃ" -> formula.length() > 1 ? deleteLastChar(formula) : "0";
+            case "Ｃ" -> formula.length() > 1 ? CommonUtil.deleteLastChar(formula) : "0";
             default -> formula;
         };
-    }
-
-    /**
-     * 引数として渡された文字列の末尾の1文字を削除します。
-     * 入力が {@code null} または空文字の場合、そのままの文字列を返します。
-     *
-     * @param str 末尾を削除したい文字列
-     * @return 末尾の1文字を削除した文字列。{@code null} または空文字の場合は、入力された文字列をそのまま返す。
-     */
-    public String deleteLastChar(String str) {
-        if (str == null || str.isEmpty()) {
-            return str;
-        }
-        return str.substring(0, str.length() - 1);
     }
 }

@@ -74,4 +74,12 @@ class CommonUtilTest {
         assertFalse(actual);
     }
 
+    @Test
+    @DisplayName("最後尾の文字削除：正常系")
+    void testDeleteLastChar() {
+        String expected = "123";
+        String str = "1234";
+        String actual = CommonUtil.deleteLastChar(str);
+        assertEquals(expected, actual);
+    }
 }
