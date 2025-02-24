@@ -73,29 +73,29 @@ class DeleteTest {
     @Test
     @DisplayName("Delete処理であるＣ：正常系")
     void testCheckDeleteTrue() {
-        boolean actual = deleteService.checkDelete("Ｃ");
+        boolean actual = deleteService.isDeleteOperation("Ｃ");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("Delete処理であるＡＣ：正常系")
     void testCheckDeleteTrue2() {
-        boolean actual = deleteService.checkDelete("ＡＣ");
+        boolean actual = deleteService.isDeleteOperation("ＡＣ");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("Delete処理である：異常系")
     void testCheckDeleteFalse() {
-        boolean actual = deleteService.checkDelete("＝");
+        boolean actual = deleteService.isDeleteOperation("＝");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("Delete処理である：異常系")
     void testCheckDeleteNull() {
-        //assertThrows(NullPointerException.class, ()-> Delete.checkDelete(null));
-        boolean actual = deleteService.checkDelete(null);
+        //assertThrows(NullPointerException.class, ()-> Delete.isDeleteOperation(null));
+        boolean actual = deleteService.isDeleteOperation(null);
         assertFalse(actual);
     }
 

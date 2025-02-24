@@ -2,7 +2,6 @@ package com.example.calculator.controller;
 
 import com.example.calculator.dto.OldCalculatedData;
 import com.example.calculator.model.Calculation;
-import com.example.calculator.model.Delete;
 import com.example.calculator.model.Input;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
@@ -64,7 +63,7 @@ public class IndexController {
                 display = Input.inputProcessing(display, clickData);
             }
 
-        } else if (deleteService.checkDelete(clickData)) { // 削除系処理
+        } else if (deleteService.isDeleteOperation(clickData)) { // 削除系処理
             display = deleteService.deleteProcessing(display, clickData);
 
         } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す

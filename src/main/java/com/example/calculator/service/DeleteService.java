@@ -10,11 +10,14 @@ import java.util.regex.Pattern;
 public class DeleteService {
 
     /**
-     * 削除系処理であることを判断する
-     * ＣorＡＣ
+     * 指定された文字列が削除系処理を表すかを判定する。
+     * 判定基準は、文字列が "Ｃ" または "ＡＣ" であるかどうか。
+     *
+     * @param input 判定対象の文字列
+     * @return c が "Ｃ" または "ＡＣ" の場合は {@code true}、それ以外の場合は {@code false}
      */
-    public boolean checkDelete(String c) {
-        return c != null && (Pattern.matches("^Ｃ$", c) || Pattern.matches("^ＡＣ$", c));
+    public boolean isDeleteOperation(String input) {
+        return "Ｃ".equals(input) || "ＡＣ".equals(input);
     }
 
     /**
