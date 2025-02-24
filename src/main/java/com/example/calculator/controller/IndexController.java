@@ -5,6 +5,7 @@ import com.example.calculator.model.Calculation;
 import com.example.calculator.model.Delete;
 import com.example.calculator.model.Input;
 import com.example.calculator.service.CalculationService;
+import com.example.calculator.service.DeleteService;
 import com.example.calculator.util.CommonUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IndexController {
 
     private final CalculationService calculationService;
+    private final DeleteService deleteService;
 
     @Autowired
-    public IndexController(CalculationService calculationService) {
+    public IndexController(CalculationService calculationService, DeleteService deleteService) {
         this.calculationService = calculationService;
+        this.deleteService = deleteService;
     }
 
     @GetMapping
@@ -61,8 +64,8 @@ public class IndexController {
                 display = Input.inputProcessing(display, clickData);
             }
 
-        } else if (Delete.checkDelete(clickData)) { // 削除系処理
-            display = Delete.deleteProcessing(display, clickData);
+        } else if (deleteService.checkDelete(clickData)) { // 削除系処理
+            display = deleteService.deleteProcessing(display, clickData);
 
         } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
             if (display.equals(oldCalculatedData.getOldResult())) {
