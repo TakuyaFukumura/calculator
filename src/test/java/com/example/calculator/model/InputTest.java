@@ -1,11 +1,14 @@
 package com.example.calculator.model;
 
+import com.example.calculator.service.InputService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InputTest {
+
+    private final InputService inputService = new InputService();
 
     @Test
     @DisplayName("インスタンス生成：正常系")
@@ -146,21 +149,21 @@ class InputTest {
     @Test
     @DisplayName("入力系文字であるString：正常系")
     void testCheckInputStringTrue() {
-        boolean actual = Input.checkInput("×");
+        boolean actual = inputService.checkInput("×");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("入力系文字であるString：異常系")
     void testCheckInputStringFalse() {
-        boolean actual = Input.checkInput("＝");
+        boolean actual = inputService.checkInput("＝");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("入力系文字であるString：異常系")
     void testCheckInputStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.checkInput(null));
+        assertThrows(NullPointerException.class, () -> inputService.checkInput(null));
     }
 
     //********************************************

@@ -51,14 +51,6 @@ public class Input {
     }
 
     /**
-     * 入力系処理であることを判断する
-     * 数字or四則演算子orピリオド
-     */
-    public static boolean checkInput(String c) {
-        return notSymbol(c) || symbolIsPeriod(c) || symbolIsMinus(c) || symbolIsPlus(c) || symbolIsMuD(c);
-    }
-
-    /**
      * 記号ではないことを確認するメソッド
      * （数字であることを確認する）
      */

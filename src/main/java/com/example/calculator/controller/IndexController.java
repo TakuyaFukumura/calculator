@@ -5,6 +5,7 @@ import com.example.calculator.model.Calculation;
 import com.example.calculator.model.Input;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
+import com.example.calculator.service.InputService;
 import com.example.calculator.util.CommonUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IndexController {
 
     private final CalculationService calculationService;
+    private final InputService inputService;
     private final DeleteService deleteService;
 
     @Autowired
-    public IndexController(CalculationService calculationService, DeleteService deleteService) {
+    public IndexController(CalculationService calculationService, InputService inputService, DeleteService deleteService) {
         this.calculationService = calculationService;
+        this.inputService = inputService;
         this.deleteService = deleteService;
     }
 
@@ -60,7 +63,7 @@ public class IndexController {
         }
 
         // クリックされたボタンによって処理を分岐
-        if (Input.checkInput(clickData)) { // 入力系処理
+        if (inputService.checkInput(clickData)) { // 入力系処理
             if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
                 display = Input.inputProcessing(display, clickData);
             }
