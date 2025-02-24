@@ -24,6 +24,9 @@ public class DeleteService {
         if (formula == null || formula.isEmpty()) {
             throw new IllegalArgumentException("引数が不正です。formula=" + formula);
         }
-        return formula.length() == 1 ? allClear() : CommonUtil.deleteLastChar(formula);
+        if (formula.length() == 1) {
+            return allClear();
+        }
+        return CommonUtil.deleteLastChar(formula);
     }
 }
