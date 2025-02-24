@@ -28,7 +28,7 @@ public class InputService {
             } else if (symbolIsMinus(clickData) && (symbolIsMinus(getLastChar(display.toCharArray())))) {
                 return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
             } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
-                return  CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
+                return CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         }
 

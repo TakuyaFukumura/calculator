@@ -2,7 +2,6 @@ package com.example.calculator.controller;
 
 import com.example.calculator.dto.OldCalculatedData;
 import com.example.calculator.model.Calculation;
-import com.example.calculator.model.Input;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
 import com.example.calculator.service.InputService;
