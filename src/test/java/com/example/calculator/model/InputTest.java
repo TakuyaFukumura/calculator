@@ -11,37 +11,23 @@ class InputTest {
     private final InputService inputService = new InputService();
 
     @Test
-    @DisplayName("インスタンス生成：正常系")
-    void testCreateTrue() {
-        Input test = new Input();
-        String expected = "5";
-        String actual = inputService.inputProcessing("0", "5");
-        assertEquals(expected, actual);
-    }
-    /* 未テストメソッド
-     *checkPeriod
-     *
-     * */
-
-
-    @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：正常系")
     void testCheckPeriodTrue() {
-        boolean actual = Input.checkPeriod("1.23×12.345");
+        boolean actual = inputService.checkPeriod("1.23×12.345");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
     void testCheckPeriodFalse() {
-        boolean actual = Input.checkPeriod("12345÷1234");
+        boolean actual = inputService.checkPeriod("12345÷1234");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
     void testCheckPeriodNull() {
-        boolean actual = Input.checkPeriod(null);
+        boolean actual = inputService.checkPeriod(null);
         assertFalse(actual);
     }
 
@@ -49,21 +35,21 @@ class InputTest {
     @Test
     @DisplayName("ピリオドが含まれているかチェック：正常系")
     void testIsPeriodTrue() {
-        boolean actual = Input.isPeriod("1.234");
+        boolean actual = inputService.isPeriod("1.234");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("ピリオドが含まれているかチェック：異常系")
     void testIsPeriodFalse() {
-        boolean actual = Input.isPeriod("12345");
+        boolean actual = inputService.isPeriod("12345");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("ピリオドが含まれているかチェック：異常系")
     void testIsPeriodNull() {
-        boolean actual = Input.isPeriod(null);
+        boolean actual = inputService.isPeriod(null);
         assertFalse(actual);
     }
 
@@ -170,183 +156,163 @@ class InputTest {
     @Test
     @DisplayName("．であるString：正常系")
     void testSymbolIsPeriodStringTrue() {
-        boolean actual = Input.symbolIsPeriod(".");
+        boolean actual = inputService.symbolIsPeriod(".");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("．であるString：異常系")
     void testSymbolIsPeriodStringFalse() {
-        boolean actual = Input.symbolIsPeriod("-");
+        boolean actual = inputService.symbolIsPeriod("-");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("．であるString：異常系")
     void testSymbolIsPeriodStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.symbolIsPeriod(null));
+        assertThrows(NullPointerException.class, () -> inputService.symbolIsPeriod(null));
     }
 
     //********************************************
     @Test
     @DisplayName("×または÷であるchar：正常系")
     void testSymbolIsMuDTrue() {
-        boolean actual = Input.symbolIsMuD('÷');
+        boolean actual = inputService.symbolIsMuD('÷');
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("×または÷であるchar：異常系")
     void testSymbolIsMuDFalse() {
-        boolean actual = Input.symbolIsMuD('-');
+        boolean actual = inputService.symbolIsMuD('-');
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("×または÷であるString：正常系")
     void testSymbolIsMuDStringTrue() {
-        boolean actual = Input.symbolIsMuD("×");
+        boolean actual = inputService.symbolIsMuD("×");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("×または÷であるString：異常系")
     void testSymbolIsMuDStringFalse() {
-        boolean actual = Input.symbolIsMuD("-");
+        boolean actual = inputService.symbolIsMuD("-");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("×または÷であるString：異常系")
     void testSymbolIsMuDStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.symbolIsMuD(null));
+        assertThrows(NullPointerException.class, () -> inputService.symbolIsMuD(null));
     }
 
     //********************************************
     @Test
     @DisplayName("プラスであるchar：正常系")
     void testSymbolIsPlusTrue() {
-        boolean actual = Input.symbolIsPlus('＋');
+        boolean actual = inputService.symbolIsPlus('＋');
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("プラスであるchar：異常系")
     void testSymbolIsPlusFalse() {
-        boolean actual = Input.symbolIsPlus('-');
+        boolean actual = inputService.symbolIsPlus('-');
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("プラスであるString：正常系")
     void testSymbolIsPlusStringTrue() {
-        boolean actual = Input.symbolIsPlus("＋");
+        boolean actual = inputService.symbolIsPlus("＋");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("プラスであるString：異常系")
     void testSymbolIsPlusStringFalse() {
-        boolean actual = Input.symbolIsPlus("-");
+        boolean actual = inputService.symbolIsPlus("-");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("プラスであるString：異常系")
     void testSymbolIsPlusStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.symbolIsPlus(null));
+        assertThrows(NullPointerException.class, () -> inputService.symbolIsPlus(null));
     }
 
     //****************************************
     @Test
     @DisplayName("マイナスであるchar：正常系")
     void testSymbolIsMinusTrue() {
-        boolean actual = Input.symbolIsMinus('-');
+        boolean actual = inputService.symbolIsMinus('-');
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("マイナスであるchar：異常系")
     void testSymbolIsMinusFalse() {
-        boolean actual = Input.symbolIsMinus('＋');
+        boolean actual = inputService.symbolIsMinus('＋');
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("マイナスであるString：正常系")
     void testSymbolIsMinusStringTrue() {
-        boolean actual = Input.symbolIsMinus("-");
+        boolean actual = inputService.symbolIsMinus("-");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("マイナスであるString：異常系")
     void testSymbolIsMinusStringFalse() {
-        boolean actual = Input.symbolIsMinus("＋");
+        boolean actual = inputService.symbolIsMinus("＋");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("マイナスであるString：異常系")
     void testSymbolIsMinusStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.symbolIsMinus(null));
+        assertThrows(NullPointerException.class, () -> inputService.symbolIsMinus(null));
     }
 
     //*****************************************
     @Test
     @DisplayName("記号ではないchar：正常系")
     void testNotSymbolTrue() {
-        boolean actual = Input.notSymbol('1');
+        boolean actual = inputService.notSymbol('1');
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("記号ではないchar：異常系")
     void testNotSymbolFalse() {
-        boolean actual = Input.notSymbol('＋');
+        boolean actual = inputService.notSymbol('＋');
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("記号ではないString：正常系")
     void testNotSymbolStringTrue() {
-        boolean actual = Input.notSymbol("1");
+        boolean actual = inputService.notSymbol("1");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("記号ではないString：異常系")
     void testNotSymbolStringFalse() {
-        boolean actual = Input.notSymbol("＋");
+        boolean actual = inputService.notSymbol("＋");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("記号であるString：異常系")
     void testNotSymbolStringNull() {
-        assertThrows(NullPointerException.class, () -> Input.notSymbol(null));
+        assertThrows(NullPointerException.class, () -> inputService.notSymbol(null));
     }
 
-    //*******************************
-    @Test
-    @DisplayName("文字列がゼロか確認：正常系")
-    void testJudgmentTrue() {
-        boolean actual = Input.judgment("0");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("文字列がゼロか確認：異常系")
-    void testJudgmentFalse() {
-        boolean actual = Input.judgment("-");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("文字列がゼロか確認：異常系")
-    void testJudgmentNull() {
-        assertThrows(NullPointerException.class, () -> Input.judgment(null));
-    }
     //*************************************
 
     @Test
@@ -354,7 +320,7 @@ class InputTest {
     void testGetLastChar() {
         char expected = '3';
         char[] charList = {'1', '2', '3'};
-        char actual = Input.getLastChar(charList);
+        char actual = inputService.getLastChar(charList);
         assertEquals(expected, actual);
     }
 
