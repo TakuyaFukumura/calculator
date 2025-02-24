@@ -28,14 +28,21 @@ public class InputService {
         }
 
         char lastChar = getLastChar(display.toCharArray());
-        if (!isNumeric(lastChar)) { //最後尾が記号の時
+        if (!isNumeric(lastChar)) { //式の最後尾が記号の時
+            // 入力が数字の場合
             if (isNumeric(clickData)) {
                 return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMuD(lastChar))) {
+            }
+            // 式の最後が×か÷で、入力がマイナスの場合
+            if (symbolIsMinus(clickData) && (symbolIsMuD(lastChar))) {
                 return display + clickData;
-            } else if (symbolIsMinus(clickData) && (symbolIsMinus(lastChar))) {
+            }
+            // 式の最後がマイナスで、入力がマイナスの場合
+            if (symbolIsMinus(clickData) && (symbolIsMinus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
-            } else if (symbolIsMinus(clickData) && (symbolIsPlus(lastChar))) {
+            }
+            // 式の最後がプラスで、入力がマイナスの場合
+            if (symbolIsMinus(clickData) && (symbolIsPlus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         }
