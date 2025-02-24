@@ -246,7 +246,7 @@ public class Calculation {
      * 数字グループであることを確認する
      */
     public static boolean judgmentNumG(char c) {
-        return Pattern.matches("^[0-9０-９]$|^\\.$", String.valueOf(c));
+        return Pattern.matches("^[0-9]$|^\\.$", String.valueOf(c));
     }
 
     /**

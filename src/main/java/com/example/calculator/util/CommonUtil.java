@@ -48,15 +48,15 @@ public class CommonUtil {
      *
      * <p>このメソッドは、文字列が以下のいずれかの形式である場合にtrueを返します：</p>
      * <ul>
-     *   <li>整数（例: "123", "０１２３"）</li>
-     *   <li>小数（例: "123.45", "１２３．４５"）</li>
+     *   <li>整数（例: "123"）</li>
+     *   <li>小数（例: "123.45"）</li>
      * </ul>
      *
      * @param segment チェック対象の文字列
      * @return 数字または小数点を含む数字であればtrue、それ以外はfalse
      */
     public static boolean isNumeric(String segment) {
-        return segment != null && Pattern.matches("^[0-9０-９]*$|^[0-9０-９]+\\.[0-9０-９]+$", segment);
+        return segment != null && Pattern.matches("^[0-9]*$|^[0-9]+\\.[0-9]+$", segment);
     }
 
     /**

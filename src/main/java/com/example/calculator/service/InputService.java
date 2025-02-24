@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class InputService {
 
     public String inputProcessing(String display, String clickData) {
-        if ("0".equals(display) || "０".equals(display)) { //disが初期値0の場合
+        if ("0".equals(display)) { //disが初期値0の場合
             if (Pattern.matches("^\\.$", clickData)) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
@@ -73,11 +73,11 @@ public class InputService {
      * （数字であることを確認する）
      */
     public boolean notSymbol(char c) {
-        return Pattern.matches("^[0-9０-９]*$", String.valueOf(c));
+        return Pattern.matches("^[0-9]*$", String.valueOf(c));
     }
 
     public boolean notSymbol(String c) {
-        return Pattern.matches("^[0-9０-９]*$", c);
+        return Pattern.matches("^[0-9]*$", c);
     }
 
     /**

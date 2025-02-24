@@ -9,7 +9,7 @@ public class Input {
      * （数字であることを確認する）
      */
     public static boolean notSymbol(char c) {
-        return Pattern.matches("^[0-9０-９]*$", String.valueOf(c));
+        return Pattern.matches("^[0-9]*$", String.valueOf(c));
     }
 
     /**
