@@ -5,7 +5,6 @@ import com.example.calculator.model.Calculation;
 import com.example.calculator.model.Delete;
 import com.example.calculator.model.Input;
 import com.example.calculator.service.CalculationService;
-import com.example.calculator.service.IndexService;
 import com.example.calculator.util.CommonUtil;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping({"/", "/index"})
 public class IndexController {
 
-    private final IndexService service;
     private final CalculationService calculationService;
 
     @Autowired
-    public IndexController(IndexService service, CalculationService calculationService) {
-        this.service = service; // IndexServiceのインスタンスを使えるようにしている
+    public IndexController(CalculationService calculationService) {
         this.calculationService = calculationService;
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("message", service.getMessage());
         model.addAttribute("displayData", "0");
         return "index";
     }
@@ -44,24 +40,31 @@ public class IndexController {
             HttpSession session,
             Model model) {
 
+        // セッション情報取得
         OldCalculatedData oldCalculatedData = (OldCalculatedData) session.getAttribute("lastEquation");
+
+        // セッション情報がなければ新規作成
         if (oldCalculatedData == null) {
             oldCalculatedData = new OldCalculatedData();
         }
 
+        // ACがクリックされた場合はフラグを立てる
         if ("ＡＣ".equals(clickData)) {
             oldCalculatedData.setErrorFlag(true);
         }
 
+        // クリックされたボタンによって処理を分岐
         if (!oldCalculatedData.isErrorFlag()) {
             // エラーセット時の処理
-        } else if (Input.checkInput(clickData)) {
+        } else if (Input.checkInput(clickData)) { // 入力系処理
             if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
                 display = Input.inputProcessing(display, clickData);
             }
-        } else if (Delete.checkDelete(clickData)) {
+
+        } else if (Delete.checkDelete(clickData)) { // 削除系処理
             display = Delete.deleteProcessing(display, clickData);
-        } else if (Calculation.checkCalculation(clickData)) {
+
+        } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
             if (display.equals(oldCalculatedData.getOldResult())) {
                 display += oldCalculatedData.getOldOperator();
             }
