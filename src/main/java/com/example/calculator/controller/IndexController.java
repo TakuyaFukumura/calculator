@@ -42,30 +42,32 @@ public class IndexController {
             HttpSession session,
             Model model) {
 
-        // セッション情報取得
+        // セッション情報取得、なければ新規作成
         OldCalculatedData oldCalculatedData = (OldCalculatedData) session.getAttribute("lastEquation");
-
-        // セッション情報がなければ新規作成
         if (oldCalculatedData == null) {
             oldCalculatedData = new OldCalculatedData();
         }
 
-        // ACがクリックされた場合はフラグを立てる
+        // E(エラー)表示後にACがクリックされた場合はフラグを立てる
         if ("ＡＣ".equals(clickData)) {
             oldCalculatedData.setErrorFlag(true);
         }
 
-        // クリックされたボタンによって処理を分岐
+        // エラー発生状態では何も処理しない
         if (!oldCalculatedData.isErrorFlag()) {
-            // エラーセット時の処理
-        } else if (Input.checkInput(clickData)) { // 入力系処理
+            model.addAttribute("displayData", display);
+            return "index";
+        }
+
+        // クリックされたボタンによって処理を分岐
+        if (Input.checkInput(clickData)) { // 入力系処理
             if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
                 display = Input.inputProcessing(display, clickData);
             }
 
-        } else if (deleteService.isAllClear(clickData)) {
+        } else if (deleteService.isAllClear(clickData)) { // 全削除
             display = deleteService.allClear();
-        } else if (deleteService.isClear(clickData)) {
+        } else if (deleteService.isClear(clickData)) { // 1つ削除
             display = deleteService.clear(display);
 
         } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
@@ -74,7 +76,7 @@ public class IndexController {
             }
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
             display = Calculation.calculationProcessing(display);
-            if (CommonUtil.countDigits(display) > 12) {
+            if (CommonUtil.countDigits(display) > 12) { // 上限を超えたらエラー
                 oldCalculatedData.setErrorFlag(false);
             }
             oldCalculatedData.setOldResult(display);
