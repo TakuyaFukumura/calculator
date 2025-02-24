@@ -18,7 +18,9 @@ public class InputService {
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない
                 return clickData;
             }
-        } else if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
+        }
+
+        if (!notSymbol(getLastChar(display.toCharArray()))) { //最後尾が記号の時
             if (notSymbol(clickData)) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) && (symbolIsMuD(getLastChar(display.toCharArray())))) {
@@ -28,7 +30,9 @@ public class InputService {
             } else if (symbolIsMinus(clickData) && (symbolIsPlus(getLastChar(display.toCharArray())))) {
                 return  CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
-        } else if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
+        }
+
+        if (notSymbol(getLastChar(display.toCharArray()))) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (checkPeriod(display) && ".".equals(clickData)) {
             } else {
