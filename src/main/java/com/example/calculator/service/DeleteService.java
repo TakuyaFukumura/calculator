@@ -38,11 +38,11 @@ public class DeleteService {
             return formula;
         }
 
-        if (Pattern.matches("^ＡＣ$", clickData)) {
+        if ("ＡＣ".equals(clickData)) {
             return "0";
         }
 
-        if (Pattern.matches("^Ｃ$", clickData)) {
+        if ("Ｃ".equals(clickData)) {
             return (formula.length() > 1) ? deleteLastChar(formula) : "0";
         }
 
