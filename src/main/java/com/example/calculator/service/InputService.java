@@ -1,5 +1,6 @@
 package com.example.calculator.service;
 
+import com.example.calculator.constants.Constants;
 import com.example.calculator.model.Calculation;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 public class InputService {
 
     public String inputProcessing(String display, String clickData) {
-        if ("0".equals(display)) { //disが初期値0の場合
+        if (Constants.INITIAL_VALUE.equals(display)) { //disが初期値0の場合
             if (Pattern.matches("^\\.$", clickData)) {
                 return display + clickData;
             } else if (symbolIsMinus(clickData) || notSymbol(clickData)) { //数か-で上書きそれ以外は入らない

@@ -1,5 +1,6 @@
 package com.example.calculator.service;
 
+import com.example.calculator.constants.Constants;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -7,8 +8,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class DeleteService {
-
-    private static final String INITIAL_VALUE = "0";
 
     private static final String ALL_CLEAR = "ＡＣ";
     private static final String CLEAR = "Ｃ";
@@ -39,7 +38,7 @@ public class DeleteService {
      * @return 初期値
      */
     public String allClear() {
-        return INITIAL_VALUE;
+        return Constants.INITIAL_VALUE;
     }
 
     /**
