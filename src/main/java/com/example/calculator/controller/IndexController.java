@@ -64,7 +64,7 @@ public class IndexController {
             }
 
         } else if (deleteService.isDeleteOperation(clickData)) { // 削除系処理
-            display = deleteService.deleteProcessing(display, clickData);
+            display = deleteService.handleFormulaResetOrDelete(display, clickData);
 
         } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
             if (display.equals(oldCalculatedData.getOldResult())) {

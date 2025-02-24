@@ -3,8 +3,6 @@ package com.example.calculator.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
-
 @Slf4j
 @Service
 public class DeleteService {
@@ -26,34 +24,27 @@ public class DeleteService {
      * <p>クリックデータが "AC" の場合、数式を "0" にリセットする。</p>
      * <p>クリックデータが "C" の場合、数式の最後の文字を削除する。</p>
      *
-     * @param formula    現在の数式
-     * @param clickData  ユーザーがクリックした削除操作（"AC" または "C"）
+     * @param formula   現在の数式
+     * @param input ユーザーがクリックした削除操作（"AC" または "C"）
      * @return 更新後の数式。ACの場合は "0"、C の場合は最後の文字を削除したものを返す。
-     *         ただし、formula が 1 文字のみの場合、"0" を返す。
+     * ただし、formula が 1 文字のみの場合、"0" を返す。
      */
-    public String deleteProcessing(String formula, String clickData) {
-        //ACならformulaをゼロにして返却
-        //Ｃなら最後尾を削除して返却
-        if (formula == null || clickData == null) {
+    public String handleFormulaResetOrDelete(String formula, String input) {
+        if (formula == null || input == null) {
             return formula;
         }
-
-        if ("ＡＣ".equals(clickData)) {
-            return "0";
-        }
-
-        if ("Ｃ".equals(clickData)) {
-            return (formula.length() > 1) ? deleteLastChar(formula) : "0";
-        }
-
-        return formula;
+        return switch (input) {
+            case "ＡＣ" -> "0";
+            case "Ｃ" -> formula.length() > 1 ? deleteLastChar(formula) : "0";
+            default -> formula;
+        };
     }
 
     /**
      * 文字列の最後尾1文字を削除する
      * 分割した文字を再合成
      */
-    private String deleteLastChar(String str) {
+    public String deleteLastChar(String str) {
         if (str == null || str.isEmpty()) {
             return str;
         }
