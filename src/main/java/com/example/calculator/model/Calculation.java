@@ -75,17 +75,15 @@ public class Calculation {
      * 演算スイッチ処理
      */
     public static BigDecimal calculateSwitch(BigDecimal num1, int type, BigDecimal num2) {
-        BigDecimal result = new BigDecimal("0");
-        result = switch (type) {
+        return switch (type) {
             case 1 -> num1.add(num2);
             case 2 -> num1.subtract(num2);
             case 3 -> num1.multiply(num2);
             case 4 -> division(num1, num2);
             case 5 -> multiplicationAndMinus(num1, num2);
             case 6 -> divisionAndMinus(num1, num2);
-            default -> result;
+            default -> BigDecimal.ZERO;
         };
-        return result;
     }
 
     /**
