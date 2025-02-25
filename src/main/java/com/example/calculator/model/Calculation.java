@@ -84,48 +84,15 @@ public class Calculation {
     public static BigDecimal calculateSwitch(BigDecimal num1, int type, BigDecimal num2) {
         BigDecimal result = new BigDecimal("0");
         result = switch (type) {
-            case 1 -> addition(num1, num2);
-            case 2 -> subtraction(num1, num2);
-            case 3 -> multiplication(num1, num2);
+            case 1 -> num1.add(num2);
+            case 2 -> num1.subtract(num2);
+            case 3 -> num1.multiply(num2);
             case 4 -> division(num1, num2);
             case 5 -> multiplicationAndMinus(num1, num2);
             case 6 -> divisionAndMinus(num1, num2);
             default -> result;
         };
         return result;
-    }
-
-    /**
-     * 足し算を行うメソッド
-     *
-     * @param num1 足される数
-     * @param num2 足す数
-     * @return 足し算結果
-     */
-    public static BigDecimal addition(BigDecimal num1, BigDecimal num2) {
-        return num1.add(num2);
-    }
-
-    /**
-     * 引き算メソッド
-     *
-     * @param num1 引かれる数
-     * @param num2 引く数
-     * @return 引き算結果
-     */
-    public static BigDecimal subtraction(BigDecimal num1, BigDecimal num2) {
-        return num1.subtract(num2);
-    }
-
-    /**
-     * 掛け算メソッド
-     *
-     * @param num1 掛けられる数
-     * @param num2 掛ける数
-     * @return 掛け算結果
-     */
-    public static BigDecimal multiplication(BigDecimal num1, BigDecimal num2) {
-        return num1.multiply(num2);
     }
 
     /**
@@ -136,8 +103,8 @@ public class Calculation {
      * @return マイナスで掛けた数
      */
     public static BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
-        num2 = subtraction(ZERO, num2); //符号反転
-        return multiplication(num1, num2); //掛け算実行して返す
+        num2 = ZERO.subtract(num2); //符号反転
+        return num1.multiply(num2); //掛け算実行して返す
     }
 
     /**

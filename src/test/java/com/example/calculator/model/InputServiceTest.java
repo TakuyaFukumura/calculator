@@ -220,5 +220,4 @@ class InputServiceTest {
         char actual = inputService.getLastChar(charList);
         assertEquals(expected, actual);
     }
-
 }
