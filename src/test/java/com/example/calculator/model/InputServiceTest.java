@@ -156,14 +156,14 @@ class InputServiceTest {
     @Test
     @DisplayName("×または÷であるchar：正常系")
     void testSymbolIsMuDTrue() {
-        boolean actual = inputService.isMuD('÷');
+        boolean actual = inputService.isMultiplicationOrDivision('÷');
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("×または÷であるchar：異常系")
     void testSymbolIsMuDFalse() {
-        boolean actual = inputService.isMuD('-');
+        boolean actual = inputService.isMultiplicationOrDivision('-');
         assertFalse(actual);
     }
 

@@ -43,7 +43,7 @@ public class InputService {
                 return formula + input;
             }
             // 式の最後が×か÷で、入力がマイナスの場合
-            if (isMinus(input) && (isMuD(lastChar))) {
+            if (isMinus(input) && (isMultiplicationOrDivision(lastChar))) {
                 return formula + input;
             }
             // 式の最後がマイナスで、入力がマイナスの場合
@@ -118,15 +118,14 @@ public class InputService {
     /**
      * 記号が×,÷であることを確認する
      */
-    public boolean isMuD(char input) { //引数Stringのほうがいいのでは？オーバーロードする？
-        return Pattern.matches("^×$|^÷$", String.valueOf(input));
+    public boolean isMultiplicationOrDivision(char input) {
+        return input == '×' || input == '÷';
     }
 
     /**
      * char配列の最後の文字を取り出す
      */
     public char getLastChar(char[] charList) {
-        int size = charList.length;
-        return charList[size - 1];
+        return charList[charList.length - 1];
     }
 }
