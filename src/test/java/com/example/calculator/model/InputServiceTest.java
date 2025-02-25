@@ -1,13 +1,12 @@
 package com.example.calculator.model;
 
 import com.example.calculator.service.InputService;
-import com.example.calculator.util.CommonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InputTest {
+class InputServiceTest {
 
     private final InputService inputService = new InputService();
 
