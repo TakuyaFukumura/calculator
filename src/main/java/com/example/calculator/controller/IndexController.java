@@ -74,9 +74,11 @@ public class IndexController {
             display = deleteService.clear(display);
 
         } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
+            // イコールボタンが連続で押された場合は前回の計算を再度行う
             if (display.equals(oldCalculatedData.getOldResult())) {
                 display += oldCalculatedData.getOldOperator();
             }
+            // 計算式の最後の演算式を記録する
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
             display = Calculation.calculationProcessing(display);
             if (CommonUtil.countDigits(display) > 12) { // 上限を超えたらエラー
