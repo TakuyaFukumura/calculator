@@ -17,7 +17,7 @@ public class InputService {
     private static final String MINUS = "-";
 
     public String inputProcessing(String formula, String input) {
-        // 初期値の場合
+        // 式が初期値ゼロの場合
         if (Constants.INITIAL_VALUE.equals(formula)) {
             if (DOT.equals(input)) {
                 return formula + input;
@@ -29,30 +29,30 @@ public class InputService {
         }
 
         char lastChar = getLastChar(formula.toCharArray());
-        if (!isNumeric(lastChar)) { //式の最後尾が記号の時
+
+        if (isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
+            //最後の塊が数字グループでピリオドが含まれるならなにもしない
+            if (checkPeriod(formula) && ".".equals(input)) {
+                return formula;
+            } else {
+                return formula + input;
+            }
+        } else { //式の最後尾が記号の時
             // 入力が数字の場合
             if (isNumeric(input)) {
                 return formula + input;
             }
             // 式の最後が×か÷で、入力がマイナスの場合
-            if (isMinus(input) && (isMuD(lastChar))) { // symbolIsMinusとかを見直したい。isMinusとか
+            if (isMinus(input) && (isMuD(lastChar))) {
                 return formula + input;
             }
             // 式の最後がマイナスで、入力がマイナスの場合
             if (isMinus(input) && (isMinus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + "＋"; //プラスマイナス反転させる
+                return CommonUtil.deleteLastChar(formula) + PLUS; //プラスマイナス反転させる
             }
             // 式の最後がプラスで、入力がマイナスの場合
             if (isMinus(input) && (isPlus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + "-"; //プラスマイナス反転させる
-            }
-        }
-
-        if (isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
-            //最後の塊が数字グループでピリオドが含まれるならなにもしない
-            if (checkPeriod(formula) && ".".equals(input)) {
-            } else {
-                return formula + input;
+                return CommonUtil.deleteLastChar(formula) + MINUS; //プラスマイナス反転させる
             }
         }
         return formula;
