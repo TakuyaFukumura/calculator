@@ -32,13 +32,13 @@ public class IndexController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String view(Model model) {
         model.addAttribute("displayData", "0");
         return "index";
     }
 
     @PostMapping
-    public String handlePost(
+    public String process(
             @RequestParam("display") String display,
             @RequestParam("clickData") String clickData,
             HttpSession session,
@@ -65,9 +65,12 @@ public class IndexController {
         if (inputService.isInput(clickData)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
             if (CommonUtil.checkNumber(display) || // 桁数チェック
                     calculationService.isOperatorSymbol(clickData)) { // 演算記号の場合
-                display = inputService.inputProcessing(display, clickData);
+                model.addAttribute("displayData", inputService.inputProcessing(display, clickData));
+                return "index";
             }
-
+            // 桁数上限に達している場合はそのまま返す
+            model.addAttribute("displayData", display);
+            return "index";
         }
 
         // 全削除

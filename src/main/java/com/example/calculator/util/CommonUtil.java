@@ -34,8 +34,7 @@ public class CommonUtil {
      */
     public static boolean checkNumber(String formula) {
         int count = 0;
-        //桁数チェック(分解して、左塊とって、数字ならば桁チェックして返す)
-        String[] segments = Calculation.splitFormula(formula);//分解してまとまりに分ける処理
+        String[] segments = Calculation.splitFormula(formula); // 分解してまとまりに分ける処理
         String lastSegment = segments[segments.length - 1];
         if (isNum(lastSegment)) {
             count = countDigits(segments[segments.length - 1]);
