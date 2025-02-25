@@ -34,15 +34,15 @@ public class InputService {
                 return display + clickData;
             }
             // 式の最後が×か÷で、入力がマイナスの場合
-            if (symbolIsMinus(clickData) && (symbolIsMuD(lastChar))) {
+            if (isMinus(clickData) && (isMuD(lastChar))) { // symbolIsMinusとかを見直したい。isMinusとか
                 return display + clickData;
             }
             // 式の最後がマイナスで、入力がマイナスの場合
-            if (symbolIsMinus(clickData) && (symbolIsMinus(lastChar))) {
+            if (isMinus(clickData) && (isMinus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "＋"; //プラスマイナス反転させる
             }
             // 式の最後がプラスで、入力がマイナスの場合
-            if (symbolIsMinus(clickData) && (symbolIsPlus(lastChar))) {
+            if (isMinus(clickData) && (isPlus(lastChar))) {
                 return CommonUtil.deleteLastChar(display) + "-"; //プラスマイナス反転させる
             }
         }
@@ -80,7 +80,7 @@ public class InputService {
      */
     public boolean checkInput(String c) {
         return isNumeric(c) || Pattern.matches("^\\.$", c) ||
-                symbolIsMinus(c) || Pattern.matches("^＋$", c) || Pattern.matches("^×$|^÷$", c);
+                isMinus(c) || Pattern.matches("^＋$", c) || Pattern.matches("^×$|^÷$", c);
     }
 
     /**
@@ -98,25 +98,25 @@ public class InputService {
     /**
      * 記号がマイナスであることを確認する
      */
-    public boolean symbolIsMinus(char c) {
+    public boolean isMinus(char c) {
         return Pattern.matches("^-$", String.valueOf(c));
     }
 
-    public boolean symbolIsMinus(String c) {
+    public boolean isMinus(String c) {
         return Pattern.matches("^-$", c);
     }
 
     /**
      * 記号がプラスであることを確認する
      */
-    public boolean symbolIsPlus(char c) {
+    public boolean isPlus(char c) {
         return Pattern.matches("^＋$", String.valueOf(c));
     }
 
     /**
      * 記号が×,÷であることを確認する
      */
-    public boolean symbolIsMuD(char c) { //引数Stringのほうがいいのでは？オーバーロードする？
+    public boolean isMuD(char c) { //引数Stringのほうがいいのでは？オーバーロードする？
         return Pattern.matches("^×$|^÷$", String.valueOf(c));
     }
 
