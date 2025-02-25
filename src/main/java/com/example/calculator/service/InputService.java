@@ -86,7 +86,7 @@ public class InputService {
      * @return ピリオドを含んでいる場合は `true`、それ以外の場合は `false` を返す
      */
     public boolean isPeriod(String input) {
-        return input != null && input.contains(".");
+        return input != null && input.contains(DOT);
     }
 
     /**
@@ -94,7 +94,7 @@ public class InputService {
      * 数字 or 四則演算子 or ピリオド
      */
     public boolean isInput(String input) {
-        return CommonUtil.isNumeric(input) || Pattern.matches("^\\.$", input) ||
+        return CommonUtil.isNumeric(input) || DOT.equals(input) ||
                 isMinus(input) || isPlus(input) || isMultiplicationOrDivision(input);
     }
 
