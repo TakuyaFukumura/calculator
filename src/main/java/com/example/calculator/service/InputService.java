@@ -32,7 +32,7 @@ public class InputService {
 
         if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
-            if (checkPeriod(formula) && ".".equals(input)) {
+            if (hasPeriodAtEnd(formula) && ".".equals(input)) {
                 return formula;
             } else {
                 return formula + input;
@@ -59,11 +59,17 @@ public class InputService {
     }
 
     /**
-     * ピリオドの重複防止
+     * 指定された式がピリオドを含んでいるかどうかを確認します。
+     * <p>
+     * 式がnullの場合、または式の最後の部分にピリオドが含まれていない場合は、falseを返します。
+     * 式の分解には、{@link Calculation#splitFormula(String)} メソッドを使用します。
+     * </p>
+     *
+     * @param formula 確認対象の式。nullの場合はfalseを返します。
+     * @return 最後の部分にピリオドが含まれていればtrue、それ以外はfalse。
      */
-    public boolean checkPeriod(String formula) {
-        //塊に分ける
-        //最後の塊を取り出して、ピリオドが含まれているかチェックする
+    public boolean hasPeriodAtEnd(String formula) {
+        // 式を分解して塊に分ける。最後の塊を取り出して、ピリオドが含まれているか確認する
         if (formula == null) {
             return false;
         }

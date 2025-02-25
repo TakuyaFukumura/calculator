@@ -12,22 +12,22 @@ class InputServiceTest {
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：正常系")
-    void testCheckPeriodTrue() {
-        boolean actual = inputService.checkPeriod("1.23×12.345");
+    void testHasPeriodAtEndTrue() {
+        boolean actual = inputService.hasPeriodAtEnd("1.23×12.345");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
-    void testCheckPeriodFalse() {
-        boolean actual = inputService.checkPeriod("12345÷1234");
+    void testHasPeriodAtEndFalse() {
+        boolean actual = inputService.hasPeriodAtEnd("12345÷1234");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
-    void testCheckPeriodNull() {
-        boolean actual = inputService.checkPeriod(null);
+    void testHasPeriodAtEndNull() {
+        boolean actual = inputService.hasPeriodAtEnd(null);
         assertFalse(actual);
     }
 
