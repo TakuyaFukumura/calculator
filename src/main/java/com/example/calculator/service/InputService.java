@@ -67,10 +67,17 @@ public class InputService {
         if (formula == null) {
             return false;
         }
-        String[] str = Calculation.splitFormula(formula);
-        return isPeriod(str[str.length - 1]);
+        String[] parts = Calculation.splitFormula(formula);
+        int last = parts.length - 1;
+        return isPeriod(parts[last]);
     }
 
+    /**
+     * 入力された文字列にピリオドが含まれているかを確認する
+     *
+     * @param input チェック対象文字列
+     * @return ピリオドを含んでいる場合は `true`、それ以外の場合は `false` を返す
+     */
     public boolean isPeriod(String input) {
         return input != null && input.contains(".");
     }
