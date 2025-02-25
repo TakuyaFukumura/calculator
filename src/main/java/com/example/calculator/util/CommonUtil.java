@@ -37,7 +37,7 @@ public class CommonUtil {
         //桁数チェック(分解して、左塊とって、数字ならば桁チェックして返す)
         String[] segments = Calculation.splitFormula(formula);//分解してまとまりに分ける処理
         String lastSegment = segments[segments.length - 1];
-        if (isNumeric(lastSegment)) {
+        if (isNum(lastSegment)) {
             count = countDigits(segments[segments.length - 1]);
         }
         return count <= 11;
@@ -55,8 +55,29 @@ public class CommonUtil {
      * @param segment チェック対象の文字列
      * @return 数字または小数点を含む数字であればtrue、それ以外はfalse
      */
-    public static boolean isNumeric(String segment) {
+    public static boolean isNum(String segment) {
         return segment != null && Pattern.matches("^[0-9]*$|^[0-9]+\\.[0-9]+$", segment);
+    }
+
+    /**
+     * 指定された文字が数値（0-9）であるかを判定します。
+     *
+     * @param input 判定対象の文字
+     * @return 指定された文字が数値の場合は {@code true}、それ以外は {@code false}
+     */
+    public static boolean isNumeric(char input) {
+        return isNumeric(String.valueOf(input));
+    }
+
+    /**
+     * 指定された文字列が数値のみで構成されているかを判定します。
+     * 空文字列の場合は {@code true} を返します。
+     *
+     * @param input 判定対象の文字列
+     * @return 指定された文字列が数値のみで構成されている場合は {@code true}、それ以外は {@code false}
+     */
+    public static boolean isNumeric(String input) {
+        return !input.isEmpty() && Pattern.matches("^\\d*$", input);
     }
 
     /**

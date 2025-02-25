@@ -55,22 +55,22 @@ class CommonUtilTest {
 
     @Test
     @DisplayName("数字グループかどうか：異常系")
-    void testIsNumeric() {
-        boolean actual = CommonUtil.isNumeric("0.004-1234567891023");
+    void testIsNum() {
+        boolean actual = CommonUtil.isNum("0.004-1234567891023");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("数字グループかどうか：正常系")
-    void testIsNumeric2() {
-        boolean actual = CommonUtil.isNumeric("0.004");
+    void testIsNum2() {
+        boolean actual = CommonUtil.isNum("0.004");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("数字グループかどうか：異常系")
-    void testIsNumeric3() {
-        boolean actual = CommonUtil.isNumeric(null);
+    void testIsNum3() {
+        boolean actual = CommonUtil.isNum(null);
         assertFalse(actual);
     }
 
@@ -81,5 +81,39 @@ class CommonUtilTest {
         String str = "1234";
         String actual = CommonUtil.deleteLastChar(str);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("記号ではないchar：正常系")
+    void testNotSymbolTrue() {
+        boolean actual = CommonUtil.isNumeric('1');
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("記号ではないchar：異常系")
+    void testNotSymbolFalse() {
+        boolean actual = CommonUtil.isNumeric('＋');
+        assertFalse(actual);
+    }
+
+    @Test
+    @DisplayName("記号ではないString：正常系")
+    void testNotSymbolStringTrue() {
+        boolean actual = CommonUtil.isNumeric("1");
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("記号ではないString：異常系")
+    void testNotSymbolStringFalse() {
+        boolean actual = CommonUtil.isNumeric("＋");
+        assertFalse(actual);
+    }
+
+    @Test
+    @DisplayName("記号であるString：異常系")
+    void testNotSymbolStringNull() {
+        assertThrows(NullPointerException.class, () -> CommonUtil.isNumeric(null));
     }
 }

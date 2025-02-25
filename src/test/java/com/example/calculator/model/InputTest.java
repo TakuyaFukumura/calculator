@@ -1,6 +1,7 @@
 package com.example.calculator.model;
 
 import com.example.calculator.service.InputService;
+import com.example.calculator.util.CommonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -208,41 +209,6 @@ class InputTest {
     void testSymbolIsMinusStringFalse() {
         boolean actual = inputService.isMinus("＋");
         assertFalse(actual);
-    }
-
-    //*****************************************
-    @Test
-    @DisplayName("記号ではないchar：正常系")
-    void testNotSymbolTrue() {
-        boolean actual = inputService.isNumeric('1');
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("記号ではないchar：異常系")
-    void testNotSymbolFalse() {
-        boolean actual = inputService.isNumeric('＋');
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("記号ではないString：正常系")
-    void testNotSymbolStringTrue() {
-        boolean actual = inputService.isNumeric("1");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("記号ではないString：異常系")
-    void testNotSymbolStringFalse() {
-        boolean actual = inputService.isNumeric("＋");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("記号であるString：異常系")
-    void testNotSymbolStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.isNumeric(null));
     }
 
     //*************************************

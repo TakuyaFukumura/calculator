@@ -23,14 +23,14 @@ public class InputService {
                 return formula + input;
             }
             //数字かマイナスで上書きする。それ以外は入らない
-            if (MINUS.equals(input) || isNumeric(input)) {
+            if (MINUS.equals(input) || CommonUtil.isNumeric(input)) {
                 return input;
             }
         }
 
         char lastChar = getLastChar(formula.toCharArray());
 
-        if (isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
+        if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
             //最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (checkPeriod(formula) && ".".equals(input)) {
                 return formula;
@@ -39,7 +39,7 @@ public class InputService {
             }
         } else { //式の最後尾が記号の時
             // 入力が数字の場合
-            if (isNumeric(input)) {
+            if (CommonUtil.isNumeric(input)) {
                 return formula + input;
             }
             // 式の最後が×か÷で、入力がマイナスの場合
@@ -80,20 +80,8 @@ public class InputService {
      * 数字 or 四則演算子 or ピリオド
      */
     public boolean isInput(String input) {
-        return isNumeric(input) || Pattern.matches("^\\.$", input) ||
+        return CommonUtil.isNumeric(input) || Pattern.matches("^\\.$", input) ||
                 isMinus(input) || Pattern.matches("^＋$", input) || Pattern.matches("^×$|^÷$", input);
-    }
-
-    /**
-     * 記号ではないことを確認するメソッド
-     * （数字であることを確認する）
-     */
-    public boolean isNumeric(char input) {
-        return Pattern.matches("^\\d*$", String.valueOf(input));
-    }
-
-    public boolean isNumeric(String input) {
-        return Pattern.matches("^\\d*$", input);
     }
 
     /**
