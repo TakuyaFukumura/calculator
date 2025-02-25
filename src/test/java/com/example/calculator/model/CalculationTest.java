@@ -53,13 +53,6 @@ class CalculationTest {
     }
 
     @Test
-    void testConversions() {
-        BigDecimal expected = new BigDecimal("-1.3");
-        BigDecimal actual = Calculation.conversions("-1.3");
-        assertEquals(expected, actual);
-    }
-
-    @Test
     void testCalculationProcessing() {
         String expected = "9";
         String actual = Calculation.calculationProcessing("3×3");

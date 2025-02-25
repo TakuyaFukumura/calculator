@@ -12,17 +12,7 @@ import java.util.regex.Pattern;
 
 
 public class Calculation {
-    final static BigDecimal ZERO = new BigDecimal("0");
-
-    /**
-     * 数値文字変換
-     * String→BigDecimal
-     * 元String→double
-     * ピリオド＆マイナス対応可
-     */
-    public static BigDecimal conversions(String str) {
-        return new BigDecimal(str);
-    }
+    static final BigDecimal ZERO = BigDecimal.ZERO;
 
     /**
      * 計算式の最後の演算式を返す。例：「÷5」
@@ -62,7 +52,7 @@ public class Calculation {
         //ループ開始 while
         while (true) {
             //数値文字変換
-            BigDecimal num1 = conversions(str[i]);
+            BigDecimal num1 = new BigDecimal(str[i]);
 
             if (i == str.length - 1) {
                 result = str[i];
@@ -72,7 +62,7 @@ public class Calculation {
             }
             int type = judgmentOperator(str[i]); //演算子判定
             i++;
-            BigDecimal num2 = conversions(str[i]); //数値文字変換
+            BigDecimal num2 = new BigDecimal(str[i]); //数値文字変換
             str[i] = "" + calculateSwitch(num1, type, num2); //演算実行して
         }//ループ終了
         return result;
