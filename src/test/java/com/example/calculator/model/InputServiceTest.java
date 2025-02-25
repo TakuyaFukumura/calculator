@@ -56,78 +56,78 @@ class InputServiceTest {
     //*********************************************
     @Test
     @DisplayName("入力に応じてdisplay文字を編集して出力：正常系")
-    void testInputProcessingTrue() {
+    void testBuildFormulaTrue() {
         String expected = "5";
-        String actual = inputService.inputProcessing("0", "5");
+        String actual = inputService.buildFormula("0", "5");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue2() {
+    void testBuildFormulaTrue2() {
         String expected = "0.1";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue3() {
+    void testBuildFormulaTrue3() {
         String expected = "0.1";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
-        actual = inputService.inputProcessing(actual, ".");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
+        actual = inputService.buildFormula(actual, ".");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue4() {
+    void testBuildFormulaTrue4() {
         String expected = "0.11";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
-        actual = inputService.inputProcessing(actual, "1");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
+        actual = inputService.buildFormula(actual, "1");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue5() {
+    void testBuildFormulaTrue5() {
         String expected = "0.1-";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
-        actual = inputService.inputProcessing(actual, "＋");
-        actual = inputService.inputProcessing(actual, "-");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
+        actual = inputService.buildFormula(actual, "＋");
+        actual = inputService.buildFormula(actual, "-");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue6() {
+    void testBuildFormulaTrue6() {
         String expected = "0.1＋";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
-        actual = inputService.inputProcessing(actual, "-");
-        actual = inputService.inputProcessing(actual, "-");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
+        actual = inputService.buildFormula(actual, "-");
+        actual = inputService.buildFormula(actual, "-");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("最初に0.1にする：正常系")
-    void testInputProcessingTrue7() {
+    void testBuildFormulaTrue7() {
         String expected = "0.1÷-";
-        String actual = inputService.inputProcessing("0", ".");
-        actual = inputService.inputProcessing(actual, "1");
-        actual = inputService.inputProcessing(actual, "÷");
-        actual = inputService.inputProcessing(actual, "-");
+        String actual = inputService.buildFormula("0", ".");
+        actual = inputService.buildFormula(actual, "1");
+        actual = inputService.buildFormula(actual, "÷");
+        actual = inputService.buildFormula(actual, "-");
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("入力に応じてdisplay文字を編集して出力：異常系")
-    void testInputProcessingNull() {
-        assertThrows(NullPointerException.class, () -> inputService.inputProcessing(null, null));
+    void testBuildFormulaNull() {
+        assertThrows(NullPointerException.class, () -> inputService.buildFormula(null, null));
     }
 
     //******************************************

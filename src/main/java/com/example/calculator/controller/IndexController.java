@@ -66,7 +66,7 @@ public class IndexController {
         if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
             if (CommonUtil.checkNumber(formula) || // 桁数チェック
                     calculationService.isOperatorSymbol(input)) { // 演算記号の場合
-                model.addAttribute("displayData", inputService.inputProcessing(formula, input));
+                model.addAttribute("displayData", inputService.buildFormula(formula, input));
                 return "index";
             }
             // 桁数上限に達している場合はそのまま返す

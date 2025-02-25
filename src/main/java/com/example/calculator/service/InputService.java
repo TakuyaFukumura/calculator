@@ -16,13 +16,13 @@ public class InputService {
     private static final String PLUS = "＋";
     private static final String MINUS = "-";
 
-    public String inputProcessing(String formula, String input) {
+    public String buildFormula(String formula, String input) {
         // 式が初期値ゼロの場合
         if (Constants.INITIAL_VALUE.equals(formula)) {
             if (DOT.equals(input)) {
                 return formula + input;
             }
-            //数字かマイナスで上書きする。それ以外は入らない
+            // 数字かマイナスで上書きする。それ以外は入らない
             if (MINUS.equals(input) || CommonUtil.isNumeric(input)) {
                 return input;
             }
@@ -31,13 +31,13 @@ public class InputService {
         char lastChar = getLastChar(formula.toCharArray());
 
         if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
-            //最後の塊が数字グループでピリオドが含まれるならなにもしない
+            // 最後の塊が数字グループでピリオドが含まれるならなにもしない
             if (hasPeriodAtEnd(formula) && ".".equals(input)) {
                 return formula;
             } else {
                 return formula + input;
             }
-        } else { //式の最後尾が記号の時
+        } else { // 式の最後尾が記号の時
             // 入力が数字の場合
             if (CommonUtil.isNumeric(input)) {
                 return formula + input;
@@ -48,11 +48,11 @@ public class InputService {
             }
             // 式の最後がマイナスで、入力がマイナスの場合
             if (isMinus(input) && (isMinus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + PLUS; //プラスマイナス反転させる
+                return CommonUtil.deleteLastChar(formula) + PLUS; // プラスへ反転させる
             }
             // 式の最後がプラスで、入力がマイナスの場合
             if (isMinus(input) && (isPlus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + MINUS; //プラスマイナス反転させる
+                return CommonUtil.deleteLastChar(formula) + MINUS; // マイナスへ反転させる
             }
         }
         return formula;
