@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping({"/", "/index"})
@@ -44,11 +46,10 @@ public class IndexController {
             HttpSession session,
             Model model) {
 
-        // セッション情報取得、なければ新規作成
-        OldCalculatedData oldCalculatedData = (OldCalculatedData) session.getAttribute("lastEquation");
-        if (oldCalculatedData == null) {
-            oldCalculatedData = new OldCalculatedData();
-        }
+        // セッションから情報取得、なければ新規作成
+        OldCalculatedData oldCalculatedData =
+                Optional.ofNullable((OldCalculatedData) session.getAttribute("lastEquation"))
+                .orElseGet(OldCalculatedData::new);
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if ("ＡＣ".equals(input)) {
