@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class InputService {
 
     private static final String DOT = ".";
+    private static final String PLUS = "＋";
     private static final String MINUS = "-";
 
     public String inputProcessing(String formula, String input) {
@@ -110,7 +111,7 @@ public class InputService {
      * 記号がプラスであることを確認する
      */
     public boolean isPlus(char input) {
-        return Pattern.matches("^＋$", String.valueOf(input));
+        return PLUS.equals(String.valueOf(input));
     }
 
     /**
