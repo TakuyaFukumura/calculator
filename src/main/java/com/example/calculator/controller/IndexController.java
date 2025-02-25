@@ -68,12 +68,22 @@ public class IndexController {
                 display = inputService.inputProcessing(display, clickData);
             }
 
-        } else if (deleteService.isAllClear(clickData)) { // 全削除
-            display = deleteService.allClear();
-        } else if (deleteService.isClear(clickData)) { // 1つ削除
-            display = deleteService.clear(display);
+        }
 
-        } else if (Calculation.checkCalculation(clickData)) { // 計算結果を出す
+        // 全削除
+        if (deleteService.isAllClear(clickData)) {
+            model.addAttribute("displayData", deleteService.allClear());
+            return "index";
+        }
+
+        // 1つ削除
+        if (deleteService.isClear(clickData)) {
+            model.addAttribute("displayData", deleteService.clear(display));
+            return "index";
+        }
+
+        // 計算結果を出す
+        if (Calculation.checkCalculation(clickData)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
             if (display.equals(oldCalculatedData.getOldResult())) {
                 display += oldCalculatedData.getOldOperator();
