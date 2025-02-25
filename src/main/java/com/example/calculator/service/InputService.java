@@ -29,6 +29,7 @@ public class InputService {
         }
 
         char lastChar = getLastChar(formula.toCharArray());
+        String lastWord = CommonUtil.getLastString(formula);
 
         if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
             // 最後の塊が数字グループでピリオドが含まれるならなにもしない
@@ -94,7 +95,7 @@ public class InputService {
      */
     public boolean isInput(String input) {
         return CommonUtil.isNumeric(input) || Pattern.matches("^\\.$", input) ||
-                isMinus(input) || Pattern.matches("^＋$", input) || Pattern.matches("^×$|^÷$", input);
+                isMinus(input) || isPlus(input) || isMultiplicationOrDivision(input);
     }
 
     /**
@@ -114,18 +115,24 @@ public class InputService {
     public boolean isPlus(char input) {
         return PLUS.equals(String.valueOf(input));
     }
+    public boolean isPlus(String input) {
+        return PLUS.equals(input);
+    }
 
     /**
      * 記号が×,÷であることを確認する
      */
     public boolean isMultiplicationOrDivision(char input) {
-        return input == '×' || input == '÷';
+        return isMultiplicationOrDivision(String.valueOf(input));
+    }
+    public boolean isMultiplicationOrDivision(String input) {
+        return input.equals("×") || input.equals("÷");
     }
 
     /**
      * char配列の最後の文字を取り出す
      */
-    public char getLastChar(char[] charList) {
-        return charList[charList.length - 1];
+    public char getLastChar(char[] chars) {
+        return chars[chars.length - 1];
     }
 }
