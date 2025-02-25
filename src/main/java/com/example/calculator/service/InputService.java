@@ -99,11 +99,11 @@ public class InputService {
      * 記号がマイナスであることを確認する
      */
     public boolean isMinus(char input) {
-        return Pattern.matches("^-$", String.valueOf(input));
+        return isMinus(String.valueOf(input));
     }
 
     public boolean isMinus(String input) {
-        return Pattern.matches("^-$", input);
+        return MINUS.equals(input);
     }
 
     /**

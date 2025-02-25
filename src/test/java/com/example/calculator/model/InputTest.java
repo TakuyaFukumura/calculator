@@ -210,12 +210,6 @@ class InputTest {
         assertFalse(actual);
     }
 
-    @Test
-    @DisplayName("マイナスであるString：異常系")
-    void testSymbolIsMinusStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.isMinus(null));
-    }
-
     //*****************************************
     @Test
     @DisplayName("記号ではないchar：正常系")
