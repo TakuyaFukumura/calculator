@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class OldCalculatedData implements Serializable {
     private String oldResult = "";
     private String oldOperator = "";
-    private boolean errorFlag = false;
+    private boolean isError = false;
 
     public OldCalculatedData(String oldResult, String oldOperator) {
         this.oldResult = oldResult;

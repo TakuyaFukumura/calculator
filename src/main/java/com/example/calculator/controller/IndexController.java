@@ -52,11 +52,11 @@ public class IndexController {
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if ("ＡＣ".equals(clickData)) {
-            oldCalculatedData.setErrorFlag(false);
+            oldCalculatedData.setError(false);
         }
 
         // エラー発生状態では何も処理しない
-        if (oldCalculatedData.isErrorFlag()) {
+        if (oldCalculatedData.isError()) {
             model.addAttribute("displayData", display);
             return "index";
         }
@@ -80,7 +80,7 @@ public class IndexController {
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
             display = Calculation.calculationProcessing(display);
             if (CommonUtil.countDigits(display) > 12) { // 上限を超えたらエラー
-                oldCalculatedData.setErrorFlag(true);
+                oldCalculatedData.setError(true);
             }
             oldCalculatedData.setOldResult(display);
             session.setAttribute("lastEquation", oldCalculatedData);

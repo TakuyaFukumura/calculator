@@ -8,7 +8,7 @@
 <body class="container">
 <form action="index" method="POST">
     <div class="display">
-        <nobr th:text="${lastEquation != null and lastEquation.errorFlag ? 'E' : (displayData != null ? displayData : '0')}"></nobr>
+        <nobr th:text="${lastEquation != null and lastEquation.isError ? 'E' : (displayData != null ? displayData : '0')}"></nobr>
     </div>
 
     <input name="display" th:value="${displayData != null ? displayData : '0'}" type="hidden">
