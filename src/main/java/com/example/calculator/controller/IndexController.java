@@ -39,8 +39,8 @@ public class IndexController {
 
     @PostMapping
     public String process(
-            @RequestParam("display") String display,
-            @RequestParam("clickData") String clickData,
+            @RequestParam("display") String formula,
+            @RequestParam("clickData") String input,
             HttpSession session,
             Model model) {
 
@@ -51,57 +51,57 @@ public class IndexController {
         }
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
-        if ("ＡＣ".equals(clickData)) {
+        if ("ＡＣ".equals(input)) {
             oldCalculatedData.setError(false);
         }
 
         // エラー発生状態では何も処理しない
         if (oldCalculatedData.isError()) {
-            model.addAttribute("displayData", display);
+            model.addAttribute("displayData", formula);
             return "index";
         }
 
         // クリックされたボタンによって処理を分岐
-        if (inputService.isInput(clickData)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
-            if (CommonUtil.checkNumber(display) || // 桁数チェック
-                    calculationService.isOperatorSymbol(clickData)) { // 演算記号の場合
-                model.addAttribute("displayData", inputService.inputProcessing(display, clickData));
+        if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
+            if (CommonUtil.checkNumber(formula) || // 桁数チェック
+                    calculationService.isOperatorSymbol(input)) { // 演算記号の場合
+                model.addAttribute("displayData", inputService.inputProcessing(formula, input));
                 return "index";
             }
             // 桁数上限に達している場合はそのまま返す
-            model.addAttribute("displayData", display);
+            model.addAttribute("displayData", formula);
             return "index";
         }
 
         // 全削除
-        if (deleteService.isAllClear(clickData)) {
+        if (deleteService.isAllClear(input)) {
             model.addAttribute("displayData", deleteService.allClear());
             return "index";
         }
 
         // 1つ削除
-        if (deleteService.isClear(clickData)) {
-            model.addAttribute("displayData", deleteService.clear(display));
+        if (deleteService.isClear(input)) {
+            model.addAttribute("displayData", deleteService.clear(formula));
             return "index";
         }
 
         // 計算結果を出す
-        if (Calculation.checkCalculation(clickData)) {
+        if (Calculation.checkCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
-            if (display.equals(oldCalculatedData.getOldResult())) {
-                display += oldCalculatedData.getOldOperator();
+            if (formula.equals(oldCalculatedData.getOldResult())) {
+                formula += oldCalculatedData.getOldOperator();
             }
             // 計算式の最後の演算式を記録する
-            oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(display));
-            display = Calculation.calculationProcessing(display);
-            if (CommonUtil.countDigits(display) > 12) { // 上限を超えたらエラー
+            oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(formula));
+            formula = Calculation.calculationProcessing(formula);
+            if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
                 oldCalculatedData.setError(true);
             }
-            oldCalculatedData.setOldResult(display);
+            oldCalculatedData.setOldResult(formula);
             session.setAttribute("lastEquation", oldCalculatedData);
         }
 
-        model.addAttribute("displayData", display);
+        model.addAttribute("displayData", formula);
         return "index";
     }
 }
