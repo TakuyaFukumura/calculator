@@ -116,8 +116,4 @@ public class InputService {
         int size = charList.length;
         return charList[size - 1];
     }
-
-    public String getLastString(String str) {
-        return str.substring(str.length() - 1);
-    }
 }

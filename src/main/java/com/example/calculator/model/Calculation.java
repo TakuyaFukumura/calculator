@@ -30,11 +30,14 @@ public class Calculation {
     /**
      * 実際の計算処理
      */
-    public static String calculationProcessing(String display) {
-        if (!CommonUtil.isNumeric(CommonUtil.getLastChar(display.toCharArray()))) return display;//最後尾が記号の場合はそのまま返す処理
-        String[] str = splitFormula(display);//分解してまとまりに分ける処理
-        display = calculate(str);//まとまりを３つづつ計算していく処理
-        return display;
+    public static String calculationProcessing(String formula) {
+        String lastChar = CommonUtil.getLastString(formula);
+        if (CommonUtil.isNumeric(lastChar)) {
+            String[] parts = splitFormula(formula); // 分解してまとまりに分ける処理
+            return calculate(parts); // まとまりを３つづつ計算していく処理
+        } else {
+            return formula; // 最後尾が記号の場合はそのまま返す
+        }
     }
 
     /**

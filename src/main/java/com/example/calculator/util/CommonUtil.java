@@ -94,11 +94,7 @@ public class CommonUtil {
         return str.substring(0, str.length() - 1);
     }
 
-    /**
-     * char配列の最後の文字を取り出す
-     */
-    public static char getLastChar(char[] charList) {
-        int size = charList.length;
-        return charList[size - 1];
+    public static String getLastString(String str) {
+        return str.substring(str.length() - 1);
     }
 }
