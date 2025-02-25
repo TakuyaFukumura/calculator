@@ -79,7 +79,7 @@ public class InputService {
      * 入力系処理であることを判断する
      * 数字 or 四則演算子 or ピリオド
      */
-    public boolean checkInput(String input) {
+    public boolean isInput(String input) {
         return isNumeric(input) || Pattern.matches("^\\.$", input) ||
                 isMinus(input) || Pattern.matches("^＋$", input) || Pattern.matches("^×$|^÷$", input);
     }

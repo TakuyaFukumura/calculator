@@ -62,8 +62,9 @@ public class IndexController {
         }
 
         // クリックされたボタンによって処理を分岐
-        if (inputService.checkInput(clickData)) { // 入力系処理
-            if (CommonUtil.checkNumber(display) || calculationService.isOperatorSymbol(clickData)) {
+        if (inputService.isInput(clickData)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
+            if (CommonUtil.checkNumber(display) || // 桁数チェック
+                    calculationService.isOperatorSymbol(clickData)) { // 演算記号の場合
                 display = inputService.inputProcessing(display, clickData);
             }
 

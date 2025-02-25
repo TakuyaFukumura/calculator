@@ -135,21 +135,21 @@ class InputTest {
     @Test
     @DisplayName("入力系文字であるString：正常系")
     void testCheckInputStringTrue() {
-        boolean actual = inputService.checkInput("×");
+        boolean actual = inputService.isInput("×");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("入力系文字であるString：異常系")
     void testCheckInputStringFalse() {
-        boolean actual = inputService.checkInput("＝");
+        boolean actual = inputService.isInput("＝");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("入力系文字であるString：異常系")
     void testCheckInputStringNull() {
-        assertThrows(NullPointerException.class, () -> inputService.checkInput(null));
+        assertThrows(NullPointerException.class, () -> inputService.isInput(null));
     }
 
     //********************************************
