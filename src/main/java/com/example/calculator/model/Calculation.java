@@ -157,27 +157,57 @@ public class Calculation {
     }
 
     /**
-     * 計算式を分解して纏りに分ける処理
+     * 計算式を分解し、数値と演算子の塊に分割します。
+     *
+     * @param formula 計算式
+     * @return 数値と演算子の塊に分割された配列
      */
-    public static String[] splitFormula(String display) {
-        char[] tmp = display.toCharArray();
-        List<String> strList = new ArrayList<>();
+    public static String[] splitFormula(String formula) {
+        List<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        char[] chars = formula.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            // 数字と小数点の判定
+            boolean isNumberOrDot = CommonUtil.isNumeric(c) || c == '.';
 
-        StringBuilder current = new StringBuilder(Character.toString(tmp[0]));
+            if (i > 0) {
+                char prevChar = chars[i - 1];
+                boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == '.';
 
-        for (int i = 1; i < tmp.length; i++) {
-            if ((judgmentNumG(tmp[i]) && judgmentNumG(tmp[i - 1])) ||
-                    (judgmentSymbolG(tmp[i]) && judgmentSymbolG(tmp[i - 1]))) {
-                current.append(tmp[i]); // 同じグループなら追加
+                if ((isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar))) {
+                    current.append(c);
+                } else {
+                    result.add(current.toString());
+                    current.setLength(0);
+                    current.append(c);
+                }
             } else {
-                strList.add(current.toString()); // 現在の文字列をリストに追加
-                current.setLength(0); // StringBuilderをリセット
-                current.append(tmp[i]);
+                current.append(c);
             }
         }
-        strList.add(current.toString()); // 最後の要素を追加
+        result.add(current.toString());
+        return result.toArray(new String[0]);
+    }
 
-        return strList.toArray(new String[0]);
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param c チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(char c) {
+        return isOperator(String.valueOf(c));
+    }
+
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param c チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(String c) {
+        return PLUS.equals(c) || MINUS.equals(c) || MULTIPLY.equals(c) || DIVIDE.equals(c);
     }
 
     /**
