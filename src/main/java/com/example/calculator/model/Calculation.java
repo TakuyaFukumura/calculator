@@ -12,32 +12,43 @@ import java.util.regex.Pattern;
 
 
 public class Calculation {
-    static final BigDecimal ZERO = BigDecimal.ZERO;
+    // 定数化
+    private static final BigDecimal ZERO = BigDecimal.ZERO;
+    private static final String EQUAL = "＝";
+    private static final String PLUS = "＋";
+    private static final String MINUS = "-";
+    private static final String MULTIPLY = "×";
+    private static final String DIVIDE = "÷";
+    private static final BigDecimal OVERFLOW_VALUE = new BigDecimal("1234567891023"); // オーバーフローを表す値
+    private static final int MAX_SCALE = 12; // 最大桁数
 
     /**
-     * 計算式の最後の演算式を返す。例：「÷5」
-     * 式が存在しない時は空文字を返す
+     * 計算式の最後の演算式を返します。例：「÷5」
+     * 式が存在しない時は空文字を返します
+     *
+     * @param formula 計算式
+     * @return 最後の演算式
      */
-    public static String getLastArithmetic(String display) {
-        String lastArithmetic = "";
-        String[] str = splitFormula(display);
-        if (str.length > 2) {
-            lastArithmetic = str[str.length - 2] + str[str.length - 1];
+    public static String getLastArithmetic(String formula) {
+        String[] parts = splitFormula(formula);
+        if (parts.length < 3) {
+            return "";
         }
-        return lastArithmetic;
+        return parts[parts.length - 2] + parts[parts.length - 1];
     }
 
     /**
-     * 実際の計算処理
+     * 実際の計算処理を行います。
+     *
+     * @param formula 計算式
+     * @return 計算結果
      */
     public static String calculationProcessing(String formula) {
-        String lastChar = CommonUtil.getLastString(formula);
-        if (CommonUtil.isNumeric(lastChar)) {
-            String[] parts = splitFormula(formula); // 分解してまとまりに分ける処理
-            return calculate(parts); // まとまりを３つづつ計算していく処理
-        } else {
+        if (!CommonUtil.isNumeric(CommonUtil.getLastString(formula))) {
             return formula; // 最後尾が記号の場合はそのまま返す
         }
+        String[] parts = splitFormula(formula); // 分解してまとまりに分ける処理
+        return calculate(parts); // まとまりを３つづつ計算していく処理
     }
 
     /**

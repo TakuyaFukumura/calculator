@@ -9,11 +9,6 @@ import java.util.regex.Pattern;
 @Service
 public class CalculationService {
 
-    public String getMessage() {
-        log.info("getMessage was called"); // ログ出力例
-        return "Hello World!";
-    }
-
     /**
      * 与えられた文字列が、有効な演算子記号（＋、－、×、÷）であるかを判定します。
      *
