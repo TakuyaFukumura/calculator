@@ -77,16 +77,17 @@ public class IndexController {
         // 計算結果を出す
         if (Calculation.checkCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
-            if (formula.equals(oldCalculatedData.getOldResult())) {
-                formula += oldCalculatedData.getOldOperator();
+            String oldResult = oldCalculatedData.getOldResult();
+            if (formula.equals(oldResult)) {
+                formula += oldResult;
             }
             // 計算式の最後の演算式を記録する
             oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(formula));
-            formula = Calculation.calculationProcessing(formula);
-            if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
+            String result = Calculation.calculationProcessing(formula);
+            if (CommonUtil.countDigits(result) > 12) { // 上限を超えたらエラー
                 oldCalculatedData.setError(true);
             }
-            oldCalculatedData.setOldResult(formula);
+            oldCalculatedData.setOldResult(result);
             session.setAttribute("lastEquation", oldCalculatedData);
         }
 
