@@ -216,8 +216,8 @@ class InputServiceTest {
     @DisplayName("配列後尾の文字取得：正常系")
     void testGetLastChar() {
         char expected = '3';
-        char[] charList = {'1', '2', '3'};
-        char actual = inputService.getLastChar(charList);
+        String str = "123";
+        char actual = inputService.getLastChar(str);
         assertEquals(expected, actual);
     }
 }

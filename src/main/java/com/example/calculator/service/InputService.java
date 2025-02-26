@@ -13,45 +13,89 @@ public class InputService {
     private static final String DOT = ".";
     private static final String PLUS = "＋";
     private static final String MINUS = "-";
+    private static final String MULTIPLY = "×";
+    private static final String DIVIDE = "÷";
 
+    /**
+     * 計算式の文字列を構築する。
+     *
+     * @param formula 現在の計算式
+     * @param input   入力された文字
+     * @return 更新された計算式
+     */
     public String buildFormula(String formula, String input) {
-        // 式が初期値ゼロの場合
+        // 式が初期値の場合の処理
         if (Constants.INITIAL_VALUE.equals(formula)) {
-            if (DOT.equals(input)) {
-                return formula + input;
-            }
-            // 数字かマイナスで上書きする。それ以外は入らない
-            if (MINUS.equals(input) || CommonUtil.isNumeric(input)) {
-                return input;
-            }
+            return handleInitialValue(formula, input);
         }
 
-        char lastChar = getLastChar(formula.toCharArray());
+        // 空の場合処理を中断
+        if (formula.isEmpty()) {
+            return formula;
+        }
 
+        char lastChar = getLastChar(formula);
+
+        // 最後が数字の場合の処理
         if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
-            // 最後の塊が数字グループでピリオドが含まれるならなにもしない
-            if (hasPeriodAtEnd(formula) && ".".equals(input)) {
-                return formula;
-            } else {
-                return formula + input;
-            }
-        } else { // 式の最後尾が記号の時
-            // 入力が数字の場合
-            if (CommonUtil.isNumeric(input)) {
-                return formula + input;
-            }
-            // 式の最後が×か÷で、入力がマイナスの場合
-            if (isMinus(input) && (isMultiplicationOrDivision(lastChar))) {
-                return formula + input;
-            }
-            // 式の最後がマイナスで、入力がマイナスの場合
-            if (isMinus(input) && (isMinus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + PLUS; // プラスへ反転させる
-            }
-            // 式の最後がプラスで、入力がマイナスの場合
-            if (isMinus(input) && (isPlus(lastChar))) {
-                return CommonUtil.deleteLastChar(formula) + MINUS; // マイナスへ反転させる
-            }
+            return handleNumericLastChar(formula, input);
+        }
+
+        // 最後が記号の場合の処理
+        return handleSymbolLastChar(formula, input, lastChar);
+    }
+
+    /**
+     * 式が初期値の場合の処理を行う
+     *
+     * @param formula 現在の計算式
+     * @param input   入力された文字
+     * @return 更新された計算式
+     */
+    private String handleInitialValue(String formula, String input) {
+        if (DOT.equals(input)) {
+            return formula + input;
+        }
+        if (MINUS.equals(input) || CommonUtil.isNumeric(input)) {
+            return input;
+        }
+        return formula;
+    }
+
+    /**
+     * 式の最後尾が数字の場合の処理を行う
+     *
+     * @param formula 現在の計算式
+     * @param input   入力された文字
+     * @return 更新された計算式
+     */
+    private String handleNumericLastChar(String formula, String input) {
+        if (hasPeriodAtEnd(formula) && DOT.equals(input)) {
+            return formula;
+        }
+        return formula + input;
+    }
+
+    /**
+     * 式の最後尾が記号の場合の処理を行う
+     *
+     * @param formula  現在の計算式
+     * @param input    入力された文字
+     * @param lastChar 最後の文字
+     * @return 更新された計算式
+     */
+    private String handleSymbolLastChar(String formula, String input, char lastChar) {
+        if (CommonUtil.isNumeric(input)) {
+            return formula + input;
+        }
+        if (isMinus(input) && isMultiplicationOrDivision(lastChar)) {
+            return formula + input;
+        }
+        if (isMinus(input) && isMinus(lastChar)) {
+            return CommonUtil.deleteLastChar(formula) + PLUS;
+        }
+        if (isMinus(input) && isPlus(lastChar)) {
+            return CommonUtil.deleteLastChar(formula) + MINUS;
         }
         return formula;
     }
@@ -112,6 +156,7 @@ public class InputService {
     public boolean isPlus(char input) {
         return PLUS.equals(String.valueOf(input));
     }
+
     public boolean isPlus(String input) {
         return PLUS.equals(input);
     }
@@ -122,14 +167,23 @@ public class InputService {
     public boolean isMultiplicationOrDivision(char input) {
         return isMultiplicationOrDivision(String.valueOf(input));
     }
+
     public boolean isMultiplicationOrDivision(String input) {
-        return input.equals("×") || input.equals("÷");
+        return MULTIPLY.equals(input) || DIVIDE.equals(input);
     }
 
     /**
-     * char配列の最後の文字を取り出す
+     * 文字列の最後の文字を取り出す
+     * 例外処理を追加する
+     *
+     * @param str 　対象の文字列
+     * @return 最後の文字
+     * @throws IllegalArgumentException 空文字を渡したとき
      */
-    public char getLastChar(char[] chars) {
-        return chars[chars.length - 1];
+    public char getLastChar(String str) {
+        if (str == null || str.isEmpty()) {
+            throw new IllegalArgumentException("入力された文字列が不正です str=" + str);
+        }
+        return str.charAt(str.length() - 1);
     }
 }
