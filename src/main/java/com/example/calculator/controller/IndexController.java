@@ -74,18 +74,6 @@ public class IndexController {
             return "index";
         }
 
-        // 全削除
-        if (deleteService.isAllClear(input)) {
-            model.addAttribute("displayData", deleteService.allClear());
-            return "index";
-        }
-
-        // 1つ削除
-        if (deleteService.isClear(input)) {
-            model.addAttribute("displayData", deleteService.clear(formula));
-            return "index";
-        }
-
         // 計算結果を出す
         if (Calculation.checkCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
@@ -100,6 +88,18 @@ public class IndexController {
             }
             oldCalculatedData.setOldResult(formula);
             session.setAttribute("lastEquation", oldCalculatedData);
+        }
+
+        // 1つ削除
+        if (deleteService.isClear(input)) {
+            model.addAttribute("displayData", deleteService.clear(formula));
+            return "index";
+        }
+
+        // 全削除
+        if (deleteService.isAllClear(input)) {
+            model.addAttribute("displayData", deleteService.allClear());
+            return "index";
         }
 
         model.addAttribute("displayData", formula);
