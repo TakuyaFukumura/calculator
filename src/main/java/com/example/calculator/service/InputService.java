@@ -26,10 +26,10 @@ public class InputService {
     public String buildFormula(String formula, String input) {
         // 式が初期値の場合の処理
         if (Constants.INITIAL_VALUE.equals(formula)) {
-            return handleInitialValue(formula, input);
+            return handleInitialValue(input);
         }
 
-        // 空の場合処理を中断
+        // 空の場合は処理を中断
         if (formula.isEmpty()) {
             return formula;
         }
@@ -48,18 +48,17 @@ public class InputService {
     /**
      * 式が初期値の場合の処理を行う
      *
-     * @param formula 現在の計算式
      * @param input   入力された文字
      * @return 更新された計算式
      */
-    private String handleInitialValue(String formula, String input) {
+    private String handleInitialValue(String input) {
         if (DOT.equals(input)) {
-            return formula + input;
+            return Constants.INITIAL_VALUE + DOT;
         }
         if (MINUS.equals(input) || CommonUtil.isNumeric(input)) {
             return input;
         }
-        return formula;
+        return Constants.INITIAL_VALUE;
     }
 
     /**
