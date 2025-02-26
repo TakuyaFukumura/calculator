@@ -6,8 +6,6 @@ import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.regex.Pattern;
-
 @Slf4j
 @Service
 public class InputService {
@@ -29,7 +27,6 @@ public class InputService {
         }
 
         char lastChar = getLastChar(formula.toCharArray());
-        String lastWord = CommonUtil.getLastString(formula);
 
         if (CommonUtil.isNumeric(lastChar)) { //最後尾が数字の時は、ほぼなんでも入る
             // 最後の塊が数字グループでピリオドが含まれるならなにもしない
