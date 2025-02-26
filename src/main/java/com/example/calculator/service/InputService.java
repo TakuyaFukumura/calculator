@@ -69,7 +69,7 @@ public class InputService {
      * @return 更新された計算式
      */
     private String handleNumericLastChar(String formula, String input) {
-        if (hasPeriodAtEnd(formula) && DOT.equals(input)) {
+        if (hasPeriod(formula) && DOT.equals(input)) {
             return formula;
         }
         return formula + input;
@@ -109,7 +109,7 @@ public class InputService {
      * @param formula 確認対象の式。nullの場合はfalseを返します。
      * @return 最後の部分にピリオドが含まれていればtrue、それ以外はfalse。
      */
-    public boolean hasPeriodAtEnd(String formula) {
+    public boolean hasPeriod(String formula) {
         // 式を分解して塊に分ける。最後の塊を取り出して、ピリオドが含まれているか確認する
         if (formula == null) {
             return false;
