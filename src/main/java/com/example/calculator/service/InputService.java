@@ -69,6 +69,7 @@ public class InputService {
      * @return 更新された計算式
      */
     private String handleNumericLastChar(String formula, String input) {
+        // ドットが2重で入ることを防ぐ
         if (hasPeriod(formula) && DOT.equals(input)) {
             return formula;
         }
