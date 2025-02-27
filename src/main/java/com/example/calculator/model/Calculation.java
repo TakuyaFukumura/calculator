@@ -193,21 +193,21 @@ public class Calculation {
     /**
      * 演算子であるかどうかをチェックする。
      *
-     * @param c チェック対象の文字
+     * @param input チェック対象の文字
      * @return 演算子であればtrue
      */
-    public static boolean isOperator(char c) {
-        return isOperator(String.valueOf(c));
+    public static boolean isOperator(char input) {
+        return isOperator(String.valueOf(input));
     }
 
     /**
      * 演算子であるかどうかをチェックする。
      *
-     * @param c チェック対象の文字
+     * @param input チェック対象の文字
      * @return 演算子であればtrue
      */
-    public static boolean isOperator(String c) {
-        return PLUS.equals(c) || MINUS.equals(c) || MULTIPLY.equals(c) || DIVIDE.equals(c);
+    public static boolean isOperator(String input) {
+        return PLUS.equals(input) || MINUS.equals(input) || MULTIPLY.equals(input) || DIVIDE.equals(input);
     }
 
     /**
