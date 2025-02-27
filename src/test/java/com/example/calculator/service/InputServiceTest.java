@@ -1,7 +1,5 @@
-package com.example.calculator.model;
+package com.example.calculator.service;
 
-import com.example.calculator.service.InputService;
-import com.example.calculator.util.CommonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
