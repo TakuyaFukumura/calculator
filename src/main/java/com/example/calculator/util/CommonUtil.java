@@ -1,5 +1,6 @@
 package com.example.calculator.util;
 
+import com.example.calculator.enums.Operator;
 import com.example.calculator.model.Calculation;
 
 import java.util.regex.Pattern;
@@ -22,24 +23,6 @@ public class CommonUtil {
      */
     public static int countDigits(String input) {
         return (int) input.chars().filter(Character::isDigit).count();
-    }
-
-    /**
-     * 桁数をチェックして、入力継続（指定桁数以内であれば）できるならtrueを返す
-     *
-     * <p>このメソッドは、文字列を数式として分解し、最後のセグメントが数字であればその桁数を数え、桁数が11桁以下であればtrueを返します。</p>
-     *
-     * @param formula チェック対象の文字列（数式として分解される）
-     * @return 最後のセグメントが数字で、かつその桁数が11桁以下であればtrue、それ以外はfalse
-     */
-    public static boolean checkNumber(String formula) {
-        int count = 0;
-        String[] segments = Calculation.splitFormula(formula); // 分解してまとまりに分ける処理
-        String lastSegment = segments[segments.length - 1];
-        if (isNum(lastSegment)) {
-            count = countDigits(segments[segments.length - 1]);
-        }
-        return count <= 11;
     }
 
     /**
@@ -95,5 +78,26 @@ public class CommonUtil {
 
     public static String getLastString(String str) {
         return str.substring(str.length() - 1);
+    }
+
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param input チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(char input) {
+        return isOperator(String.valueOf(input));
+    }
+
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param input チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(String input) {
+        return Operator.PLUS.getSymbol().equals(input) || Operator.MINUS.getSymbol().equals(input)
+                || Operator.MULTIPLY.getSymbol().equals(input) || Operator.DIVIDE.getSymbol().equals(input);
     }
 }

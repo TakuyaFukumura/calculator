@@ -40,20 +40,6 @@ class CommonUtilTest {
 //	}
 
     @Test
-    @DisplayName("入力継続できるか桁数確認：正常系")
-    void testCheckNumber() {
-        boolean actual = CommonUtil.checkNumber("0.004-12345678910");
-        assertTrue(actual);
-    }
-
-    @Test
-    @DisplayName("入力継続できるか桁数確認：異常系")
-    void testCheckNumber2() {
-        boolean actual = CommonUtil.checkNumber("0.004-123456789102");
-        assertFalse(actual);
-    }
-
-    @Test
     @DisplayName("数字グループかどうか：異常系")
     void testIsNum() {
         boolean actual = CommonUtil.isNum("0.004-1234567891023");

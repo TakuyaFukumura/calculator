@@ -1,6 +1,5 @@
-package com.example.calculator.model;
+package com.example.calculator.service;
 
-import com.example.calculator.service.InputService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,22 +11,22 @@ class InputServiceTest {
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：正常系")
-    void testHasPeriodAtEndTrue() {
-        boolean actual = inputService.hasPeriodAtEnd("1.23×12.345");
+    void testHasPeriodTrue() {
+        boolean actual = inputService.hasPeriod("1.23×12.345");
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
-    void testHasPeriodAtEndFalse() {
-        boolean actual = inputService.hasPeriodAtEnd("12345÷1234");
+    void testHasPeriodFalse() {
+        boolean actual = inputService.hasPeriod("12345÷1234");
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("式を塊に分ける。最後を取り出してピリオドチェック：異常系")
-    void testHasPeriodAtEndNull() {
-        boolean actual = inputService.hasPeriodAtEnd(null);
+    void testHasPeriodNull() {
+        boolean actual = inputService.hasPeriod(null);
         assertFalse(actual);
     }
 
@@ -216,8 +215,22 @@ class InputServiceTest {
     @DisplayName("配列後尾の文字取得：正常系")
     void testGetLastChar() {
         char expected = '3';
-        char[] charList = {'1', '2', '3'};
-        char actual = inputService.getLastChar(charList);
+        String str = "123";
+        char actual = inputService.getLastChar(str);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("入力継続できるか桁数確認：正常系")
+    void testCheckNumber() {
+        boolean actual = inputService.checkNumber("0.004-12345678910");
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("入力継続できるか桁数確認：異常系")
+    void testCheckNumber2() {
+        boolean actual = inputService.checkNumber("0.004-123456789102");
+        assertFalse(actual);
     }
 }

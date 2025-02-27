@@ -1,7 +1,6 @@
 package com.example.calculator.controller;
 
 import com.example.calculator.dto.OldCalculatedData;
-import com.example.calculator.model.Calculation;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
 import com.example.calculator.service.InputService;
@@ -49,7 +48,7 @@ public class IndexController {
         // セッションから情報取得、なければ新規作成
         OldCalculatedData oldCalculatedData =
                 Optional.ofNullable((OldCalculatedData) session.getAttribute("lastEquation"))
-                .orElseGet(OldCalculatedData::new);
+                        .orElseGet(OldCalculatedData::new);
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if ("ＡＣ".equals(input)) {
@@ -64,8 +63,8 @@ public class IndexController {
 
         // クリックされたボタンによって処理を分岐
         if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
-            if (CommonUtil.checkNumber(formula) || // 桁数チェック
-                    calculationService.isOperatorSymbol(input)) { // 演算記号の場合
+            if (inputService.checkNumber(formula) || // 桁数チェック
+                    CommonUtil.isOperator(input)) { // 演算記号の場合
                 model.addAttribute("displayData", inputService.buildFormula(formula, input));
                 return "index";
             }
@@ -75,14 +74,14 @@ public class IndexController {
         }
 
         // 計算結果を出す
-        if (Calculation.checkCalculation(input)) {
+        if (calculationService.isCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
             if (formula.equals(oldCalculatedData.getOldResult())) {
                 formula += oldCalculatedData.getOldOperator();
             }
             // 計算式の最後の演算式を記録する
-            oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(formula));
-            formula = Calculation.calculationProcessing(formula);
+            oldCalculatedData.setOldOperator(calculationService.getLastArithmetic(formula));
+            formula = calculationService.calculationProcessing(formula);
             if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
                 oldCalculatedData.setError(true);
             }
