@@ -52,36 +52,36 @@ public class Calculation {
     }
 
     /**
-     * まとまりを３つづつ計算していく処理
+     * 3つずつのまとまりで計算を行うメソッド。
+     * 先頭が記号ならば負の数に変換し、
+     * 数値と演算子を順番に処理しながら最終的な計算結果を求める。
+     *
+     * @param parts 計算対象の数値および演算子を含む配列
+     * @return 計算結果を表す文字列
      */
     public static String calculate(String[] parts) {
-        String result;
         int index = 0;
 
-        // 先頭が記号ならば負の数に変換
+        // 先頭が記号の場合、負の数として扱う
         if (judgmentSymbolG(parts[index])) {
             parts[index + 1] = parts[index] + parts[index + 1];
             index++;
         }
 
-        while (true) {
-            //数値文字変換
-            BigDecimal num1 = new BigDecimal(parts[index]);
-
-            if (index == parts.length - 1) {
-                result = parts[index];
-                break;
-            }
-
+        while (index < parts.length - 1) {
+            BigDecimal num1 = new BigDecimal(parts[index]); // 1つ目の数値
             index++;
 
-            int type = judgmentOperator(parts[index]); // 演算子判定
+            int operatorType = judgmentOperator(parts[index]); // 演算子判定
             index++;
 
-            BigDecimal num2 = new BigDecimal(parts[index]); // 数値文字変換
-            parts[index] = calculateSwitch(num1, type, num2).toString(); // 演算実行
+            BigDecimal num2 = new BigDecimal(parts[index]); // 2つ目の数値
+
+            // 演算結果を格納し、次の計算に備える
+            parts[index] = calculateSwitch(num1, operatorType, num2).toString();
         }
-        return result;
+
+        return parts[index]; // 最終結果を返す
     }
 
     /**
