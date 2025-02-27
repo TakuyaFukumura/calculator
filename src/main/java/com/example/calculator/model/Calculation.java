@@ -164,30 +164,44 @@ public class Calculation {
      */
     public static String[] splitFormula(String formula) {
         List<String> result = new ArrayList<>();
-        StringBuilder current = new StringBuilder();
+        StringBuilder token = new StringBuilder();
         char[] chars = formula.toCharArray();
+        final char DOT = '.';
+
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            // 数字と小数点の判定
-            boolean isNumberOrDot = CommonUtil.isNumeric(c) || c == '.';
+            boolean isNumberOrDot = CommonUtil.isNumeric(c) || c == DOT;
 
             if (i > 0) {
                 char prevChar = chars[i - 1];
-                boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == '.';
+                boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == DOT;
 
                 if ((isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar))) {
-                    current.append(c);
+                    token.append(c);
                 } else {
-                    result.add(current.toString());
-                    current.setLength(0);
-                    current.append(c);
+                    addToken(result, token);
+                    token.append(c);
                 }
             } else {
-                current.append(c);
+                token.append(c);
             }
         }
-        result.add(current.toString());
+        addToken(result, token);
+
         return result.toArray(new String[0]);
+    }
+
+    /**
+     * トークンをリストに追加し、StringBuilderをリセットする。
+     *
+     * @param result トークンのリスト
+     * @param token  現在のトークン
+     */
+    private static void addToken(List<String> result, StringBuilder token) {
+        if (!token.isEmpty()) {
+            result.add(token.toString());
+            token.setLength(0);
+        }
     }
 
     /**
