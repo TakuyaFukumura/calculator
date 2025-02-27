@@ -236,61 +236,37 @@ class CalculationTest {
     }
 
     @Test
-    void testJudgmentOperator() {
+    void testGetOperatorType() {
         int expected = 1;
-        int actual = Calculation.judgmentOperator("＋");
+        int actual = Calculation.getOperatorType("＋");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testJudgmentOperator4() {
+    void testGetOperatorType4() {
         int expected = 4;
-        int actual = Calculation.judgmentOperator("÷");
+        int actual = Calculation.getOperatorType("÷");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testJudgmentOperator5() {
+    void testGetOperatorType5() {
         int expected = 5;
-        int actual = Calculation.judgmentOperator("×-");
+        int actual = Calculation.getOperatorType("×-");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testJudgmentOperator6() {
+    void testGetOperatorType6() {
         int expected = 6;
-        int actual = Calculation.judgmentOperator("÷-");
+        int actual = Calculation.getOperatorType("÷-");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testJudgmentOperator7() {
+    void testGetOperatorType7() {
         int expected = 0;
-        int actual = Calculation.judgmentOperator("1");
+        int actual = Calculation.getOperatorType("1");
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void testJudgmentNumGChar() {
-        boolean actual = Calculation.judgmentNumG('9');
-        assertTrue(actual);
-    }
-
-    @Test
-    void testJudgmentSymbolGString() {
-        boolean actual = Calculation.judgmentSymbolG("＋");
-        assertTrue(actual);
-    }
-
-    @Test
-    void testJudgmentSymbolGStringNull() {
-        boolean actual = Calculation.judgmentSymbolG(null);
-        assertFalse(actual);
-    }
-
-    @Test
-    void testJudgmentSymbolGChar() {
-        boolean actual = Calculation.judgmentSymbolG('＋');
-        assertTrue(actual);
     }
 }

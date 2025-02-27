@@ -67,7 +67,7 @@ public class Calculation {
         int index = 0;
 
         // 先頭が記号の場合、負の数として扱う
-        if (judgmentSymbolG(parts[index])) {
+        if (isOperator(parts[index])) {
             parts[index + 1] = parts[index] + parts[index + 1];
             index++;
         }
@@ -76,7 +76,7 @@ public class Calculation {
             BigDecimal num1 = new BigDecimal(parts[index]); // 1つ目の数値
             index++;
 
-            int operatorType = judgmentOperator(parts[index]); // 演算子判定
+            int operatorType = getOperatorType(parts[index]); // 演算子判定
             index++;
 
             BigDecimal num2 = new BigDecimal(parts[index]); // 2つ目の数値
@@ -236,7 +236,7 @@ public class Calculation {
      * -、＋、×、÷、×-、÷-
      * １、２、３、４、５　、６
      */
-    public static int judgmentOperator(String str) {
+    public static int getOperatorType(String operator) {
         Map<String, Integer> operatorMap = Map.of(
                 "＋", 1,
                 "-", 2,
@@ -247,25 +247,7 @@ public class Calculation {
                 "×-", 5,
                 "÷-", 6
         );
-        return operatorMap.getOrDefault(str, 0);
-    }
-
-    /**
-     * 数字グループであることを確認する
-     */
-    public static boolean judgmentNumG(char c) {
-        return Pattern.matches("^[(\\d+]$|^\\.$", String.valueOf(c));
-    }
-
-    /**
-     * 記号グループであることを確認する
-     */
-    public static boolean judgmentSymbolG(String c) {
-        return c != null && Pattern.matches("^＋$|^-$|^×$|^÷$", c);
-    }
-
-    public static boolean judgmentSymbolG(char c) {
-        return judgmentSymbolG(String.valueOf(c));
+        return operatorMap.getOrDefault(operator, 0);
     }
 
     /**
