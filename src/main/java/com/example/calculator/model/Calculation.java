@@ -71,13 +71,15 @@ public class Calculation {
             if (index == parts.length - 1) {
                 result = parts[index];
                 break;
-            } else {
-                index++;
             }
-            int type = judgmentOperator(parts[index]); //演算子判定
+
             index++;
-            BigDecimal num2 = new BigDecimal(parts[index]); //数値文字変換
-            parts[index] = "" + calculateSwitch(num1, type, num2); //演算実行して
+
+            int type = judgmentOperator(parts[index]); // 演算子判定
+            index++;
+
+            BigDecimal num2 = new BigDecimal(parts[index]); // 数値文字変換
+            parts[index] = calculateSwitch(num1, type, num2).toString(); // 演算実行
         }
         return result;
     }
