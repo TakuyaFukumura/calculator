@@ -1,6 +1,6 @@
 package com.example.calculator.controller;
 
-import com.example.calculator.dto.OldCalculatedData;
+import com.example.calculator.dto.CalculationHistory;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
 import com.example.calculator.service.InputService;
@@ -46,17 +46,17 @@ public class IndexController {
             Model model) {
 
         // セッションから情報取得、なければ新規作成
-        OldCalculatedData oldCalculatedData =
-                Optional.ofNullable((OldCalculatedData) session.getAttribute("lastEquation"))
-                        .orElseGet(OldCalculatedData::new);
+        CalculationHistory calculationHistory =
+                Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
+                        .orElseGet(CalculationHistory::new);
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if ("ＡＣ".equals(input)) {
-            oldCalculatedData.setError(false);
+            calculationHistory.setError(false);
         }
 
         // エラー発生状態では何も処理しない
-        if (oldCalculatedData.isError()) {
+        if (calculationHistory.isError()) {
             model.addAttribute("displayData", formula);
             return "index";
         }
@@ -76,17 +76,17 @@ public class IndexController {
         // 計算結果を出す
         if (calculationService.isCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
-            if (formula.equals(oldCalculatedData.getOldResult())) {
-                formula += oldCalculatedData.getOldOperator();
+            if (formula.equals(calculationHistory.getOldResult())) {
+                formula += calculationHistory.getOldOperator();
             }
             // 計算式の最後の演算式を記録する
-            oldCalculatedData.setOldOperator(calculationService.getLastArithmetic(formula));
+            calculationHistory.setOldOperator(calculationService.getLastArithmetic(formula));
             formula = calculationService.calculationProcessing(formula);
             if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
-                oldCalculatedData.setError(true);
+                calculationHistory.setError(true);
             }
-            oldCalculatedData.setOldResult(formula);
-            session.setAttribute("lastEquation", oldCalculatedData);
+            calculationHistory.setOldResult(formula);
+            session.setAttribute("lastEquation", calculationHistory);
         }
 
         // 1つ削除

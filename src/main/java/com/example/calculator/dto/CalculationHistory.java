@@ -9,12 +9,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OldCalculatedData implements Serializable {
+public class CalculationHistory implements Serializable {
     private String oldResult = "";
     private String oldOperator = "";
     private boolean isError = false;
 
-    public OldCalculatedData(String oldResult, String oldOperator) {
+    public CalculationHistory(String oldResult, String oldOperator) {
         this.oldResult = oldResult;
         this.oldOperator = oldOperator;
     }
