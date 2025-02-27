@@ -54,31 +54,31 @@ public class Calculation {
     /**
      * まとまりを３つづつ計算していく処理
      */
-    public static String calculate(String[] str) {
-        //宣言部
+    public static String calculate(String[] parts) {
         String result;
-        int i = 0;
-        //先頭が記号ならばマイナスの数値にする処理が必要
-        if (judgmentSymbolG(str[i])) {
-            str[i + 1] = str[i] + str[i + 1]; //ここで２番目の配列操作してしまえばいい
-            i++;
+        int index = 0;
+
+        // 先頭が記号ならば負の数に変換
+        if (judgmentSymbolG(parts[index])) {
+            parts[index + 1] = parts[index] + parts[index + 1];
+            index++;
         }
-        //ループ開始 while
+
         while (true) {
             //数値文字変換
-            BigDecimal num1 = new BigDecimal(str[i]);
+            BigDecimal num1 = new BigDecimal(parts[index]);
 
-            if (i == str.length - 1) {
-                result = str[i];
+            if (index == parts.length - 1) {
+                result = parts[index];
                 break;
             } else {
-                i++;
+                index++;
             }
-            int type = judgmentOperator(str[i]); //演算子判定
-            i++;
-            BigDecimal num2 = new BigDecimal(str[i]); //数値文字変換
-            str[i] = "" + calculateSwitch(num1, type, num2); //演算実行して
-        }//ループ終了
+            int type = judgmentOperator(parts[index]); //演算子判定
+            index++;
+            BigDecimal num2 = new BigDecimal(parts[index]); //数値文字変換
+            parts[index] = "" + calculateSwitch(num1, type, num2); //演算実行して
+        }
         return result;
     }
 
