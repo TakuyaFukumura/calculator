@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 
 public class Calculation {
-    // 定数化
     private static final BigDecimal ZERO = BigDecimal.ZERO;
     private static final String EQUAL = "＝";
     private static final String PLUS = "＋";
@@ -22,6 +21,10 @@ public class Calculation {
     private static final BigDecimal OVERFLOW_VALUE = new BigDecimal("1234567891023"); // オーバーフローを表す値
     private static final int DEFAULT_SCALE = 11; // 初回の丸め処理に使用する桁数
     private static final int MAX_SCALE = 12; // 最大スケール（調整後）
+
+    private Calculation(){
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 計算式の最後の演算式を返します。例：「÷5」
@@ -251,7 +254,7 @@ public class Calculation {
      * 数字グループであることを確認する
      */
     public static boolean judgmentNumG(char c) {
-        return Pattern.matches("^[0-9]$|^\\.$", String.valueOf(c));
+        return Pattern.matches("^[(\\d+]$|^\\.$", String.valueOf(c));
     }
 
     /**

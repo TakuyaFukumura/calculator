@@ -27,11 +27,6 @@ class CalculationTest {
     }
 
     @Test
-    void testCreate() {
-        Calculation calculation = new Calculation();
-    }
-
-    @Test
     void testGetLastArithmetic() {
         String expected = "×3";
         String actual = Calculation.getLastArithmetic("3×3");
