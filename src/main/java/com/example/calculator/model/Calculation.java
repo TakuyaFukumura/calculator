@@ -258,7 +258,7 @@ public class Calculation {
     }
 
     public static boolean judgmentSymbolG(char c) {
-        return Pattern.matches("^＋$|^-$|^×$|^÷$", String.valueOf(c));
+        return judgmentSymbolG(String.valueOf(c));
     }
 
     /**
