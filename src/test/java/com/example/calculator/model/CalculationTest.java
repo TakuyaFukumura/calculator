@@ -276,42 +276,6 @@ class CalculationTest {
     }
 
     @Test
-    void testCheckCalculation() {
-        boolean actual = Calculation.checkCalculation("＝");
-        assertTrue(actual);
-    }
-
-    @Test
-    void testCheckCalculationNull() {
-        boolean actual = Calculation.checkCalculation(null);
-        assertFalse(actual);
-    }
-
-    @Test
-    void testCheckCalculation2() {
-        boolean actual = Calculation.checkCalculation("2");
-        assertFalse(actual);
-    }
-
-    @Test
-    void testSymbolIsEqual() {
-        boolean actual = Calculation.symbolIsEqual("＝");
-        assertTrue(actual);
-    }
-
-    @Test
-    void testSymbolIsEqual2() {
-        boolean actual = Calculation.symbolIsEqual("1");
-        assertFalse(actual);
-    }
-
-    @Test
-    void testSymbolIsEqualNull() {
-        boolean actual = Calculation.symbolIsEqual(null);
-        assertFalse(actual);
-    }
-
-    @Test
     void testJudgmentNumGChar() {
         boolean actual = Calculation.judgmentNumG('9');
         assertTrue(actual);

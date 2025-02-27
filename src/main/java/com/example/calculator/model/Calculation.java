@@ -230,20 +230,6 @@ public class Calculation {
     }
 
     /**
-     * 計算処理であることを判断する「＝」
-     */
-    public static boolean checkCalculation(String c) {
-        return symbolIsEqual(c);
-    }
-
-    /**
-     * 記号が＝であることを確認する
-     */
-    public static boolean symbolIsEqual(String c) {
-        return c != null && Pattern.matches("＝", c);
-    }
-
-    /**
      * 数字グループであることを確認する
      */
     public static boolean judgmentNumG(char c) {
@@ -259,5 +245,15 @@ public class Calculation {
 
     public static boolean judgmentSymbolG(char c) {
         return Pattern.matches("^＋$|^-$|^×$|^÷$", String.valueOf(c));
+    }
+
+    /**
+     * 計算処理であることを判断する。
+     *
+     * @param input 入力文字
+     * @return 計算処理であればtrue
+     */
+    public static boolean isCalculation(String input) {
+        return EQUAL.equals(input);
     }
 }

@@ -75,7 +75,7 @@ public class IndexController {
         }
 
         // 計算結果を出す
-        if (Calculation.checkCalculation(input)) {
+        if (Calculation.isCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
             if (formula.equals(oldCalculatedData.getOldResult())) {
                 formula += oldCalculatedData.getOldOperator();
