@@ -20,7 +20,8 @@ public class Calculation {
     private static final String MULTIPLY = "×";
     private static final String DIVIDE = "÷";
     private static final BigDecimal OVERFLOW_VALUE = new BigDecimal("1234567891023"); // オーバーフローを表す値
-    private static final int MAX_SCALE = 12; // 最大桁数
+    private static final int DEFAULT_SCALE = 11; // 初回の丸め処理に使用する桁数
+    private static final int MAX_SCALE = 12; // 最大スケール（調整後）
 
     /**
      * 計算式の最後の演算式を返します。例：「÷5」
@@ -119,19 +120,22 @@ public class Calculation {
      * @return 割り算結果
      */
     public static BigDecimal division(BigDecimal num1, BigDecimal num2) {
-        if (num2.compareTo(ZERO) == 0) { // ゼロ除算時の特別な処理
-            return new BigDecimal("1234567891023"); //あえて大きい数を入れてオーバーフローさせる
+        // ゼロ除算時の特別な処理
+        if (num2.compareTo(ZERO) == 0) {
+            return OVERFLOW_VALUE; // 意図的にオーバーフローさせる
         }
 
         try {
-            return num1.divide(num2); //普通の割り算
+            return num1.divide(num2); // 通常の割り算
         } catch (ArithmeticException e) {
-            // 例外時、最も近い数に丸め込む
-            BigDecimal result = num1.divide(num2, 11, RoundingMode.DOWN);
-            //上の桁数取得して再リザルト
-            //マイナス対応のため絶対値使用
-            int scale = 12 - figureLengthUpPoint(result.abs().toString()).length();
-            return num1.divide(num2, scale, RoundingMode.DOWN); // 桁数を調整して再計算
+            // 例外時、最も近い数に丸め込む（デフォルトのスケールで）
+            BigDecimal intermediateResult = num1.divide(num2, DEFAULT_SCALE, RoundingMode.DOWN);
+
+            // 絶対値の整数部分の桁数を取得して、適切なスケールを計算
+            int scaleAdjustment = MAX_SCALE - figureLengthUpPoint(intermediateResult.abs().toString()).length();
+            int finalScale = Math.max(scaleAdjustment, 0); // 負の値にならないように補正
+
+            return num1.divide(num2, finalScale, RoundingMode.DOWN); // 調整後のスケールで再計算
         }
     }
 
