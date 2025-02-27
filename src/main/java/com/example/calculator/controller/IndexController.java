@@ -64,7 +64,7 @@ public class IndexController {
         // クリックされたボタンによって処理を分岐
         if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
             if (CommonUtil.checkNumber(formula) || // 桁数チェック
-                    calculationService.isOperator(input)) { // 演算記号の場合
+                    CommonUtil.isOperator(input)) { // 演算記号の場合
                 model.addAttribute("displayData", inputService.buildFormula(formula, input));
                 return "index";
             }

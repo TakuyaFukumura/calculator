@@ -1,5 +1,6 @@
 package com.example.calculator.util;
 
+import com.example.calculator.enums.Operator;
 import com.example.calculator.model.Calculation;
 
 import java.util.regex.Pattern;
@@ -95,5 +96,26 @@ public class CommonUtil {
 
     public static String getLastString(String str) {
         return str.substring(str.length() - 1);
+    }
+
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param input チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(char input) {
+        return isOperator(String.valueOf(input));
+    }
+
+    /**
+     * 演算子であるかどうかをチェックする。
+     *
+     * @param input チェック対象の文字
+     * @return 演算子であればtrue
+     */
+    public static boolean isOperator(String input) {
+        return Operator.PLUS.getSymbol().equals(input) || Operator.MINUS.getSymbol().equals(input)
+                || Operator.MULTIPLY.getSymbol().equals(input) || Operator.DIVIDE.getSymbol().equals(input);
     }
 }

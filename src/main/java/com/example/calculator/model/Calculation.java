@@ -35,7 +35,8 @@ public class Calculation {
             if (i > 0) {
                 char prevChar = chars[i - 1];
                 boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == DOT;
-                boolean isSameType = (isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar));
+                boolean isSameType = (isNumberOrDot && isPrevNumberOrDot)
+                        || (CommonUtil.isOperator(c) && CommonUtil.isOperator(prevChar));
 
                 if (!isSameType) {
                     addToken(result, token);
@@ -60,25 +61,5 @@ public class Calculation {
             result.add(token.toString());
             token.setLength(0);
         }
-    }
-
-    /**
-     * 演算子であるかどうかをチェックする。
-     *
-     * @param input チェック対象の文字
-     * @return 演算子であればtrue
-     */
-    public static boolean isOperator(char input) {
-        return isOperator(String.valueOf(input));
-    }
-
-    /**
-     * 演算子であるかどうかをチェックする。
-     *
-     * @param input チェック対象の文字
-     * @return 演算子であればtrue
-     */
-    public static boolean isOperator(String input) {
-        return PLUS.equals(input) || MINUS.equals(input) || MULTIPLY.equals(input) || DIVIDE.equals(input);
     }
 }

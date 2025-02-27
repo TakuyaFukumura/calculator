@@ -1,5 +1,6 @@
 package com.example.calculator.service;
 
+import com.example.calculator.enums.Operator;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -66,7 +67,7 @@ public class CalculationService {
         int index = 0;
 
         // 先頭が記号の場合、負の数として扱う
-        if (isOperator(parts[index])) {
+        if (CommonUtil.isOperator(parts[index])) {
             parts[index + 1] = MINUS + parts[index + 1];
             index++;
         }
@@ -183,7 +184,8 @@ public class CalculationService {
             if (i > 0) {
                 char prevChar = chars[i - 1];
                 boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == DOT;
-                boolean isSameType = (isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar));
+                boolean isSameType = (isNumberOrDot && isPrevNumberOrDot)
+                        || (CommonUtil.isOperator(c) && CommonUtil.isOperator(prevChar));
 
                 if (!isSameType) {
                     addToken(result, token);
@@ -208,26 +210,6 @@ public class CalculationService {
             result.add(token.toString());
             token.setLength(0);
         }
-    }
-
-    /**
-     * 演算子であるかどうかをチェックする。
-     *
-     * @param input チェック対象の文字
-     * @return 演算子であればtrue
-     */
-    public boolean isOperator(char input) {
-        return isOperator(String.valueOf(input));
-    }
-
-    /**
-     * 演算子であるかどうかをチェックする。
-     *
-     * @param input チェック対象の文字
-     * @return 演算子であればtrue
-     */
-    public boolean isOperator(String input) {
-        return PLUS.equals(input) || MINUS.equals(input) || MULTIPLY.equals(input) || DIVIDE.equals(input);
     }
 
     /**
