@@ -1,7 +1,6 @@
 package com.example.calculator.controller;
 
 import com.example.calculator.dto.OldCalculatedData;
-import com.example.calculator.model.Calculation;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
 import com.example.calculator.service.InputService;
@@ -75,14 +74,14 @@ public class IndexController {
         }
 
         // 計算結果を出す
-        if (Calculation.isCalculation(input)) {
+        if (calculationService.isCalculation(input)) {
             // イコールボタンが連続で押された場合は前回の計算を再度行う
             if (formula.equals(oldCalculatedData.getOldResult())) {
                 formula += oldCalculatedData.getOldOperator();
             }
             // 計算式の最後の演算式を記録する
-            oldCalculatedData.setOldOperator(Calculation.getLastArithmetic(formula));
-            formula = Calculation.calculationProcessing(formula);
+            oldCalculatedData.setOldOperator(calculationService.getLastArithmetic(formula));
+            formula = calculationService.calculationProcessing(formula);
             if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
                 oldCalculatedData.setError(true);
             }
