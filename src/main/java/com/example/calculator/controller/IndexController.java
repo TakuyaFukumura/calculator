@@ -48,7 +48,7 @@ public class IndexController {
         // セッションから情報取得、なければ新規作成
         OldCalculatedData oldCalculatedData =
                 Optional.ofNullable((OldCalculatedData) session.getAttribute("lastEquation"))
-                .orElseGet(OldCalculatedData::new);
+                        .orElseGet(OldCalculatedData::new);
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if ("ＡＣ".equals(input)) {

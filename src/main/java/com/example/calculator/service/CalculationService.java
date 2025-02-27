@@ -1,6 +1,5 @@
 package com.example.calculator.service;
 
-import com.example.calculator.enums.Operator;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

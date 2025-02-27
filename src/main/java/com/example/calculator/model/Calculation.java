@@ -12,7 +12,7 @@ public class Calculation {
     private static final String MULTIPLY = "×";
     private static final String DIVIDE = "÷";
 
-    private Calculation(){
+    private Calculation() {
         throw new IllegalStateException("Utility class");
     }
 

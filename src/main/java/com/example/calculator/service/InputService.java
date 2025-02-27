@@ -48,7 +48,7 @@ public class InputService {
     /**
      * 式が初期値の場合の処理を行う
      *
-     * @param input   入力された文字
+     * @param input 入力された文字
      * @return 更新された計算式
      */
     private String handleInitialValue(String input) {
