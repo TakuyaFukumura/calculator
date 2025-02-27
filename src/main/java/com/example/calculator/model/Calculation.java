@@ -177,16 +177,14 @@ public class Calculation {
             if (i > 0) {
                 char prevChar = chars[i - 1];
                 boolean isPrevNumberOrDot = CommonUtil.isNumeric(prevChar) || prevChar == DOT;
+                boolean isSameType = (isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar));
 
-                if ((isNumberOrDot && isPrevNumberOrDot) || (isOperator(c) && isOperator(prevChar))) {
-                    token.append(c);
-                } else {
+                if (!isSameType) {
                     addToken(result, token);
-                    token.append(c);
                 }
-            } else {
-                token.append(c);
             }
+
+            token.append(c);
         }
         addToken(result, token);
 
