@@ -1,6 +1,7 @@
 package com.example.calculator.service;
 
 import com.example.calculator.constants.Constants;
+import com.example.calculator.enums.Operator;
 import com.example.calculator.model.Calculation;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class InputService {
 
     private static final String DOT = ".";
-    private static final String PLUS = "＋";
-    private static final String MINUS = "-";
-    private static final String MULTIPLY = "×";
-    private static final String DIVIDE = "÷";
+    private static final String PLUS = Operator.PLUS.getSymbol();
+    private static final String MINUS = Operator.MINUS.getSymbol();
+    private static final String MULTIPLY = Operator.MULTIPLY.getSymbol();
+    private static final String DIVIDE = Operator.DIVIDE.getSymbol();
 
     /**
      * 計算式の文字列を構築する。
