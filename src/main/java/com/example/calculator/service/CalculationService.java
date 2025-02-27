@@ -26,16 +26,6 @@ public class CalculationService {
     private static final int MAX_SCALE = 12; // 最大スケール（調整後）
 
     /**
-     * 与えられた文字列が、有効な演算子記号（＋、－、×、÷）であるかを判定します。
-     *
-     * @param symbol 判定対象の文字列
-     * @return 文字列が有効な演算子記号の場合は {@code true}、それ以外の場合は {@code false}
-     */
-    public boolean isOperatorSymbol(String symbol) {
-        return symbol != null && Pattern.matches("^＋$|^-$|^×$|^÷$", symbol);
-    }
-
-    /**
      * 計算式の最後の演算式を返します。例：「÷5」
      * 式が存在しない時は空文字を返します
      *
