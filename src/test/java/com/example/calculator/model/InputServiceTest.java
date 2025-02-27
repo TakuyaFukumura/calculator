@@ -1,6 +1,7 @@
 package com.example.calculator.model;
 
 import com.example.calculator.service.InputService;
+import com.example.calculator.util.CommonUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -219,5 +220,19 @@ class InputServiceTest {
         String str = "123";
         char actual = inputService.getLastChar(str);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("入力継続できるか桁数確認：正常系")
+    void testCheckNumber() {
+        boolean actual = inputService.checkNumber("0.004-12345678910");
+        assertTrue(actual);
+    }
+
+    @Test
+    @DisplayName("入力継続できるか桁数確認：異常系")
+    void testCheckNumber2() {
+        boolean actual = inputService.checkNumber("0.004-123456789102");
+        assertFalse(actual);
     }
 }
