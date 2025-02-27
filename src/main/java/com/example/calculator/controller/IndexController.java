@@ -40,69 +40,66 @@ public class IndexController {
     }
 
     @PostMapping
-    public String process(
-            @RequestParam("display") String formula,
-            @RequestParam("clickData") String input,
-            HttpSession session,
-            Model model) {
+    public String process(@RequestParam("display") String formula,
+                          @RequestParam("clickData") String input, HttpSession session, Model model) {
 
-        // セッションから情報取得、なければ新規作成
-        CalculationHistory calculationHistory =
-                Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
-                        .orElseGet(CalculationHistory::new);
+        CalculationHistory history = getCalculationHistory(session);
 
-        // E(エラー)表示後にACがクリックされた場合はフラグリセット
         if (Constants.ALL_CLEAR.equals(input)) {
-            calculationHistory.setError(false);
+            history.setError(false);
         }
 
-        // エラー発生状態では何も処理しない
-        if (calculationHistory.isError()) {
-            model.addAttribute("displayData", formula);
-            return "index";
+        if (history.isError()) {
+            return setModelAndReturn(model, formula);
         }
 
-        // クリックされたボタンによって処理を分岐
-        if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
-            if (inputService.checkNumber(formula) || // 桁数チェック
-                    CommonUtil.isOperator(input)) { // 演算記号の場合
-                model.addAttribute("displayData", inputService.buildFormula(formula, input));
-                return "index";
-            }
-            // 桁数上限に達している場合はそのまま返す
-            model.addAttribute("displayData", formula);
-            return "index";
+        if (inputService.isInput(input)) {
+            return handleInput(model, formula, input);
         }
 
-        // 計算結果を出す
         if (calculationService.isCalculation(input)) {
-            // イコールボタンが連続で押された場合は前回の計算を再度行う
-            if (formula.equals(calculationHistory.getOldResult())) {
-                formula += calculationHistory.getOldOperator();
-            }
-            // 計算式の最後の演算式を記録する
-            calculationHistory.setOldOperator(calculationService.getLastArithmetic(formula));
-            formula = calculationService.calculationProcessing(formula);
-            if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
-                calculationHistory.setError(true);
-            }
-            calculationHistory.setOldResult(formula);
-            session.setAttribute("lastEquation", calculationHistory);
+            return handleCalculation(model, session, formula, history);
         }
 
-        // 1つ削除
         if (deleteService.isClear(input)) {
-            model.addAttribute("displayData", deleteService.clear(formula));
-            return "index";
+            return setModelAndReturn(model, deleteService.clear(formula));
         }
 
-        // 全削除
         if (deleteService.isAllClear(input)) {
-            model.addAttribute("displayData", deleteService.allClear());
-            return "index";
+            return setModelAndReturn(model, deleteService.allClear());
         }
 
-        model.addAttribute("displayData", formula);
+        return setModelAndReturn(model, formula);
+    }
+
+    private CalculationHistory getCalculationHistory(HttpSession session) {
+        return Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
+                .orElseGet(CalculationHistory::new);
+    }
+
+    private String handleInput(Model model, String formula, String input) {
+        if (inputService.checkNumber(formula) || CommonUtil.isOperator(input)) {
+            return setModelAndReturn(model, inputService.buildFormula(formula, input));
+        }
+        return setModelAndReturn(model, formula);
+    }
+
+    private String handleCalculation(Model model, HttpSession session, String formula, CalculationHistory history) {
+        if (formula.equals(history.getOldResult())) {
+            formula += history.getOldOperator();
+        }
+        history.setOldOperator(calculationService.getLastArithmetic(formula));
+        formula = calculationService.calculationProcessing(formula);
+        if (CommonUtil.countDigits(formula) > 12) {
+            history.setError(true);
+        }
+        history.setOldResult(formula);
+        session.setAttribute("lastEquation", history);
+        return setModelAndReturn(model, formula);
+    }
+
+    private String setModelAndReturn(Model model, String displayData) {
+        model.addAttribute("displayData", displayData);
         return "index";
     }
 }
