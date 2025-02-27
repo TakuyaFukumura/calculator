@@ -1,5 +1,6 @@
 package com.example.calculator.controller;
 
+import com.example.calculator.constants.Constants;
 import com.example.calculator.dto.CalculationHistory;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
@@ -51,7 +52,7 @@ public class IndexController {
                         .orElseGet(CalculationHistory::new);
 
         // E(エラー)表示後にACがクリックされた場合はフラグリセット
-        if ("ＡＣ".equals(input)) {
+        if (Constants.ALL_CLEAR.equals(input)) {
             calculationHistory.setError(false);
         }
 

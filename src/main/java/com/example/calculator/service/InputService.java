@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class InputService {
 
-    private static final String DOT = ".";
+    private static final String DOT = Constants.DOT;
     private static final String PLUS = Operator.PLUS.getSymbol();
     private static final String MINUS = Operator.MINUS.getSymbol();
     private static final String MULTIPLY = Operator.MULTIPLY.getSymbol();

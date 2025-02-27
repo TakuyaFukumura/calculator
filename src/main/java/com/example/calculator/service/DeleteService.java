@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class DeleteService {
-
-    private static final String ALL_CLEAR = "ＡＣ";
-    private static final String CLEAR = "Ｃ";
-
     /**
      * 入力された文字列が全削除を表すか確認します。
      *
@@ -19,7 +15,7 @@ public class DeleteService {
      * @return 全削除の場合はtrue、それ以外はfalse
      */
     public boolean isAllClear(String input) {
-        return ALL_CLEAR.equals(input);
+        return Constants.ALL_CLEAR.equals(input);
     }
 
     /**
@@ -29,7 +25,7 @@ public class DeleteService {
      * @return 1文字削除の場合はtrue、それ以外はfalse
      */
     public boolean isClear(String input) {
-        return CLEAR.equals(input);
+        return Constants.CLEAR.equals(input);
     }
 
     /**
