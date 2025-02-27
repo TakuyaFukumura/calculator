@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalculationTest {
+class CalculationServiceTest {
 
     private final CalculationService calculationService = new CalculationService();
 
