@@ -13,16 +13,16 @@ class CalculationTest {
 
 
     @Test
-    void testFigureLengthUpPoint() {
+    void testExtractIntegerPart() {
         String expected = "100";
-        String actual = Calculation.figureLengthUpPoint("100.1234");
+        String actual = Calculation.extractIntegerPart("100.1234");
         assertEquals(expected, actual);
     }
 
     @Test
-    void testFigureLengthUpPoint2() {
+    void testExtractIntegerPart2() {
         String expected = "0";
-        String actual = Calculation.figureLengthUpPoint("0.100");
+        String actual = Calculation.extractIntegerPart("0.100");
         assertEquals(expected, actual);
     }
 

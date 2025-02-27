@@ -132,7 +132,7 @@ public class Calculation {
             BigDecimal intermediateResult = num1.divide(num2, DEFAULT_SCALE, RoundingMode.DOWN);
 
             // 絶対値の整数部分の桁数を取得して、適切なスケールを計算
-            int scaleAdjustment = MAX_SCALE - figureLengthUpPoint(intermediateResult.abs().toString()).length();
+            int scaleAdjustment = MAX_SCALE - extractIntegerPart(intermediateResult.abs().toString()).length();
             int finalScale = Math.max(scaleAdjustment, 0); // 負の値にならないように補正
 
             return num1.divide(num2, finalScale, RoundingMode.DOWN); // 調整後のスケールで再計算
@@ -152,13 +152,13 @@ public class Calculation {
     }
 
     /**
-     * 少数の整数部を取得する
+     * 小数から整数部を取得する
      *
-     * @param str 小数
-     * @return 整数部
+     * @param num 小数（例: "123.45"）
+     * @return 整数部（例: "123"）
      */
-    public static String figureLengthUpPoint(String str) {
-        Matcher matcher = Pattern.compile("(^[0-9]+)").matcher(str);
+    public static String extractIntegerPart(String num) {
+        Matcher matcher = Pattern.compile("^(\\d+)").matcher(num);
         return matcher.find() ? matcher.group(1) : "";
     }
 
