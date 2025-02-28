@@ -26,6 +26,12 @@ public class InputService {
      * @return 更新された計算式
      */
     public String buildFormula(String formula, String input) {
+
+        // 桁数チェック＆演算子チェック
+        if (!checkNumber(formula) && !CommonUtil.isOperator(input)) {
+            return formula;
+        }
+
         // 式が初期値の場合の処理
         if (Constants.INITIAL_VALUE.equals(formula)) {
             return handleInitialValue(input);

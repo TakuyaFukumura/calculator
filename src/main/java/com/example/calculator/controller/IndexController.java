@@ -54,7 +54,7 @@ public class IndexController {
         }
 
         if (inputService.isInput(input)) {
-            return handleInput(model, formula, input);
+            return setModelAndReturn(model, inputService.buildFormula(formula, input));
         }
 
         if (calculationService.isCalculation(input)) {
@@ -75,13 +75,6 @@ public class IndexController {
     private CalculationHistory getCalculationHistory(HttpSession session) {
         return Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
                 .orElseGet(CalculationHistory::new);
-    }
-
-    private String handleInput(Model model, String formula, String input) {
-        if (inputService.checkNumber(formula) || CommonUtil.isOperator(input)) {
-            return setModelAndReturn(model, inputService.buildFormula(formula, input));
-        }
-        return setModelAndReturn(model, formula);
     }
 
     private String handleCalculation(Model model, HttpSession session, String formula, CalculationHistory history) {
