@@ -43,51 +43,43 @@ public class IndexController {
     public String process(@RequestParam("display") String formula,
                           @RequestParam("clickData") String input, HttpSession session, Model model) {
 
-        CalculationHistory history = getCalculationHistory(session);
+        CalculationHistory history = Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
+                .orElseGet(CalculationHistory::new);
 
         if (Constants.ALL_CLEAR.equals(input)) {
-            history.setError(false);
+            history.setError(false); // 全削除の場合はエラー状態も解除
         }
 
         if (history.isError()) {
-            return setModelAndReturn(model, formula);
+            return setModelAndReturn(model, formula); // エラー状態なら何もせず返す
         }
 
         if (inputService.isInput(input)) {
-            return setModelAndReturn(model, inputService.buildFormula(formula, input));
+            return setModelAndReturn(model, inputService.buildFormula(formula, input)); // 式構築
         }
 
-        if (calculationService.isCalculation(input)) {
-            return handleCalculation(model, session, formula, history);
+        if (calculationService.isCalculation(input)) { // 計算処理
+            if (formula.equals(history.getOldResult())) {
+                formula += history.getOldOperator(); // イコールが連続して押された場合は同じ計算を繰り返す
+            }
+            history.setOldOperator(calculationService.getLastArithmetic(formula)); // 歴管理
+            formula = calculationService.calculationProcessing(formula);
+            if (CommonUtil.countDigits(formula) > 12) {
+                history.setError(true); // 桁数オーバーならエラーにする
+            }
+            history.setOldResult(formula);
+            session.setAttribute("lastEquation", history);
+            return setModelAndReturn(model, formula);
         }
 
         if (deleteService.isClear(input)) {
-            return setModelAndReturn(model, deleteService.clear(formula));
+            return setModelAndReturn(model, deleteService.clear(formula)); // 1つ削除
         }
 
         if (deleteService.isAllClear(input)) {
-            return setModelAndReturn(model, deleteService.allClear());
+            return setModelAndReturn(model, deleteService.allClear()); // 全削除
         }
 
-        return setModelAndReturn(model, formula);
-    }
-
-    private CalculationHistory getCalculationHistory(HttpSession session) {
-        return Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
-                .orElseGet(CalculationHistory::new);
-    }
-
-    private String handleCalculation(Model model, HttpSession session, String formula, CalculationHistory history) {
-        if (formula.equals(history.getOldResult())) {
-            formula += history.getOldOperator();
-        }
-        history.setOldOperator(calculationService.getLastArithmetic(formula));
-        formula = calculationService.calculationProcessing(formula);
-        if (CommonUtil.countDigits(formula) > 12) {
-            history.setError(true);
-        }
-        history.setOldResult(formula);
-        session.setAttribute("lastEquation", history);
         return setModelAndReturn(model, formula);
     }
 
