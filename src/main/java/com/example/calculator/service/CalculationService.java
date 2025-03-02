@@ -149,8 +149,7 @@ public class CalculationService {
      * @return 割り算結果
      */
     public BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
-        num2 = ZERO.subtract(num2);
-        return division(num1, num2);
+        return division(num1, num2.negate());
     }
 
     /**
