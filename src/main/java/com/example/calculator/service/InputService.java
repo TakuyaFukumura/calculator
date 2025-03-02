@@ -1,7 +1,7 @@
 package com.example.calculator.service;
 
 import com.example.calculator.constants.Constants;
-import com.example.calculator.model.Calculation;
+import com.example.calculator.enums.Operator;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class InputService {
 
-    private static final String DOT = ".";
-    private static final String PLUS = "＋";
-    private static final String MINUS = "-";
-    private static final String MULTIPLY = "×";
-    private static final String DIVIDE = "÷";
+    private static final String DOT = Constants.DOT;
+    private static final String PLUS = Operator.PLUS.getSymbol();
+    private static final String MINUS = Operator.MINUS.getSymbol();
+    private static final String MULTIPLY = Operator.MULTIPLY.getSymbol();
+    private static final String DIVIDE = Operator.DIVIDE.getSymbol();
+
+    private final CalculationService calculationService = new CalculationService();
 
     /**
      * 計算式の文字列を構築する。
@@ -24,6 +26,12 @@ public class InputService {
      * @return 更新された計算式
      */
     public String buildFormula(String formula, String input) {
+
+        // 桁数チェック＆演算子チェック
+        if (!checkNumber(formula) && !CommonUtil.isOperator(input)) {
+            return formula;
+        }
+
         // 式が初期値の場合の処理
         if (Constants.INITIAL_VALUE.equals(formula)) {
             return handleInitialValue(input);
@@ -104,7 +112,7 @@ public class InputService {
      * 指定された式がピリオドを含んでいるかどうかを確認します。
      * <p>
      * 式がnullの場合、または式の最後の部分にピリオドが含まれていない場合は、falseを返します。
-     * 式の分解には、{@link Calculation#splitFormula(String)} メソッドを使用します。
+     * 式の分解には、{@link CalculationService#splitFormula(String)} メソッドを使用します。
      * </p>
      *
      * @param formula 確認対象の式。nullの場合はfalseを返します。
@@ -115,7 +123,7 @@ public class InputService {
         if (formula == null) {
             return false;
         }
-        String[] parts = Calculation.splitFormula(formula);
+        String[] parts = calculationService.splitFormula(formula);
         int last = parts.length - 1;
         return isPeriod(parts[last]);
     }
@@ -197,7 +205,7 @@ public class InputService {
      */
     public boolean checkNumber(String formula) {
         int count = 0;
-        String[] segments = Calculation.splitFormula(formula); // 分解してまとまりに分ける処理
+        String[] segments = calculationService.splitFormula(formula); // 分解してまとまりに分ける処理
         String lastSegment = segments[segments.length - 1];
         if (CommonUtil.isNum(lastSegment)) {
             count = CommonUtil.countDigits(segments[segments.length - 1]);

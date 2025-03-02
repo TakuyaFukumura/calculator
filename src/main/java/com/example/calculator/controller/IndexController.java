@@ -1,6 +1,7 @@
 package com.example.calculator.controller;
 
-import com.example.calculator.dto.OldCalculatedData;
+import com.example.calculator.constants.Constants;
+import com.example.calculator.dto.CalculationHistory;
 import com.example.calculator.service.CalculationService;
 import com.example.calculator.service.DeleteService;
 import com.example.calculator.service.InputService;
@@ -39,69 +40,51 @@ public class IndexController {
     }
 
     @PostMapping
-    public String process(
-            @RequestParam("display") String formula,
-            @RequestParam("clickData") String input,
-            HttpSession session,
-            Model model) {
+    public String process(@RequestParam("display") String formula,
+                          @RequestParam("clickData") String input, HttpSession session, Model model) {
 
-        // セッションから情報取得、なければ新規作成
-        OldCalculatedData oldCalculatedData =
-                Optional.ofNullable((OldCalculatedData) session.getAttribute("lastEquation"))
-                        .orElseGet(OldCalculatedData::new);
+        CalculationHistory history = Optional.ofNullable((CalculationHistory) session.getAttribute("lastEquation"))
+                .orElseGet(CalculationHistory::new);
 
-        // E(エラー)表示後にACがクリックされた場合はフラグリセット
-        if ("ＡＣ".equals(input)) {
-            oldCalculatedData.setError(false);
+        if (Constants.ALL_CLEAR.equals(input)) {
+            history.setError(false); // 全削除の場合はエラー状態も解除
         }
 
-        // エラー発生状態では何も処理しない
-        if (oldCalculatedData.isError()) {
-            model.addAttribute("displayData", formula);
-            return "index";
+        if (history.isError()) {
+            return setModelAndReturn(model, formula); // エラー状態なら何もせず返す
         }
 
-        // クリックされたボタンによって処理を分岐
-        if (inputService.isInput(input)) { // 入力系処理（数字 or 四則演算子 or ピリオド）
-            if (inputService.checkNumber(formula) || // 桁数チェック
-                    CommonUtil.isOperator(input)) { // 演算記号の場合
-                model.addAttribute("displayData", inputService.buildFormula(formula, input));
-                return "index";
+        if (inputService.isInput(input)) {
+            return setModelAndReturn(model, inputService.buildFormula(formula, input)); // 式構築
+        }
+
+        if (calculationService.isCalculation(input)) { // 計算処理
+            if (formula.equals(history.getOldResult())) {
+                formula += history.getOldOperator(); // イコールが連続して押された場合は同じ計算を繰り返す
             }
-            // 桁数上限に達している場合はそのまま返す
-            model.addAttribute("displayData", formula);
-            return "index";
-        }
-
-        // 計算結果を出す
-        if (calculationService.isCalculation(input)) {
-            // イコールボタンが連続で押された場合は前回の計算を再度行う
-            if (formula.equals(oldCalculatedData.getOldResult())) {
-                formula += oldCalculatedData.getOldOperator();
-            }
-            // 計算式の最後の演算式を記録する
-            oldCalculatedData.setOldOperator(calculationService.getLastArithmetic(formula));
+            history.setOldOperator(calculationService.getLastArithmetic(formula)); // 歴管理
             formula = calculationService.calculationProcessing(formula);
-            if (CommonUtil.countDigits(formula) > 12) { // 上限を超えたらエラー
-                oldCalculatedData.setError(true);
+            if (CommonUtil.countDigits(formula) > 12) {
+                history.setError(true); // 桁数オーバーならエラーにする
             }
-            oldCalculatedData.setOldResult(formula);
-            session.setAttribute("lastEquation", oldCalculatedData);
+            history.setOldResult(formula);
+            session.setAttribute("lastEquation", history);
+            return setModelAndReturn(model, formula);
         }
 
-        // 1つ削除
         if (deleteService.isClear(input)) {
-            model.addAttribute("displayData", deleteService.clear(formula));
-            return "index";
+            return setModelAndReturn(model, deleteService.clear(formula)); // 1つ削除
         }
 
-        // 全削除
         if (deleteService.isAllClear(input)) {
-            model.addAttribute("displayData", deleteService.allClear());
-            return "index";
+            return setModelAndReturn(model, deleteService.allClear()); // 全削除
         }
 
-        model.addAttribute("displayData", formula);
+        return setModelAndReturn(model, formula);
+    }
+
+    private String setModelAndReturn(Model model, String displayData) {
+        model.addAttribute("displayData", displayData);
         return "index";
     }
 }

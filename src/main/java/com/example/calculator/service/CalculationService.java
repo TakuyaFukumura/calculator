@@ -1,5 +1,6 @@
 package com.example.calculator.service;
 
+import com.example.calculator.enums.Operator;
 import com.example.calculator.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class CalculationService {
     private static final BigDecimal ZERO = BigDecimal.ZERO;
     private static final String EQUAL = "＝";
     private static final String PLUS = "＋";
-    private static final String MINUS = "-";
+    private static final String MINUS = Operator.MINUS.getSymbol();
     private static final String MULTIPLY = "×";
     private static final String DIVIDE = "÷";
     private static final BigDecimal OVERFLOW_VALUE = new BigDecimal("1234567891023"); // オーバーフローを表す値
@@ -105,13 +106,12 @@ public class CalculationService {
     /**
      * マイナスの掛け算メソッド
      *
-     * @param num1 掛けられる数
-     * @param num2 掛ける数（マイナス値）
+     * @param multiplier 掛ける数
+     * @param multiplicand 掛けられる数（マイナス値）
      * @return マイナスで掛けた数
      */
-    public BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
-        num2 = ZERO.subtract(num2); //符号反転
-        return num1.multiply(num2); //掛け算実行して返す
+    public BigDecimal multiplicationAndMinus(BigDecimal multiplier, BigDecimal multiplicand) {
+        return multiplier.multiply(multiplicand.negate());
     }
 
     /**
@@ -149,8 +149,7 @@ public class CalculationService {
      * @return 割り算結果
      */
     public BigDecimal divisionAndMinus(BigDecimal num1, BigDecimal num2) {
-        num2 = ZERO.subtract(num2);
-        return division(num1, num2);
+        return division(num1, num2.negate());
     }
 
     /**

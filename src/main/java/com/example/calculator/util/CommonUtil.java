@@ -1,7 +1,6 @@
 package com.example.calculator.util;
 
 import com.example.calculator.enums.Operator;
-import com.example.calculator.model.Calculation;
 
 import java.util.regex.Pattern;
 
@@ -38,7 +37,7 @@ public class CommonUtil {
      * @return 数字または小数点を含む数字であればtrue、それ以外はfalse
      */
     public static boolean isNum(String segment) {
-        return segment != null && Pattern.matches("^[0-9]*$|^[0-9]+\\.[0-9]+$", segment);
+        return segment != null && Pattern.matches("^\\d*$|^\\d+\\.\\d+$", segment);
     }
 
     /**
