@@ -106,12 +106,12 @@ public class CalculationService {
     /**
      * マイナスの掛け算メソッド
      *
-     * @param num1 掛けられる数
-     * @param num2 掛ける数（マイナス値）
+     * @param multiplier 掛ける数
+     * @param multiplicand 掛けられる数（マイナス値）
      * @return マイナスで掛けた数
      */
-    public BigDecimal multiplicationAndMinus(BigDecimal num1, BigDecimal num2) {
-        return num1.multiply(num2.negate());
+    public BigDecimal multiplicationAndMinus(BigDecimal multiplier, BigDecimal multiplicand) {
+        return multiplier.multiply(multiplicand.negate());
     }
 
     /**
