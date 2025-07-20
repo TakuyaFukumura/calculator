@@ -57,7 +57,7 @@
     </dependencies>
 
     <build>
-        <finalName>com.example.calculator</finalName>
+        <finalName>calculator</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
