@@ -6,9 +6,13 @@ A web-based calculator application built with Spring Boot that provides basic ar
 
 ## 概要 (Overview)
 
-このプロジェクトは、Spring Bootフレームワークを使用して構築されたWebベースの電卓アプリケーションです。基本的な四則演算（加算、減算、乗算、除算）をサポートし、精密な計算のためにBigDecimalを使用しています。
+このプロジェクトは、
+Spring Bootフレームワークを使用して構築されたWebベースの電卓アプリケーションです。
+基本的な四則演算（加算、減算、乗算、除算）をサポートし、
+精密な計算のためにBigDecimalを使用しています。
 
-This project is a web-based calculator application built using the Spring Boot framework. It supports basic arithmetic operations (addition, subtraction, multiplication, division) and uses BigDecimal for precise calculations.
+This project is a web-based calculator application built using the Spring Boot framework.
+It supports basic arithmetic operations (addition, subtraction, multiplication, division) and uses BigDecimal for precise calculations.
 
 ## 特徴 (Features)
 
@@ -146,7 +150,7 @@ src/
 ### 実行可能JARの作成 (Create executable JAR)
 ```bash
 ./mvnw clean package
-java -jar target/com.example.calculator.jar
+java -jar target/calculator.jar
 ```
 
 ## CI/CD
